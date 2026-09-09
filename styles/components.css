@@ -1,0 +1,191 @@
+/* ============================================
+   COMPONENTES — Presentaciones Slidev
+   Modern: cards, iconos grandes, sombras suaves
+   ============================================ */
+
+/* ── Tarjetas modernas ── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-card);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* ── Badges ── */
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.8em;
+  border-radius: 999px;
+  font-size: var(--text-small);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.badge-blue { background: #EFF6FF; color: #2563EB; }
+.badge-purple { background: #F5F3FF; color: #7C3AED; }
+.badge-teal { background: #F0FDFA; color: #0D9488; }
+.badge-orange { background: #FFF7ED; color: #EA580C; }
+.badge-pink { background: #FDF2F8; color: #DB2777; }
+.badge-green { background: #F0FDF4; color: #16A34A; }
+
+/* ── Terminales ── */
+.terminal {
+  background: #0F172A;
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  font-family: var(--font-mono);
+  font-size: var(--text-code);
+  line-height: 1.7;
+  color: #E2E8F0;
+  overflow-x: auto;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+
+.terminal .prompt {
+  color: #34D399;
+  user-select: none;
+}
+
+.terminal .output {
+  color: #94A3B8;
+}
+
+.terminal .highlight {
+  color: #38BDF8;
+}
+
+.terminal .error {
+  color: #F87171;
+}
+
+/* ── Avisos modernos ── */
+.warning {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-left: 4px solid #F59E0B;
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.warning::before {
+  content: "⚠️";
+  margin-right: var(--space-sm);
+  font-size: 1.1em;
+}
+
+.info {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-left: 4px solid var(--accent-blue);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.info::before {
+  content: "ℹ️";
+  margin-right: var(--space-sm);
+  font-size: 1.1em;
+}
+
+.success {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-left: 4px solid var(--accent-green);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.success::before {
+  content: "✅";
+  margin-right: var(--space-sm);
+  font-size: 1.1em;
+}
+
+/* ── Comparaciones ── */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+.comparison-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+.comparison-item.good {
+  border-color: #86EFAC;
+}
+
+.comparison-item.bad {
+  border-color: #FCA5A5;
+}
+
+/* ── Pasos / Proceso ── */
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  background: var(--accent-blue);
+  color: white;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.step-content {
+  flex: 1;
+}
+
+/* ── Grid de features moderno ── */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-lg);
+}
+
+.feature-item {
+  text-align: center;
+  padding: var(--space-xl);
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-default);
+  transition: all 0.2s ease;
+}
+
+.feature-item:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  font-size: 2.8rem;
+  margin-bottom: var(--space-md);
+  display: block;
+}

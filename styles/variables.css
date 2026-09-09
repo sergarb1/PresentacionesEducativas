@@ -1,0 +1,50 @@
+/* ============================================
+   VARIABLES DE DISEÑO — Presentaciones Slidev
+   Estilo: Modern / Flat Design
+   ============================================ */
+
+:root {
+  /* ── Fondos ── */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8FAFC;
+  --bg-tertiary: #F1F5F9;
+  --bg-card: #FFFFFF;
+  --bg-code: #1E293B;
+
+  /* ── Texto ── */
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+
+  /* ── Acentos (6 colores sólidos) ── */
+  --accent-blue: #3B82F6;
+  --accent-purple: #8B5CF6;
+  --accent-teal: #14B8A6;
+  --accent-orange: #F97316;
+  --accent-pink: #EC4899;
+  --accent-green: #22C55E;
+
+  /* ── Bordes y sombras ── */
+  --border-default: #E2E8F0;
+  --border-hover: #CBD5E1;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+
+  /* ── Tipografía ── */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Espaciado ── */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
+  /* ── Bordes ── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+}

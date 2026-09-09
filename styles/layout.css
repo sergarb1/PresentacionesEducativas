@@ -1,0 +1,77 @@
+/* ============================================
+   LAYOUT — Presentaciones Slidev
+   Estilo: Minimalism / Swiss Modernism
+   ============================================ */
+
+.slidev-layout {
+  font-family: var(--font-sans);
+}
+
+/* ── Portada (inicio.png) ── */
+.slidev-layout.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 100%);
+  z-index: 0;
+}
+
+.slidev-layout.cover > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Cierre (final.png) ── */
+.slidev-layout.end::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.35);
+  z-index: 0;
+}
+
+.slidev-layout.end > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Dos columnas ── */
+.slidev-layout.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+/* ── Centro ── */
+.slidev-layout.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ── Sección ── */
+.slidev-layout.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ── Código fullscreen ── */
+.slidev-layout.code {
+  padding: 0 !important;
+}
+
+.slidev-layout.code pre {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  height: 100vh;
+}
+
+/* ── Alineación de contenido ── */
+.slidev-layout .left { text-align: left; }
+.slidev-layout .right { text-align: right; }

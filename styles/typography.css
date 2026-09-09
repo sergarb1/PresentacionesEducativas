@@ -1,0 +1,61 @@
+/* ============================================
+   TIPOGRAFÍA — Presentaciones Slidev
+   Modern: Inter Bold, tamaños grandes
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --text-h1: 2.8rem;
+  --text-h2: 2rem;
+  --text-h3: 1.4rem;
+  --text-body: 1.1rem;
+  --text-small: 0.9rem;
+  --text-code: 0.85rem;
+
+  --leading-tight: 1.15;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+}
+
+.slidev-layout h1 {
+  font-size: var(--text-h1);
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+  margin-bottom: var(--space-lg);
+  letter-spacing: -0.02em;
+}
+
+.slidev-layout h2 {
+  font-size: var(--text-h2);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.01em;
+}
+
+.slidev-layout h3 {
+  font-size: var(--text-h3);
+  font-weight: 700;
+  line-height: var(--leading-normal);
+  color: var(--accent-blue);
+  margin-bottom: var(--space-sm);
+}
+
+.slidev-layout p {
+  font-size: var(--text-body);
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+}
+
+.slidev-layout code {
+  font-family: var(--font-mono);
+  font-size: var(--text-code);
+  background: var(--bg-tertiary);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+  color: var(--accent-purple);
+  font-weight: 500;
+}

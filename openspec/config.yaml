@@ -1,0 +1,43 @@
+schema: spec-driven
+
+context: |
+  Proyecto de presentaciones educativas con Slidev + Vue 3 + Markdown.
+  Stack: Slidev, Vue 3, TypeScript, Mermaid, CSS.
+  Framework de diapositivas para profesorado de FP (Formación Profesional).
+  Soporta español de España (es-ES) y valenciano normativo.
+  Imágenes corporativas: public/inicio.png (portada), public/final.png (cierre).
+  Dark mode, minimalista, profesional, técnico.
+  Skill dedicada en ~/.config/opencode/skills/presentaciones-slidev/
+  Componentes Vue reutilizables en components/.
+  Estilos compartidos en styles/.
+
+rules:
+  proposal:
+    - Incluir audiencia objetivo (¿para qué alumnado?)
+    - Definir duración estimada de la presentación
+    - Especificar idioma (es-ES o valenciano)
+    - Mencionar si requiere imágenes corporativas
+    - Mantener propuestas concisas y accionables
+  tasks:
+    - Cada diapositiva es un tarea independiente
+    - Incluir validación visual al final
+    - Comprobar inicio.png solo en portada
+    - Comprobar final.png solo en cierre
+    - Eliminar placeholders antes de finalizar
+    - Ejecutar npm run dev para verificar
+  specs:
+    - Documentar componentes Vue creados
+    - Especificar layouts de Slidev utilizados
+    - Detallar estilos CSS aplicados
+
+operations:
+  apply:
+    guidance:
+      - Ejecutar npm run dev tras cada cambio significativo
+      - Verificar que Mermaid renderiza correctamente
+      - Comprobar contraste y legibilidad
+  archive:
+    guidance:
+      - Resumir diapositivas creadas
+      - Listar componentes Vue utilizados
+      - Confirmar que imágenes corporativas están correctamente ubicadas
