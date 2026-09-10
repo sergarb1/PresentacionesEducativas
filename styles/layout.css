@@ -29,13 +29,11 @@
   z-index: 1;
 }
 
-/* ── Cierre (final.png) — sin overlay ni texto, la imagen ya tiene todo ── */
-.slidev-layout.end::before {
-  display: none !important;
-}
-
-.slidev-layout.end > * {
-  display: none !important;
+/* ── Cierre (final.png) — layout custom, sin contenido visible ── */
+.slidev-layout.end {
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  background-position: center !important;
 }
 
 /* ── Dos columnas ── */
