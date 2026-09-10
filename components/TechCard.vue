@@ -20,16 +20,16 @@ defineProps({
 
 <style scoped>
 .tech-card {
-  background: #1e293b;
-  border: 1px solid rgba(148,163,184,0.1);
-  border-radius: 12px;
-  padding: 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .tech-card:hover {
-  border-color: rgba(6,182,212,0.3);
-  box-shadow: 0 0 20px rgba(6,182,212,0.1);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-hover);
 }
 
 .tech-card.cyan { border-top: 3px solid #06b6d4; }
@@ -45,20 +45,20 @@ defineProps({
 
 .tech-name {
   font-weight: 600;
-  color: #f1f5f9;
+  color: var(--text-primary);
   font-size: 1rem;
   margin-bottom: 0.25rem;
 }
 
 .tech-desc {
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 0.8rem;
   line-height: 1.4;
   margin-bottom: 0.75rem;
 }
 
 .tech-body {
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 0.85rem;
   line-height: 1.5;
 }

@@ -4,7 +4,7 @@
 
 - **Framework**: Slidev + Vue 3 + Markdown
 - **Estilo**: Minimalism / Swiss Modernism, light mode, limpio, profesional
-- **Tipografía**: Atkinson Hyperlegible (accesible, WCAG AAA)
+- **Tipografía**: Inter Bold (800/700) + JetBrains Mono para código
 - **Idioma**: español de España (es-ES) o valenciano según petición
 - **FP**: priorizar procedimientos, herramientas, casos profesionales
 

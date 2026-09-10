@@ -13,7 +13,6 @@ drawings:
   persist: false
 transition: slide-left
 mdc: true
-marp: true
 ---
 
 <style>
@@ -22,7 +21,6 @@ marp: true
 @import url('./styles/components.css');
 @import url('./styles/layout.css');
 
-/* Mermaid moderno: nodos redondeados */
 .mermaid {
   font-family: 'Inter', sans-serif !important;
 }
@@ -50,12 +48,6 @@ marp: true
 
 **Módulo:** Administración de Sistemas Operativos  
 **Curso:** 1.º ASIR / DAM
-
-<style>
-h1 { color: #1A1A2E !important; text-shadow: 0 1px 4px rgba(255,255,255,0.8); font-size: 2.4rem !important; }
-h2 { color: #2563EB !important; text-shadow: 0 1px 4px rgba(255,255,255,0.8); font-size: 1.3rem !important; }
-p { color: #495057 !important; text-shadow: 0 1px 3px rgba(255,255,255,0.8); }
-</style>
 
 ---
 layout: center

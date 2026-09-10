@@ -16,13 +16,13 @@ defineProps({
 
 <style scoped>
 .question {
-  background: rgba(139,92,246,0.08);
+  background: var(--bg-card);
   border: 1px solid rgba(139,92,246,0.25);
-  border-radius: 12px;
-  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-md);
 }
 
 .question-icon {
@@ -41,12 +41,12 @@ defineProps({
 .question-text {
   font-size: 1.15rem;
   font-weight: 600;
-  color: #f1f5f9;
+  color: var(--text-primary);
   line-height: 1.4;
 }
 
 .question-answer {
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 0.95rem;
   line-height: 1.6;
 }

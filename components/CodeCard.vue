@@ -19,11 +19,11 @@ defineProps({
 
 <style scoped>
 .code-card {
-  background: #0d1117;
-  border: 1px solid rgba(148,163,184,0.1);
-  border-radius: 10px;
+  background: #0F172A;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  box-shadow: var(--shadow-card);
 }
 
 .code-card-header {
@@ -31,8 +31,8 @@ defineProps({
   align-items: center;
   gap: 10px;
   padding: 10px 16px;
-  background: #161b22;
-  border-bottom: 1px solid rgba(148,163,184,0.1);
+  background: #1E293B;
+  border-bottom: 1px solid var(--border-default);
 }
 
 .code-card-lang {
@@ -46,7 +46,7 @@ defineProps({
 }
 
 .code-card-title {
-  color: #94a3b8;
+  color: var(--text-muted);
   font-size: 0.8rem;
 }
 

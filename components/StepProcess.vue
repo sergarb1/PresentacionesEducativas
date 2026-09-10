@@ -1,7 +1,6 @@
 <script setup>
 defineProps({
   steps: { type: Array, required: true }
-  // Each step: { title: string, description?: string, icon?: string }
 })
 </script>
 
@@ -24,20 +23,20 @@ defineProps({
 .step-process {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: var(--space-lg);
 }
 
 .step {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
+  gap: var(--space-md);
 }
 
 .step-number {
   flex-shrink: 0;
   width: 2.2rem;
   height: 2.2rem;
-  background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
   color: white;
   border-radius: 50%;
   display: flex;
@@ -54,7 +53,7 @@ defineProps({
 
 .step-title {
   font-weight: 600;
-  color: #f1f5f9;
+  color: var(--text-primary);
   font-size: 1rem;
 }
 
@@ -63,7 +62,7 @@ defineProps({
 }
 
 .step-desc {
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 0.85rem;
   margin-top: 0.25rem;
   line-height: 1.5;

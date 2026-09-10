@@ -16,8 +16,9 @@ defineProps({
   background: rgba(16,185,129,0.08);
   border: 1px solid rgba(16,185,129,0.25);
   border-left: 3px solid #10b981;
-  border-radius: 8px;
-  padding: 1rem 1.25rem;
+  border-radius: var(--radius-sm);
+  padding: var(--space-md) var(--space-lg);
+  color: var(--text-primary);
 }
 
 .answer-label {

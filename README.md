@@ -53,7 +53,7 @@ presentaciones-educativas/
 │   ├── variables.css           # Tokens de diseño (colores, espaciado)
 │   ├── typography.css          # Tipografía Inter + JetBrains Mono
 │   ├── components.css          # Estilos de componentes
-│   └── layout.css              # Layouts de diapositiva
+│   └── layout.css              # Diseños de diapositiva
 ├── openspec/                   # Especificaciones del proyecto
 ├── slides.md                   # ← TU PRESENTACIÓN (editar este archivo)
 ├── slides-template.md          # Plantilla para nuevas presentaciones
@@ -290,4 +290,4 @@ Verifica que están en `public/` y que la ruta en el frontmatter es `/inicio.png
 
 ## Licencia
 
-[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4./) — Creative Commons Attribution-ShareAlike
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) — Creative Commons Attribution-ShareAlike

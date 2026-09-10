@@ -24,29 +24,31 @@ defineProps({
 .comparison-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #f1f5f9;
-  margin-bottom: 1rem;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
 }
 
 .comparison-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: var(--space-md);
 }
 
 .comparison-col {
-  border-radius: 10px;
-  padding: 1.25rem;
-  background: #1e293b;
-  border: 1px solid rgba(148,163,184,0.1);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
 }
 
 .comparison-col.good {
-  border-color: rgba(16,185,129,0.3);
+  border-color: rgba(16,185,129,0.4);
+  background: rgba(16,185,129,0.05);
 }
 
 .comparison-col.bad {
-  border-color: rgba(239,68,68,0.3);
+  border-color: rgba(239,68,68,0.4);
+  background: rgba(239,68,68,0.05);
 }
 
 .comparison-label {
