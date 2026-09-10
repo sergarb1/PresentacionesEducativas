@@ -7,19 +7,11 @@ const props = defineProps({
   },
 })
 
-function resolveAssetUrl(url: string) {
-  if (url.startsWith('/'))
-    return import.meta.env.BASE_URL + url.slice(1)
-  return url
-}
-
 const style = computed(() => {
   const bg = props.background
   if (!bg) return {}
-  const isColor = ['#', 'rgb', 'hsl'].some(v => bg.indexOf(v) === 0)
   return {
-    background: isColor ? bg : undefined,
-    backgroundImage: isColor ? undefined : `url("${resolveAssetUrl(bg)}")`,
+    backgroundImage: `url("${bg}")`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
@@ -28,6 +20,5 @@ const style = computed(() => {
 </script>
 
 <template>
-  <div class="slidev-layout end" :style="style">
-  </div>
+  <div class="slidev-layout end" :style="style"></div>
 </template>
