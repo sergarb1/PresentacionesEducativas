@@ -10,7 +10,7 @@
 /* ── Imágenes cover/end — anti-corte ── */
 .slidev-layout.cover,
 .slidev-layout.end {
-  background-size: contain !important;
+  background-size: cover !important;
   background-repeat: no-repeat;
   background-position: center !important;
 }
@@ -29,13 +29,13 @@
   z-index: 1;
 }
 
-/* ── Cierre (final.png) — sin overlay, la imagen ya tiene todo ── */
+/* ── Cierre (final.png) — sin overlay ni texto, la imagen ya tiene todo ── */
 .slidev-layout.end::before {
   display: none;
 }
 
 .slidev-layout.end > * {
-  display: none;
+  visibility: hidden;
 }
 
 /* ── Dos columnas ── */
