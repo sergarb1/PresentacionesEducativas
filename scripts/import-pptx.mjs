@@ -131,6 +131,18 @@ try {
   console.warn(`⚠️  Copiar public/: ${err.message}`);
 }
 
+// ── Copiar layouts/ a output/layouts/ para que Slidev los encuentre ──
+const outputLayouts = join(OUTPUT_DIR, 'layouts');
+const srcLayouts = join(ROOT, 'layouts');
+if (existsSync(srcLayouts)) {
+  try {
+    execSync(`rm -rf "${outputLayouts}" && cp -r "${srcLayouts}" "${outputLayouts}"`, { stdio: 'pipe' });
+    console.log(`📁 layouts/ → output/layouts/`);
+  } catch (err) {
+    console.warn(`⚠️  Copiar layouts/: ${err.message}`);
+  }
+}
+
 // ── 4. Web offline (HTML estático) ──
 console.log(`\n🌐 Generando web offline...`);
 try {
