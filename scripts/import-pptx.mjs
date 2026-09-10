@@ -122,6 +122,15 @@ const outPath = join(OUTPUT_DIR, 'slides.md');
 await writeFile(outPath, [frontmatter, styleBlock, '', convertToSlidevSlides(rawMarkdown, images), '', endSlide, ''].join('\n'), 'utf-8');
 console.log(`📄 slides.md → ${outPath}`);
 
+// ── Copiar public/ a output/public/ para que Slidev sirva las imágenes ──
+const outputPublic = join(OUTPUT_DIR, 'public');
+try {
+  execSync(`rm -rf "${outputPublic}" && cp -r "${join(ROOT, 'public')}" "${outputPublic}"`, { stdio: 'pipe' });
+  console.log(`📁 public/ → output/public/`);
+} catch (err) {
+  console.warn(`⚠️  Copiar public/: ${err.message}`);
+}
+
 // ── 4. Web offline (HTML estático) ──
 console.log(`\n🌐 Generando web offline...`);
 try {
