@@ -19,11 +19,14 @@
 ### Diseño
 - Light mode por defecto (#FFFFFF, #F8F9FA)
 - Contraste WCAG AAA: texto principal #1A1A2E sobre fondo claro
-- Una idea por diapositiva
+- **Una idea por diapositiva** pero con profundidad suficiente
+- **Mínimo 30-40 diapositivas** por presentación de unidad (más si el contenido lo requiere)
 - Combinar tipos: concepto, código, terminal, diagrama, actividad, etc.
 - Usar `v-click` / `v-clicks` para animaciones pedagógicas
 - Mermaid para diagramas cuando facilite la comprensión
 - Un solo color accent por presentación (#2563EB por defecto)
+- **Cada sección del temario** debe tener: introducción, desarrollo (múltiples diapositivas), resumen, y actividad/mini-comprobación
+- **No resumir en exceso**: desarrollo amplio con ejemplos, tablas, código, analogías
 
 ### Componentes
 - Usar componentes Vue de `components/` cuando reutilicen
@@ -64,16 +67,16 @@ npm run import
 
 # Ruta personalizada
 npm run import -- ruta/al/archivo.pptx
-
-# Importar y abrir directamente en el navegador
-npm run import:dev
 ```
 
 **Flujo de importación:**
 1. Coloca el PPTX en `input/` (o pasa la ruta como argumento)
 2. El script extrae texto → markdown e imágenes → `public/images/`
 3. Genera `output/slides.md` con cover (inicio.png) y cierre (final.png)
-4. Las imágenes del PPTX se referencian con `![](/images/...)`
+4. **Genera los 3 formatos automáticamente:**
+   - `output/<nombre>/` — web offline (HTML estático)
+   - `output/<nombre>.pdf` — PDF
+   - `output/<nombre>.pptx` — PPTX
 5. Edita `output/slides.md` para pulir, ampliar o reorganizar
 
 ### Exportar a PDF

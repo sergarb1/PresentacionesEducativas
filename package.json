@@ -6,11 +6,13 @@
   "private": true,
   "scripts": {
     "dev": "slidev --open",
+    "dev:output": "slidev output/slides.md --open",
     "build": "slidev build",
     "export": "slidev export",
     "export:pptx": "slidev export --format pptx",
     "export:png": "slidev export --format png",
     "export:dark": "slidev export --dark",
+    "export:all": "slidev export && slidev export --format pptx",
     "import": "node scripts/import-pptx.mjs",
     "import:dev": "node scripts/import-pptx.mjs && slidev output/slides.md --open"
   },

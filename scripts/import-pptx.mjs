@@ -2,15 +2,20 @@
 
 /**
  * import-pptx.mjs
- * Convierte un PPTX (NotebookLM, etc.) a presentación Slidev.
+ * Convierte un PPTX a presentación Slidev y genera los 3 formatos:
+ *   1. Web offline (HTML estático)
+ *   2. PDF
+ *   3. PPTX
  *
  * Uso:
  *   npm run import                          # usa input/entrada.pptx
  *   npm run import -- ruta/al/archivo.pptx  # ruta personalizada
  *
- * Genera:
- *   output/slides.md          — presentación Slidev lista
- *   public/images/            — imágenes extraídas del PPTX
+ * Genera en output/:
+ *   slides.md          — fuente Slidev
+ *   <nombre>/          — web offline (HTML)
+ *   <nombre>.pdf       — PDF
+ *   <nombre>.pptx      — PPTX
  */
 
 import { readFile, mkdir, writeFile, cp } from 'node:fs/promises';
@@ -36,53 +41,44 @@ if (!existsSync(pptxPath)) {
   process.exit(1);
 }
 
-console.log(`📄 Procesando: ${basename(pptxPath)}`);
+const baseName = basename(pptxPath, extname(pptxPath));
+console.log(`📄 Procesando: ${basename(pptxPath)}\n`);
 
 // ── 1. Convertir texto a markdown ──
 const bytes = new Uint8Array(await readFile(pptxPath));
-const result = await toMarkdown(bytes);
-const rawMarkdown = result;
-
+const rawMarkdown = await toMarkdown(bytes);
 console.log(`✅ Texto extraído (${rawMarkdown.length} caracteres)`);
 
-// ── 2. Extraer imágenes del PPTX (es un ZIP) ──
+// ── 2. Extraer imágenes del PPTX ──
 await mkdir(PUBLIC_IMG_DIR, { recursive: true });
-
 const images = [];
+
 try {
-  // Descomprimir el PPTX para acceder a ppt/media/
   const tmpDir = join(OUTPUT_DIR, '.tmp_pptx');
   execSync(`unzip -o -q "${pptxPath}" -d "${tmpDir}"`, { stdio: 'pipe' });
 
   const mediaDir = join(tmpDir, 'ppt', 'media');
   if (existsSync(mediaDir)) {
     const { readdirSync } = await import('node:fs');
-    const files = readdirSync(mediaDir);
-    for (const file of files) {
-      const src = join(mediaDir, file);
-      const dest = join(PUBLIC_IMG_DIR, file);
-      await cp(src, dest);
+    for (const file of readdirSync(mediaDir)) {
+      await cp(join(mediaDir, file), join(PUBLIC_IMG_DIR, file));
       images.push(file);
     }
-    console.log(`🖼️  ${images.length} imágenes extraídas → public/images/`);
-  } else {
-    console.log(`ℹ️  No se encontraron imágenes embebidas en el PPTX.`);
+    console.log(`🖼️  ${images.length} imágenes → public/images/`);
   }
-
-  // Limpiar temporal
   execSync(`rm -rf "${tmpDir}"`, { stdio: 'pipe' });
 } catch (err) {
-  console.warn(`⚠️  Error extrayendo imágenes: ${err.message}`);
+  console.warn(`⚠️  Imágenes: ${err.message}`);
 }
 
-// ── 3. Generar slides.md para Slidev ──
+// ── 3. Generar slides.md ──
 const frontmatter = `---
 theme: default
 title: "${extractTitle(rawMarkdown)}"
 info: "Importado desde ${basename(pptxPath)}"
 author: ""
 keywords: ""
-exportFilename: "${basename(pptxPath, extname(pptxPath))}"
+exportFilename: "${baseName}"
 layout: cover
 background: /inicio.png
 class: text-center
@@ -98,102 +94,83 @@ layout: end
 background: /final.png
 ---`;
 
-// Convertir el markdown extraído en diapositivas Slidev
-const contentSlides = convertToSlidevSlides(rawMarkdown, images);
-
-const fullMarkdown = [
-  frontmatter,
-  '',
-  contentSlides,
-  '',
-  endSlide,
-  '',
-].join('\n');
-
 await mkdir(OUTPUT_DIR, { recursive: true });
 const outPath = join(OUTPUT_DIR, 'slides.md');
-await writeFile(outPath, fullMarkdown, 'utf-8');
+await writeFile(outPath, [frontmatter, '', convertToSlidevSlides(rawMarkdown, images), '', endSlide, ''].join('\n'), 'utf-8');
+console.log(`📄 slides.md → ${outPath}`);
 
-console.log(`\n🎉 Presentación generada:`);
-console.log(`   📄 ${outPath}`);
-if (images.length > 0) {
-  console.log(`   🖼️  ${join(PUBLIC_IMG_DIR, '')}/ (${images.length} imágenes)`);
+// ── 4. Web offline (HTML estático) ──
+console.log(`\n🌐 Generando web offline...`);
+try {
+  execSync(`npx slidev build "${outPath}" --base / --out "${join(OUTPUT_DIR, baseName)}" --outDir "${join(OUTPUT_DIR, baseName)}"`, {
+    cwd: ROOT, stdio: 'inherit'
+  });
+  console.log(`✅ Web offline → output/${baseName}/`);
+} catch (err) {
+  console.warn(`⚠️  Build: ${err.message}`);
 }
-console.log(`\n   Para verla: npm run dev`);
 
-// ── Funciones auxiliares ──
+// ── 5. PDF ──
+console.log(`\n📑 Exportando PDF...`);
+try {
+  execSync(`npx slidev export "${outPath}" --output "${join(OUTPUT_DIR, baseName + '.pdf')}"`, {
+    cwd: ROOT, stdio: 'inherit'
+  });
+  console.log(`✅ PDF → output/${baseName}.pdf`);
+} catch (err) {
+  console.warn(`⚠️  PDF: ${err.message}`);
+}
+
+// ── 6. PPTX ──
+console.log(`\n📊 Exportando PPTX...`);
+try {
+  execSync(`npx slidev export "${outPath}" --format pptx --output "${join(OUTPUT_DIR, baseName + '.pptx')}"`, {
+    cwd: ROOT, stdio: 'inherit'
+  });
+  console.log(`✅ PPTX → output/${baseName}.pptx`);
+} catch (err) {
+  console.warn(`⚠️  PPTX: ${err.message}`);
+}
+
+console.log(`\n🎉 ¡Todo listo! Revisa output/`);
+console.log(`   🌐 Web:   output/${baseName}/index.html`);
+console.log(`   📑 PDF:   output/${baseName}.pdf`);
+console.log(`   📊 PPTX:  output/${baseName}.pptx`);
+
+// ── Helpers ──
 
 function extractTitle(md) {
-  const lines = md.split('\n');
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (trimmed.startsWith('# ')) {
-      return trimmed.replace(/^#+\s*/, '').replace(/["']/g, '');
-    }
+  for (const line of md.split('\n')) {
+    const t = line.trim();
+    if (t.startsWith('# ')) return t.replace(/^#+\s*/, '').replace(/["']/g, '');
   }
   return 'Presentación importada';
 }
 
 function convertToSlidevSlides(md, imageFiles) {
-  // Dividir por líneas horizontales que sean separadores de diapositiva
-  const lines = md.split('\n');
   const slides = [];
-  let currentSlide = [];
-
-  for (const line of lines) {
-    // Detectar separadores de diapositiva del PPTX
+  let current = [];
+  for (const line of md.split('\n')) {
     if (/^-{3,}$/.test(line.trim()) || /^\*{3,}$/.test(line.trim())) {
-      if (currentSlide.length > 0) {
-        slides.push(currentSlide.join('\n'));
-        currentSlide = [];
-      }
+      if (current.length > 0) { slides.push(current.join('\n')); current = []; }
     } else {
-      currentSlide.push(line);
+      current.push(line);
     }
   }
-  if (currentSlide.length > 0) {
-    slides.push(currentSlide.join('\n'));
-  }
+  if (current.length > 0) slides.push(current.join('\n'));
 
-  // Filtrar diapositivas vacías y procesar
-  const processed = slides
+  return slides
     .filter(s => s.trim().length > 0)
-    .map((slide, i) => processSlide(slide, i, slides.length, imageFiles));
-
-  return processed.join('\n\n---\n\n');
-}
-
-function processSlide(slide, index, total, imageFiles) {
-  let content = slide.trim();
-
-  // Reemplazar referencias a imágenes extraídas
-  if (imageFiles.length > 0) {
-    for (const img of imageFiles) {
-      // El PPTX puede referenciar imágenes por nombre
-      const patterns = [
-        new RegExp(`!\\[.*?\\]\\(.*?${escapeRegex(img)}.*?\\)`, 'gi'),
-        new RegExp(`!\\[.*?\\]\\(media/${escapeRegex(img)}\\)`, 'gi'),
-      ];
-      for (const pattern of patterns) {
-        content = content.replace(pattern, `![](/images/${img})`);
+    .map(slide => {
+      let c = slide.trim();
+      for (const img of imageFiles) {
+        c = c.replace(new RegExp(`!\\[.*?\\]\\(.*?${escapeRegex(img)}.*?\\)`, 'gi'), `![](/images/${img})`);
       }
-    }
-  }
-
-  // Detectar si es la primera diapositiva (título principal)
-  if (index === 0) {
-    // Ya tenemos el frontmatter cover, agregar el contenido
-    return content;
-  }
-
-  // Agregar layout a diapositivas que tengan títulos
-  if (/^#\s/.test(content)) {
-    return content;
-  }
-
-  return content;
+      return c;
+    })
+    .join('\n\n---\n\n');
 }
 
-function escapeRegex(str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function escapeRegex(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
