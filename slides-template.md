@@ -154,11 +154,4 @@ Se imprime `Hola, Mundo` en la terminal.
 ---
 layout: end
 background: /final.png
-class: text-center
 ---
-
-# ¡Gracias!
-
-<br>
-
-**¿Preguntas?**

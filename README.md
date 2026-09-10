@@ -39,7 +39,12 @@ Se abre `http://localhost:3030` con la presentación.
 presentaciones-educativas/
 ├── public/
 │   ├── inicio.png              # Fondo de portada (solo 1.ª diapositiva)
-│   └── final.png               # Fondo de cierre (solo última diapositiva)
+│   ├── final.png               # Fondo de cierre (solo última diapositiva)
+│   └── images/                 # Imágenes extraídas de PPTX importados
+├── input/                      # Archivos de entrada (PPTX, temarios, etc.)
+│   └── entrada.pptx            # ← PPTX a importar (o ruta personalizada)
+├── output/                     # Presentaciones generadas (NO en git)
+│   └── slides.md               # Slidev generado desde PPTX
 ├── components/                 # Componentes Vue reutilizables
 │   ├── Terminal.vue            # Simulador de terminal
 │   ├── CodeCard.vue            # Bloque de código con título
@@ -54,6 +59,8 @@ presentaciones-educativas/
 │   ├── typography.css          # Tipografía Inter + JetBrains Mono
 │   ├── components.css          # Estilos de componentes
 │   └── layout.css              # Diseños de diapositiva
+├── scripts/
+│   └── import-pptx.mjs         # Script de importación PPTX → Slidev
 ├── openspec/                   # Especificaciones del proyecto
 ├── slides.md                   # ← TU PRESENTACIÓN (editar este archivo)
 ├── slides-template.md          # Plantilla para nuevas presentaciones
@@ -71,7 +78,29 @@ cp slides-template.md slides.md
 
 Edita `slides.md` con tu contenido.
 
-### Opción 2: Crear desde cero
+### Opción 2: Importar desde PPTX
+
+Si tienes un PPTX (NotebookLM, PowerPoint, etc.) puedes convertirlo a Slidev:
+
+```bash
+# Coloca el PPTX en input/
+cp mi-presentacion.pptx input/entrada.pptx
+
+# Importar (genera output/slides.md)
+npm run import
+
+# Importar y abrir directamente en el navegador
+npm run import:dev
+```
+
+El script extrae el texto e imágenes del PPTX y genera una presentación Slidev
+con portada (inicio.png) y cierre (final.png). Las imágenes extraídas quedan en
+`public/images/`.
+
+Después de importar, puedes editar `output/slides.md` para pulir, ampliar o
+reorganizar el contenido.
+
+### Opción 3: Crear desde cero
 
 Copia `slides.md` a `slides-nombre.md` y edita:
 

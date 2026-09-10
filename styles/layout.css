@@ -7,12 +7,20 @@
   font-family: var(--font-sans);
 }
 
-/* ── Portada (inicio.png) ── */
+/* ── Imágenes cover/end — anti-corte ── */
+.slidev-layout.cover,
+.slidev-layout.end {
+  background-size: contain !important;
+  background-repeat: no-repeat;
+  background-position: center !important;
+}
+
+/* ── Portada (inicio.png) — overlay suave para legibilidad del texto ── */
 .slidev-layout.cover::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.15) 100%);
   z-index: 0;
 }
 
@@ -21,18 +29,13 @@
   z-index: 1;
 }
 
-/* ── Cierre (final.png) ── */
+/* ── Cierre (final.png) — sin overlay, la imagen ya tiene todo ── */
 .slidev-layout.end::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255,255,255,0.35);
-  z-index: 0;
+  display: none;
 }
 
 .slidev-layout.end > * {
-  position: relative;
-  z-index: 1;
+  display: none;
 }
 
 /* ── Dos columnas ── */

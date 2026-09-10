@@ -8,11 +8,17 @@ node_modules/
 # Build output
 dist/
 index.html
+output/
 
 # Export output
 *.pdf
 *.pptx
 *.png
+!public/*.png
+!public/*.svg
+
+# Input files (PPTX, temarios, etc.)
+input/
 
 # Screenshots
 screenshot-*.png

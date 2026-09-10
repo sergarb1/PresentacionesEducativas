@@ -723,16 +723,4 @@ class: text-center
 ---
 layout: end
 background: /final.png
-class: text-center
 ---
-
-# ¡Gracias!
-
-<br>
-
-**¿Preguntas?**
-
-<style>
-h1 { color: #1A1A2E !important; text-shadow: 0 1px 4px rgba(255,255,255,0.8); }
-p { color: #495057 !important; text-shadow: 0 1px 3px rgba(255,255,255,0.8); }
-</style>

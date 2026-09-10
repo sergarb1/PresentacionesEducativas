@@ -10,9 +10,12 @@
     "export": "slidev export",
     "export:pptx": "slidev export --format pptx",
     "export:png": "slidev export --format png",
-    "export:dark": "slidev export --dark"
+    "export:dark": "slidev export --dark",
+    "import": "node scripts/import-pptx.mjs",
+    "import:dev": "node scripts/import-pptx.mjs && slidev output/slides.md --open"
   },
   "devDependencies": {
+    "@mdgate/pptx": "^0.6.25",
     "@slidev/cli": "^51.8.2",
     "@slidev/theme-default": "^0.25.0",
     "@slidev/theme-seriph": "^0.25.0",

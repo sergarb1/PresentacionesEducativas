@@ -49,10 +49,32 @@
 ## Comandos
 
 ```bash
-npm run dev      # Desarrollo
-npm run build    # Build producción
-npm run export   # Exportar PDF
+npm run dev         # Desarrollo (slides.md principal)
+npm run build       # Build producción
+npm run export      # Exportar PDF
+npm run import      # Importar PPTX → output/slides.md
+npm run import:dev  # Importar y abrir en desarrollo
 ```
+
+### Importar PPTX
+
+```bash
+# PPTX por defecto: input/entrada.pptx
+npm run import
+
+# Ruta personalizada
+npm run import -- ruta/al/archivo.pptx
+
+# Importar y abrir directamente en el navegador
+npm run import:dev
+```
+
+**Flujo de importación:**
+1. Coloca el PPTX en `input/` (o pasa la ruta como argumento)
+2. El script extrae texto → markdown e imágenes → `public/images/`
+3. Genera `output/slides.md` con cover (inicio.png) y cierre (final.png)
+4. Las imágenes del PPTX se referencian con `![](/images/...)`
+5. Edita `output/slides.md` para pulir, ampliar o reorganizar
 
 ### Exportar a PDF
 
@@ -69,6 +91,11 @@ npx slidev export --dark                   # Exportar en modo oscuro
 - Las animaciones NO se reproducen en PDF (es estático)
 - El resultado se guarda en la raíz del proyecto como `<exportFilename>.pdf`
 - Para cambiar el nombre: editar `exportFilename` en el frontmatter de `slides.md`
+
+### Carpeta output/
+
+Las presentaciones generadas (importadas o exportadas) se guardan en `output/`.
+Esta carpeta está en `.gitignore` y NO se sube a git.
 
 ## OpenSpec
 
