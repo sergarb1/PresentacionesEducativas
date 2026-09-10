@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { handleBackground } from '@slidev/theme-default/layoutHelper'
 
 const props = defineProps({
   background: {
@@ -8,7 +7,27 @@ const props = defineProps({
   },
 })
 
-const style = computed(() => handleBackground(props.background, true))
+function resolveAssetUrl(url: string) {
+  if (url.startsWith('/'))
+    return import.meta.env.BASE_URL + url.slice(1)
+  return url
+}
+
+const style = computed(() => {
+  const bg = props.background
+  if (!bg) return {}
+  const isColor = ['#', 'rgb', 'hsl'].some(v => bg.indexOf(v) === 0)
+  return {
+    background: isColor ? bg : undefined,
+    color: !isColor ? 'white' : undefined,
+    backgroundImage: isColor
+      ? undefined
+      : `url("${resolveAssetUrl(bg)}")`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+  }
+})
 </script>
 
 <template>
