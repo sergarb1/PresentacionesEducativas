@@ -72,11 +72,28 @@ try {
 }
 
 // ── 3. Generar slides.md ──
+const STYLES_DIR = join(ROOT, 'styles');
+const cssFiles = ['variables.css', 'typography.css', 'components.css', 'layout.css'];
+let googleFontsImport = '';
+let inlinedCSS = '';
+for (const f of cssFiles) {
+  try {
+    let css = await readFile(join(STYLES_DIR, f), 'utf-8');
+    // Extract @import from typography.css to put at top
+    const importMatch = css.match(/@import url\([^)]+\);?\s*/);
+    if (importMatch) {
+      googleFontsImport += importMatch[0];
+      css = css.replace(importMatch[0], '');
+    }
+    inlinedCSS += css + '\n\n';
+  } catch {}
+}
+
 const frontmatter = `---
 theme: default
 title: "${extractTitle(rawMarkdown)}"
-info: "Importado desde ${basename(pptxPath)}"
-author: ""
+info: "1º DAW — Desenvolupament d'Aplicacions Web"
+author: "Sergi García Barea"
 keywords: ""
 exportFilename: "${baseName}"
 layout: cover
@@ -89,6 +106,12 @@ transition: slide-left
 mdc: true
 ---`;
 
+const styleBlock = `
+<style>
+${googleFontsImport}
+${inlinedCSS}
+</style>`;
+
 const endSlide = `---
 layout: end
 background: /final.png
@@ -96,15 +119,21 @@ background: /final.png
 
 await mkdir(OUTPUT_DIR, { recursive: true });
 const outPath = join(OUTPUT_DIR, 'slides.md');
-await writeFile(outPath, [frontmatter, '', convertToSlidevSlides(rawMarkdown, images), '', endSlide, ''].join('\n'), 'utf-8');
+await writeFile(outPath, [frontmatter, styleBlock, '', convertToSlidevSlides(rawMarkdown, images), '', endSlide, ''].join('\n'), 'utf-8');
 console.log(`📄 slides.md → ${outPath}`);
 
 // ── 4. Web offline (HTML estático) ──
 console.log(`\n🌐 Generando web offline...`);
 try {
-  execSync(`npx slidev build "${outPath}" --base / --out "${join(OUTPUT_DIR, baseName)}" --outDir "${join(OUTPUT_DIR, baseName)}"`, {
+  execSync(`npx slidev build "${outPath}" --base / --out "${baseName}"`, {
     cwd: ROOT, stdio: 'inherit'
   });
+  // Mover de root/baseName a output/baseName si existe
+  const builtDir = join(ROOT, baseName);
+  const targetDir = join(OUTPUT_DIR, baseName);
+  if (existsSync(builtDir) && builtDir !== targetDir) {
+    execSync(`rm -rf "${targetDir}" && mv "${builtDir}" "${targetDir}"`, { stdio: 'pipe' });
+  }
   console.log(`✅ Web offline → output/${baseName}/`);
 } catch (err) {
   console.warn(`⚠️  Build: ${err.message}`);

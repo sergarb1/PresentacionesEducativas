@@ -31,11 +31,11 @@
 
 /* ── Cierre (final.png) — sin overlay ni texto, la imagen ya tiene todo ── */
 .slidev-layout.end::before {
-  display: none;
+  display: none !important;
 }
 
 .slidev-layout.end > * {
-  visibility: hidden;
+  display: none !important;
 }
 
 /* ── Dos columnas ── */
