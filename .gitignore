@@ -1,0 +1,30 @@
+﻿# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Export output
+*.pdf
+
+# Local presentation sources and generated exports
+input/*
+!input/.gitkeep
+output/*
+!output/.gitkeep
+
+# Legacy HTML source material
+slides/*
+!slides/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Internal
+.serena/
+.opencode/

@@ -1,0 +1,576 @@
+/* ========================================
+   Presentaciones Educativas — Slidev
+   Estilo: Flat Design / Swiss Modernism, Light Mode
+   Base: Inter + JetBrains Mono
+   ======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --slidev-theme-primary: #2563EB;
+  --color-primary: #2563EB;
+  --color-heading: #1A1A2E;
+  --color-text: #333333;
+  font-size: 18px;
+}
+
+/* ══════════════════════════════════════════
+   BASE & TYPOGRAPHY
+   ══════════════════════════════════════════ */
+
+.slidev-layout {
+  font-family: 'Inter', sans-serif;
+  color: #333333;
+  background-color: #FFFFFF;
+  padding: 2.4rem 3.4rem;
+  box-sizing: border-box;
+}
+
+.slidev-layout h1 {
+  font-size: 2.7rem;
+  font-weight: 800;
+  color: #1A1A2E;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+}
+
+.slidev-layout h2 {
+  font-size: 2.15rem;
+  font-weight: 700;
+  color: #1A1A2E;
+  line-height: 1.25;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.04em;
+}
+
+.slidev-layout h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2563EB;
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+}
+
+.slidev-layout p {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.48;
+}
+
+.slidev-layout:not(.cover):not(.closing) h2::before {
+  content: '';
+  display: inline-block;
+  width: 0.3rem;
+  height: 1.5em;
+  margin-right: 0.55rem;
+  vertical-align: -0.27em;
+  border-radius: 99px;
+  background: #2563EB;
+}
+
+.slidev-layout strong {
+  color: #1A1A2E;
+  font-weight: 700;
+}
+
+/* ══════════════════════════════════════════
+   TAULES
+   ══════════════════════════════════════════ */
+
+.slidev-layout table {
+  font-size: 0.9rem;
+  margin: 0.8rem auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #E5E7EB;
+}
+
+.slidev-layout table th {
+  background: #2563EB;
+  color: #FFFFFF;
+  padding: 8px 16px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.slidev-layout table td {
+  padding: 7px 16px;
+  border-bottom: 1px solid #E5E7EB;
+  text-align: left;
+}
+
+.slidev-layout table tr:last-child td {
+  border-bottom: none;
+}
+
+.slidev-layout table tr:nth-child(even) td {
+  background: #F8F9FA;
+}
+
+/* ══════════════════════════════════════════
+   BLOCKQUOTES
+   ══════════════════════════════════════════ */
+
+.slidev-layout blockquote {
+  border-left: 5px solid #2563EB;
+  padding: 10px 18px;
+  background: #EFF6FF;
+  font-style: italic;
+  margin: 0.8rem 0;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 8px;
+  color: #1E3A8A;
+}
+
+/* ══════════════════════════════════════════
+   CODE & PRE
+   ══════════════════════════════════════════ */
+
+.slidev-layout code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+}
+
+.slidev-layout :not(pre) > code {
+  background: #F1F5F9;
+  color: #0F172A;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  border: 1px solid #E2E8F0;
+}
+
+.slidev-layout pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  margin: 0.6rem 0;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+}
+
+.slidev-layout pre code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* ══════════════════════════════════════════
+   LLISTES
+   ══════════════════════════════════════════ */
+
+.slidev-layout ul, .slidev-layout ol {
+  text-align: left;
+  margin-left: 1.2rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.slidev-layout li {
+  margin-bottom: 0.25rem;
+}
+
+/* ══════════════════════════════════════════
+   COMPONENTS
+   ══════════════════════════════════════════ */
+
+/* --- Avisos --- */
+.warning {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-left: 4px solid #F59E0B;
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  color: #1A1A2E;
+  font-weight: 500;
+  font-size: 0.98rem;
+  box-sizing: border-box;
+  margin: 0.5rem 0;
+}
+
+.warning::before {
+  content: "⚠️";
+  margin-right: 0.5rem;
+  font-size: 1.05em;
+}
+
+.info {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-left: 4px solid #2563EB;
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  color: #1A1A2E;
+  font-weight: 500;
+  font-size: 0.98rem;
+  box-sizing: border-box;
+  margin: 0.5rem 0;
+}
+
+.info::before {
+  content: "ℹ️";
+  margin-right: 0.5rem;
+  font-size: 1.05em;
+}
+
+.success {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-left: 4px solid #22C55E;
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  color: #1A1A2E;
+  font-weight: 500;
+  font-size: 0.98rem;
+  box-sizing: border-box;
+  margin: 0.5rem 0;
+}
+
+.success::before {
+  content: "✅";
+  margin-right: 0.5rem;
+  font-size: 1.05em;
+}
+
+/* --- Pasos / Processos --- */
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+  background: #2563EB;
+  color: white;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.step-content {
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+/* --- Graella de característiques --- */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  max-width: 100%;
+}
+
+.feature-item {
+  text-align: center;
+  padding: 1rem;
+  background: #FFFFFF;
+  border-radius: 14px;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+/* --- Comparació --- */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  max-width: 100%;
+}
+
+.comparison-item {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 14px;
+  padding: 1.2rem;
+  font-size: 0.96rem;
+}
+
+.comparison-item.good {
+  border-color: #86EFAC;
+}
+
+.comparison-item.bad {
+  border-color: #FCA5A5;
+}
+
+/* --- Code Card --- */
+.code-card {
+  background: #1E293B;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 100%;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  margin: 0.5rem 0;
+}
+
+.code-card-header {
+  background: #0F172A;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #334155;
+}
+
+.code-card-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.code-card-dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.code-card-dots span:nth-child(1) { background: #EF4444; }
+.code-card-dots span:nth-child(2) { background: #F59E0B; }
+.code-card-dots span:nth-child(3) { background: #22C55E; }
+
+.code-card-title {
+  color: #94A3B8;
+  font-size: 0.72rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.code-card-badge {
+  background: #2563EB;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+.code-card pre {
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: #1E293B !important;
+  padding: 12px 16px !important;
+}
+
+/* --- Terminal --- */
+.terminal {
+  background: #0F172A;
+  border-radius: 12px;
+  padding: 1.2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: #E2E8F0;
+  overflow-x: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  box-sizing: border-box;
+}
+
+.terminal .prompt {
+  color: #34D399;
+  user-select: none;
+}
+
+.terminal .output {
+  color: #94A3B8;
+}
+
+.terminal .highlight {
+  color: #38BDF8;
+}
+
+.terminal .error {
+  color: #F87171;
+}
+
+/* --- Pregunta / Resposta --- */
+.question-card {
+  background: #F5F3FF;
+  border: 1px solid #DDD6FE;
+  border-left: 4px solid #8B5CF6;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  font-size: 1rem;
+  box-sizing: border-box;
+  margin: 0.5rem 0;
+}
+
+.question-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  background: #8B5CF6;
+  color: white;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.answer-card {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-left: 4px solid #22C55E;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  font-size: 1rem;
+  margin-top: 0.8rem;
+  box-sizing: border-box;
+}
+
+/* --- Badges --- */
+.badge {
+  display: inline-block;
+  padding: 0.2em 0.7em;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.badge-blue { background: #EFF6FF; color: #2563EB; }
+.badge-purple { background: #F5F3FF; color: #7C3AED; }
+.badge-teal { background: #F0FDFA; color: #0D9488; }
+.badge-orange { background: #FFF7ED; color: #EA580C; }
+.badge-pink { background: #FDF2F8; color: #DB2777; }
+.badge-green { background: #F0FDF4; color: #16A34A; }
+
+/* --- Layout utils --- */
+.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.left { text-align: left; }
+.right { text-align: right; }
+
+/* ══════════════════════════════════════════
+   LAYOUTS: COVER & END
+   ══════════════════════════════════════════ */
+
+.slidev-layout.cover {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-image: url('/images/fondo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: left;
+  overflow: hidden;
+}
+
+.slidev-layout.cover .cover-logo {
+  position: absolute;
+  top: 7%;
+  left: 7%;
+  z-index: 2;
+}
+
+.slidev-layout.cover .cover-logo img {
+  height: 110px;
+  width: auto;
+}
+
+.slidev-layout.cover .cover-content {
+  position: absolute;
+  top: 30%;
+  left: 7%;
+  max-width: 70%;
+  z-index: 2;
+}
+
+.slidev-layout.cover .cover-content h1 {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #000000;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  text-transform: none;
+  letter-spacing: -0.5px;
+}
+
+.slidev-layout.cover .cover-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1A1A2E;
+  line-height: 1.35;
+  margin: 0;
+  text-transform: none;
+}
+
+.slidev-layout.cover .cover-author {
+  position: absolute;
+  bottom: 8%;
+  left: 7%;
+  z-index: 2;
+}
+
+.slidev-layout.cover .cover-author p {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.slidev-layout.closing {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-image: url('/images/fondoFin.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.slidev-layout.closing .end-logos {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+}
+
+.slidev-layout.closing .end-logos img.logo-ceedcv {
+  height: 100px;
+  width: auto;
+}
+
+.slidev-layout.closing .end-logos img.logo-cc {
+  height: 85px;
+  width: auto;
+}

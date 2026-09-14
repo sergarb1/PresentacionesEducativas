@@ -1,0 +1,44 @@
+schema: spec-driven
+
+context: |
+  Proyecto de presentaciones educativas con reveal.js 5.x (HTML/CSS/JS puro).
+  Framework de diapositivas para profesorado de FP (Formación Profesional).
+  Soporta castellano por defecto.
+  Imágenes corporativas: public/inicio.png (portada), public/final.png (cierre).
+  Light mode, minimalista, profesional, técnico.
+  Estilos únicos en css/custom.css (fusión de variables + tipografía + components + layout).
+  Contenido en slides/slides.html (cada <section> es una diapositiva).
+  Exportación a PDF con decktape.
+
+rules:
+  proposal:
+    - Incluir audiencia objetivo (¿para qué alumnado?)
+    - Definir duración estimada de la presentación
+    - Especificar idioma (castellano por defecto)
+    - Mencionar si requiere imágenes corporativas
+    - Mantener propuestas concisas y accionables
+  tasks:
+    - Cada <section> es una diapositiva independiente
+    - Usar class="fragment" para revelar contenido progresivamente
+    - Incluir validación visual al final
+    - Comprobar inicio.png solo en portada
+    - Comprobar final.png solo en cierre
+    - Eliminar placeholders antes de finalizar
+    - Ejecutar npm run dev para verificar
+  specs:
+    - Documentar estilos CSS creados en css/custom.css
+    - Especificar estructura HTML de las diapositivas
+    - Detallar fragmentos reveal.js utilizados
+
+operations:
+  apply:
+    guidance:
+      - Ejecutar npm run dev tras cada cambio significativo
+      - Comprobar que no hay overflow en diapositivas
+      - Verificar que las tablas tienen border-radius: 10px
+      - Comprobar contraste y legibilidad
+  archive:
+    guidance:
+      - Resumir diapositivas creadas
+      - Confirmar que imágenes corporativas están correctamente ubicadas
+      - Verificar que el HTML es válido

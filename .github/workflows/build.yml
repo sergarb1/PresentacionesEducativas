@@ -1,0 +1,47 @@
+name: Build and Export
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Build presentation
+        run: npm run build
+
+      - name: Export PDF
+        run: npx slidev export --output presentacion.pdf
+
+      - name: Export PowerPoint
+        run: npx slidev export --format pptx --output presentacion.pptx
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: presentacion-pdf
+          path: presentacion.pdf
+
+      - name: Upload PPTX
+        uses: actions/upload-artifact@v4
+        with:
+          name: presentacion-pptx
+          path: presentacion.pptx
