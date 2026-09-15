@@ -27,6 +27,7 @@
 - Escala tipogràfica moderada: base de 18 px; títol de portada de 2.6 rem. No augmentar-la sense revisar la composició.
 - Taules amb cantonades redones (`border-radius: 12px`) i capçalera blava
 - Cap element pot superar la mida de la diapositiva (sense desbordaments)
+- **Contrast en blocs de codi**: Assegurar que tot el codi dins de blocs `<pre>` tinga contrast suficient. Per a fons oscurs (#1E293B, #0F172A), usar colors clars (#E2E8F0, #F8F9FA). Per a fons clars, usar colors foscos. Evitar colors intermedis com #94A3B8 sobre fons oscurs. Prioritzar l'ús de `.code-card` o blocs markdown amb Shiki en lloc d'estils inline.
 
 ### Components i Estils
 Tots els estils compartits es defineixen a `styles/index.css`:
@@ -41,11 +42,11 @@ Tots els estils compartits es defineixen a `styles/index.css`:
 - `.two-cols` — maquetació en 2 columnes
 
 ### Contingut Markdown
-- Els Markdown font viuen a `input/`; `slides/` només conserva HTML heretat o material pendent de convertir.
+- Els Markdown font viuen a `input/`.
 - Les entrades de l'arrel importen el Markdown de `input/` perquè Slidev carregue els estils i layouts compartits.
 - Nomenclatura obligatòria: `udXX-modul-tema.md`, amb el mòdul en minúscules (`ud01-prg-...`, `ud01-psp-...`). L'entrada de l'arrel i el Markdown d'`input/` han de compartir el mateix nom.
-- No executar Slidev directament contra un fitxer d'`input/`: usa sempre l'entrada de l'arrel corresponent o `slides.md`.
-- Els fitxers Markdown d'`input/` són material docent local i no es versionen; els HTML heretats tampoc.
+- No executar Slidev directament contra un fitxer d'`input/`: usa sempre l'entrada de l'arrel corresponent.
+- Els fitxers Markdown d'`input/` són material docent local i no es versionen.
 - Separador de diapositives: `---`.
 - Frontmatter YAML per a configuració general de la presentació o de cada diapositiva.
 - Codi amb blocs tancats de markdown (```java) o targetes `.code-card`.
@@ -65,7 +66,7 @@ npm run export -- ud01-psp-python-basico-tipos-colecciones.md --format png --out
 ## Estructura
 
 ```
-Presentaciones/
+PresentacionesEducativas/
 ├── styles/
 │   └── index.css               # Estils compartits (variables + components + layouts)
 ├── layouts/
@@ -79,9 +80,7 @@ Presentaciones/
 │       └── logoCEEDCV.png      # Logo Generalitat Valenciana / CEEDCV
 ├── input/                      # Markdown font local (ignorat per Git)
 │   └── udXX-modul-tema.md
-├── slides/                     # HTML heretat / material a convertir
 ├── udXX-modul-tema.md          # Entrada Slidev que importa input/udXX-modul-tema.md
-├── slides.md                   # Presentació principal / índex
 ├── output/                     # Exportacions generades (ignorat per Git)
 ├── package.json
 ├── .gitignore

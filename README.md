@@ -31,11 +31,9 @@ npm run build -- ud01-psp-python-basico-flujo-funciones.md --out dist/python-flu
 .
 ├── ud01-prg-*.md           # Entrades Slidev de Programació
 ├── ud01-psp-*.md           # Entrades Slidev de Serveis i Processos
-├── slides.md               # Índex de la unitat
 ├── input/                  # Markdown font local (no versionat)
 │   ├── ud01-prg-*.md
 │   └── ud01-psp-*.md
-├── slides/                 # HTML heretat o material pendent de convertir
 ├── layouts/
 │   ├── cover.vue           # Portada amb fondo.png i logo CEEDCV
 │   └── closing.vue         # Tancament amb fondoFin.png i logos
@@ -108,6 +106,7 @@ Per a PDF, PNG i PPTX, Slidev usa Chromium mitjançant Playwright. Si és la pri
 - `public/images/fondo.png`: només portada.
 - `public/images/fondoFin.png`: només tancament.
 - No uses les imatges corporatives com a fons en diapositives intermèdies.
+- **Contrast en blocs de codi**: Fons oscurs (#1E293B) amb text clar (#E2E8F0). Evitar colors intermedis. Usa `.code-card` o blocs markdown amb Shiki.
 
 ## Llicència
 

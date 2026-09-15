@@ -162,6 +162,151 @@
 }
 
 /* ══════════════════════════════════════════
+   CODE-CARD DARK THEME
+   Forces readable light colors on dark #1E293B background
+   ══════════════════════════════════════════ */
+
+/* Base: all text inside .code-card pre is light by default */
+.code-card pre,
+.code-card pre code,
+.code-card pre code * {
+  color: #E2E8F0 !important;
+}
+
+.code-card pre {
+  background: #1E293B !important;
+  color: #E2E8F0 !important;
+  padding: 12px 16px !important;
+}
+
+.code-card pre code {
+  background: transparent !important;
+}
+
+/* All direct children and spans inherit light color unless overridden below */
+.code-card pre *,
+.code-card pre code * {
+  color: inherit;
+}
+
+/* Token overrides — bright, readable colors on dark bg */
+.code-card .keyword,
+.code-card .type,
+.code-card .class-name,
+.code-card .tag {
+  color: #C084FC !important;
+}
+
+.code-card .string,
+.code-card .char {
+  color: #86EFAC !important;
+}
+
+.code-card .comment,
+.code-card .block-comment {
+  color: #CBD5E1 !important;
+  font-style: italic;
+}
+
+.code-card .function,
+.code-card .method {
+  color: #60A5FA !important;
+}
+
+.code-card .number {
+  color: #FCA5A5 !important;
+}
+
+.code-card .variable,
+.code-card .property {
+  color: #F0ABFC !important;
+}
+
+.code-card .operator,
+.code-card .punctuation {
+  color: #FDE68A !important;
+}
+
+.code-card .decorator {
+  color: #FDE68A !important;
+}
+
+.code-card .builtin {
+  color: #38BDF8 !important;
+}
+
+/* ══════════════════════════════════════════
+   SHIKI DARK THEME (fallback for non-.code-card blocks)
+   ══════════════════════════════════════════ */
+
+.slidev-layout pre.shiki,
+.slidev-layout pre[data-theme="dark"] {
+  background: #1E293B !important;
+  color: #E2E8F0 !important;
+}
+
+.slidev-layout pre.shiki span,
+.slidev-layout pre[data-theme="dark"] span {
+  color: inherit;
+}
+
+.slidev-layout pre.shiki .keyword,
+.slidev-layout pre[data-theme="dark"] .keyword {
+  color: #C084FC !important;
+}
+
+.slidev-layout pre.shiki .string,
+.slidev-layout pre[data-theme="dark"] .string {
+  color: #86EFAC !important;
+}
+
+.slidev-layout pre.shiki .comment,
+.slidev-layout pre[data-theme="dark"] .comment {
+  color: #CBD5E1 !important;
+  font-style: italic;
+}
+
+.slidev-layout pre.shiki .function,
+.slidev-layout pre[data-theme="dark"] .function {
+  color: #60A5FA !important;
+}
+
+.slidev-layout pre.shiki .number,
+.slidev-layout pre[data-theme="dark"] .number {
+  color: #FCA5A5 !important;
+}
+
+.slidev-layout pre.shiki .type,
+.slidev-layout pre[data-theme="dark"] .type {
+  color: #38BDF8 !important;
+}
+
+.slidev-layout pre.shiki .variable,
+.slidev-layout pre[data-theme="dark"] .variable {
+  color: #F0ABFC !important;
+}
+
+.slidev-layout pre.shiki .operator,
+.slidev-layout pre[data-theme="dark"] .operator {
+  color: #FDE68A !important;
+}
+
+.slidev-layout pre.shiki .punctuation,
+.slidev-layout pre[data-theme="dark"] .punctuation {
+  color: #CBD5E1 !important;
+}
+
+.slidev-layout pre.shiki .class-name,
+.slidev-layout pre[data-theme="dark"] .class-name {
+  color: #38BDF8 !important;
+}
+
+.slidev-layout pre.shiki .decorator,
+.slidev-layout pre[data-theme="dark"] .decorator {
+  color: #FDE68A !important;
+}
+
+/* ══════════════════════════════════════════
    LLISTES
    ══════════════════════════════════════════ */
 
@@ -348,7 +493,7 @@
 .code-card-dots span:nth-child(3) { background: #22C55E; }
 
 .code-card-title {
-  color: #94A3B8;
+  color: #CBD5E1;
   font-size: 0.72rem;
   font-family: 'JetBrains Mono', monospace;
 }
@@ -391,7 +536,7 @@
 }
 
 .terminal .output {
-  color: #94A3B8;
+  color: #CBD5E1;
 }
 
 .terminal .highlight {
