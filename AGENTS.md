@@ -2,12 +2,14 @@
 
 ## Configuración del proyecto
 
-- **Framework**: Slidev 52.x (@slidev/cli + @slidev/theme-default)
+- **Framework**: Slidev 52.x (@slidev/cli)
+- **Temes**: `default` (@slidev/theme-default, sobri) i `bricks` (@slidev/theme-bricks, alegre, blocs de colors)
 - **Estilo**: Flat Design / Swiss Modernism, light mode, net, professional
 - **Tipografia**: Inter (800/700/600/500/400) + JetBrains Mono per a codi
 - **Idioma**: castellà per defecte, valencià per a contingut educatiu
 - **FP**: prioritzar procediments, eines, casos professionals
 - **Resolució**: 1920×1080 (Full HD, 16:9)
+- **Selecció de tema**: el tema es declara a l'entrada de l'arrel (`theme:` al frontmatter), mai dins del Markdown d'`input/`; si no, Slidev l'ignora. Els components compartits d'`styles/index.css` funcionen amb qualsevol dels dos temes.
 
 ## Regles permanents
 

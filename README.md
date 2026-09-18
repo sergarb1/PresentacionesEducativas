@@ -1,15 +1,15 @@
 # Presentaciones Educativas
 
-Presentacions educatives per a FP creades amb **Slidev 52**, en valencià i amb un disseny Flat / Swiss Modernism clar, professional i accessible.
+Presentaciones educativas para FP creadas con **Slidev 52**, en castellano y valencià, con un diseño Flat / Swiss Modernism claro, profesional y accesible.
 
-La primera diapositiva utilitza la imatge corporativa `fondo.png`; l'última utilitza `fondoFin.png`. La resta manté un fons clar i una jerarquia tipogràfica pensada per a la projecció en 16:9.
+La primera diapositiva utiliza la imagen corporativa `fondo.png`; la última utiliza `fondoFin.png`. El resto mantiene un fondo claro y una jerarquía tipográfica pensada para la proyección en 16:9.
 
-## Requisits
+## Requisitos
 
 - [Node.js](https://nodejs.org/) 20 o superior
-- `npm` (inclòs amb Node.js)
+- `npm` (incluido con Node.js)
 
-## Inici ràpid
+## Inicio rápido
 
 ```bash
 git clone https://github.com/sergarb1/PresentacionesEducativas.git
@@ -18,96 +18,108 @@ npm install
 npm run dev -- ud01-prg-pensament-computacional-bloc-01.md
 ```
 
-Tots els scripts són genèrics: després de `--` indica sempre l'entrada de l'arrel que vols processar.
+Todos los scripts son genéricos: después de `--` indica siempre la entrada de la raíz que quieres procesar.
 
 ```bash
 npm run dev -- ud01-psp-python-basico-tipos-colecciones.md
 npm run build -- ud01-psp-python-basico-flujo-funciones.md --out dist/python-flujo
 ```
 
+## Temas disponibles
+
+Puedes elegir el tema declarándolo en la entrada raíz (`theme:` en el frontmatter). El tema debe declararse en la entrada de la raíz, no en el Markdown de `input/`, para que Slidev lo cargue.
+
+| Tema | Paquete | Estilo | Uso recomendado |
+| --- | --- | --- | --- |
+| `default` | `@slidev/theme-default` | Flat / Swiss Modernism, sobrio | Presentaciones corporativas y de módulo |
+| `bricks` | `@slidev/theme-bricks` | Bloques de colores vivos, alegre | Charlas divulgativas y actividades |
+
+Los componentes compartidos (`.step`, `.info`, `.comparison-grid`, etc.) de `styles/index.css` funcionan con ambos temas.
+
 ## Estructura
 
 ```text
 .
-├── ud01-prg-*.md           # Entrades Slidev de Programació
-├── ud01-psp-*.md           # Entrades Slidev de Serveis i Processos
-├── input/                  # Markdown font local (no versionat)
+├── ud01-prg-*.md           # Entradas Slidev de Programación
+├── ud01-psp-*.md           # Entradas Slidev de Servicios y Procesos
+├── input/                  # Markdown fuente local (no versionado)
 │   ├── ud01-prg-*.md
 │   └── ud01-psp-*.md
 ├── layouts/
-│   ├── cover.vue           # Portada amb fondo.png i logo CEEDCV
-│   └── closing.vue         # Tancament amb fondoFin.png i logos
-├── styles/index.css        # Tema i components compartits
-├── public/images/          # Imatges corporatives
-└── output/                 # Exportacions generades (no versionades)
+│   ├── cover.vue           # Portada con fondo.png y logo CEEDCV
+│   └── closing.vue         # Cierre con fondoFin.png y logos
+├── styles/index.css        # Tema y componentes compartidos
+├── public/images/          # Imágenes corporativas
+└── output/                 # Exportaciones generadas (no versionadas)
 ```
 
-Les entrades de l'arrel importen el contingut local de `input/`. És important usar-les en els scripts de Slidev perquè el framework carregue `styles/` i `layouts/`. Tant `input/` com `output/` estan exclosos de Git per mantindre privats els materials docents i les exportacions.
+Las entradas de la raíz importan el contenido local de `input/`. Es importante usarlas en los scripts de Slidev para que el framework cargue `styles/` y `layouts/`. Tanto `input/` como `output/` están excluidos de Git para mantener privados los materiales docentes y las exportaciones.
 
-## Crear o editar diapositives
+## Crear o editar diapositivas
 
-Els fitxers Markdown de `input/` són el contingut editable local. Cada diapositiva se separa amb `---`.
+Los archivos Markdown de `input/` son el contenido editable local. Cada diapositiva se separa con `---`.
 
 ```markdown
 ---
 
-## Títol de la diapositiva
-### Subtítol o context
+## Título de la diapositiva
+### Subtítulo o contexto
 
 <div class="info">
-  Missatge rellevant per a l'alumnat.
+  Mensaje relevante para el alumnado.
 </div>
 ```
 
-Per a una presentació nova, usa el patró `udXX-modul-tema.md`: per exemple, `ud01-prg-estructures-control.md`. Crea el contingut a `input/` i una entrada amb el mateix nom a l'arrel:
+Para una presentación nueva, usa el patrón `udXX-modul-tema.md`: por ejemplo, `ud01-prg-estructures-control.md`. Crea el contenido en `input/` y una entrada con el mismo nombre en la raíz:
 
 ```markdown
 ---
+theme: default
 src: ./input/ud01-prg-estructures-control.md
 ---
 ```
 
-El contingut ha d'usar `layout: cover` només en portada i `layout: closing` només al final.
+El contenido debe usar `layout: cover` solo en portada y `layout: closing` solo al final.
 
-## Components disponibles
+## Componentes disponibles
 
-| Finalitat | Classes |
+| Finalidad | Clases |
 | --- | --- |
 | Avisos | `.warning`, `.info`, `.success` |
-| Processos | `.step`, `.step-number`, `.step-content` |
-| Graelles | `.features-grid`, `.feature-item`, `.feature-icon` |
-| Comparacions | `.comparison-grid`, `.comparison-item`, `.good`, `.bad` |
-| Codi | `.code-card`, `.terminal` |
-| Activitats | `.question-card`, `.answer-card` |
-| Dues columnes | `.two-cols` |
+| Procesos | `.step`, `.step-number`, `.step-content` |
+| Rejillas | `.features-grid`, `.feature-item`, `.feature-icon` |
+| Comparaciones | `.comparison-grid`, `.comparison-item`, `.good`, `.bad` |
+| Código | `.code-card`, `.terminal` |
+| Actividades | `.question-card`, `.answer-card` |
+| Dos columnas | `.two-cols` |
 
-Tots els estils estan centralitzats en `styles/index.css`.
+Todos los estilos están centralizados en `styles/index.css`.
 
-## Comandes
+## Comandos
 
-| Comanda | Descripció |
+| Comando | Descripción |
 | --- | --- |
-| `npm run dev -- entrada.md` | Obri una presentació en desenvolupament |
-| `npm run build -- entrada.md --out dist/nom` | Genera una web estàtica per publicar o servir offline |
-| `npm run export -- entrada.md --format pdf --output output/nom.pdf` | Exporta a PDF |
-| `npm run export -- entrada.md --format pptx --output output/nom.pptx` | Exporta a PowerPoint |
-| `npm run export -- entrada.md --format png --output output/nom` | Exporta una imatge PNG per diapositiva |
-| `npm run export -- entrada.md --format md --output output/nom.md` | Exporta a Markdown |
-| `npm run format -- entrada.md` | Formata el Markdown de Slidev |
+| `npm run dev -- entrada.md` | Abre una presentación en desarrollo |
+| `npm run build -- entrada.md --out dist/nombre` | Genera una web estática para publicar o servir offline |
+| `npm run export -- entrada.md --format pdf --output output/nombre.pdf` | Exporta a PDF |
+| `npm run export -- entrada.md --format pptx --output output/nombre.pptx` | Exporta a PowerPoint |
+| `npm run export -- entrada.md --format png --output output/nombre` | Exporta una imagen PNG por diapositiva |
+| `npm run export -- entrada.md --format md --output output/nombre.md` | Exporta a Markdown |
+| `npm run format -- entrada.md` | Formatea el Markdown de Slidev |
 
-Per a PDF, PNG i PPTX, Slidev usa Chromium mitjançant Playwright. Si és la primera instal·lació, `npm install` descarrega el navegador necessari. La compilació HTML crea una carpeta estàtica; per obrir-la sense internet, conserva tota la carpeta i servix-la amb un servidor local.
+Para PDF, PNG y PPTX, Slidev usa Chromium mediante Playwright. Si es la primera instalación, `npm install` descarga el navegador necesario. La compilación HTML crea una carpeta estática; para abrirla sin internet, conserva toda la carpeta y sírvela con un servidor local.
 
-## Disseny i imatges corporatives
+## Diseño e imágenes corporativas
 
-- Resolució: 1920×1080, format 16:9.
-- Tipografies: Inter per al text i JetBrains Mono per al codi.
-- Color accent: blau `#2563EB`.
-- Escala tipogràfica: 18 px de base; portada amb títol de 2.6 rem per a no saturar la composició.
-- `public/images/fondo.png`: només portada.
-- `public/images/fondoFin.png`: només tancament.
-- No uses les imatges corporatives com a fons en diapositives intermèdies.
-- **Contrast en blocs de codi**: Fons oscurs (#1E293B) amb text clar (#E2E8F0). Evitar colors intermedis. Usa `.code-card` o blocs markdown amb Shiki.
+- Resolución: 1920×1080, formato 16:9.
+- Tipografías: Inter para el texto y JetBrains Mono para el código.
+- Color acento: azul `#2563EB`.
+- Escala tipográfica: 18 px de base; portada con título de 2.6 rem para no saturar la composición.
+- `public/images/fondo.png`: solo portada.
+- `public/images/fondoFin.png`: solo cierre.
+- No uses las imágenes corporativas como fondo en diapositivas intermedias.
+- **Contraste en bloques de código**: fondos oscuros (#1E293B) con texto claro (#E2E8F0). Evitar colores intermedios. Usa `.code-card` o bloques markdown con Shiki.
 
-## Llicència
+## Licencia
 
 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
