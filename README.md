@@ -15,8 +15,9 @@ La primera diapositiva utiliza la imagen corporativa `fondo.png`; la última uti
 git clone https://github.com/sergarb1/PresentacionesEducativas.git
 cd PresentacionesEducativas
 npm install
-npm run dev -- ud01-prg-pensament-computacional-bloc-01.md
 ```
+
+Los materiales docentes (`input/` y las entradas de la raíz) no se versionan: en un clon nuevo no habrá presentaciones hasta que crees la tuya (ver [Crear o editar diapositivas](#crear-o-editar-diapositivas)).
 
 Todos los scripts son genéricos: después de `--` indica siempre la entrada de la raíz que quieres procesar.
 
@@ -40,8 +41,8 @@ Los componentes compartidos (`.step`, `.info`, `.comparison-grid`, etc.) de `sty
 
 ```text
 .
-├── ud01-prg-*.md           # Entradas Slidev de Programación
-├── ud01-psp-*.md           # Entradas Slidev de Servicios y Procesos
+├── ud01-prg-*.md           # Entradas Slidev de Programación (no versionadas)
+├── ud01-psp-*.md           # Entradas Slidev de Servicios y Procesos (no versionadas)
 ├── input/                  # Markdown fuente local (no versionado)
 │   ├── ud01-prg-*.md
 │   └── ud01-psp-*.md
