@@ -245,6 +245,21 @@
   color: #E2E8F0 !important;
 }
 
+/* Bloques markdown con Shiki dual-theme (vitesse-dark/light):
+   usar SIEMPRE la paleta dark (tokens claros) sobre el fondo oscuro forzado.
+   Sin esto, en light mode los spans usan --shiki-light (texto oscuro) y son ilegibles. */
+.slidev-layout pre.shiki span {
+  color: var(--shiki-dark, #E2E8F0) !important;
+}
+
+/* Tonos de vitesse-dark con contraste insuficiente sobre #1E293B → equivalentes AA (>=4.5:1) */
+.slidev-layout pre.shiki span[style*="--shiki-dark: #666666"] { color: #B8C4D4 !important; }
+.slidev-layout pre.shiki span[style*="--shiki-dark: #758575"] { color: #A9B7C6 !important; }
+.slidev-layout pre.shiki span[style*="--shiki-dark: #4C9A91"] { color: #63C0B2 !important; }
+.slidev-layout pre.shiki span[style*="--shiki-dark: #CB7676"] { color: #E39A9A !important; }
+.slidev-layout pre.shiki span[style*="--shiki-dark: #4D9375"] { color: #6FC49A !important; }
+.slidev-layout pre.shiki span[style*="--shiki-dark: #C98A7D"] { color: #E0A99C !important; }
+
 .slidev-layout pre.shiki span,
 .slidev-layout pre[data-theme="dark"] span {
   color: inherit;
@@ -603,6 +618,39 @@
 .badge-green { background: #F0FDF4; color: #16A34A; }
 
 /* --- Layout utils --- */
+/* Diapositivas con poco contenido: centrar verticalmente y agrandar la letra.
+   Activación: class: sparse-slide en el frontmatter de la diapositiva. */
+.slidev-layout.sparse-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 1.8rem;
+  padding-bottom: 1.8rem;
+}
+
+.slidev-layout.sparse-slide h2 {
+  font-size: 2.35rem;
+}
+
+.slidev-layout.sparse-slide h3 {
+  font-size: 1.35rem;
+}
+
+.slidev-layout.sparse-slide p {
+  font-size: 1.22rem;
+  line-height: 1.55;
+}
+
+.slidev-layout.sparse-slide ul {
+  font-size: 1.15rem;
+}
+
+.slidev-layout.sparse-slide .info,
+.slidev-layout.sparse-slide .warning,
+.slidev-layout.sparse-slide .success {
+  font-size: 1.08rem;
+}
+
 .two-cols {
   display: grid;
   grid-template-columns: 1fr 1fr;
