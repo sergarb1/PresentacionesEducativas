@@ -1,5 +1,5 @@
 ---
-theme: default
+theme: seriph
 title: "UD01 — Pensament Computacional — Bloc 01"
 author: Sergi García Barea
 fonts:

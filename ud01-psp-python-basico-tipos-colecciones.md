@@ -1,5 +1,5 @@
 ---
-theme: default
+theme: seriph
 title: "UD01 — Python básico: tipos y colecciones"
 author: Sergi García Barea
 fonts:

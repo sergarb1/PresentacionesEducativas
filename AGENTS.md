@@ -3,7 +3,7 @@
 ## Configuración del proyecto
 
 - **Framework**: Slidev 52.x (@slidev/cli)
-- **Tema**: `default` (@slidev/theme-default, sobrio) es el **tema por defecto** de todas las presentaciones. Alternativas instaladas: `seriph` (@slidev/theme-seriph, serif elegante en títulos: serio pero con más carácter, ideal si el deck resulta plano) y `bricks` (@slidev/theme-bricks, bloques de colores, tono divulgativo). El tema se elige por entrada y no se mezclan estilos entre decks.
+- **Tema**: `seriph` (@slidev/theme-seriph, serif elegante en títulos: serio pero con más carácter) es el **tema por defecto** usado en las presentaciones. Alternativas instaladas: `default` (@slidev/theme-default, sobrio de referencia) y `bricks` (@slidev/theme-bricks, bloques de colores, tono divulgativo). El tema se elige por entrada y no se mezclan estilos entre decks.
 - **Estilo**: Flat Design / Swiss Modernism, light mode, limpio, profesional
 - **Tipografía**: Inter (800/700/600/500/400) + JetBrains Mono para código
 - **Idioma**: castellano por defecto, valencià para contenido educativo
@@ -116,7 +116,7 @@ PresentacionesEducativas/
 ```markdown
 # ── udXX-modul-tema.md (entrada raíz) ──────────────
 ---
-theme: default            # alternativas: seriph (serio con carácter) o bricks (divulgativo)
+theme: seriph            # tema por defecto; default (sobrio) o bricks (divulgativo) como alternativas
 title: "Unidad XX — Título de la unidad"
 author: Sergi García Barea
 fonts:
