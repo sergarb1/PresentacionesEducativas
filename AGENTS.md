@@ -55,7 +55,7 @@ Todos los estilos compartidos se definen en `styles/index.css`:
 ### Contenido Markdown
 - Los Markdown fuente viven en `input/`.
 - Las entradas de la raíz importan el Markdown de `input/` para que Slidev cargue los estilos y layouts compartidos.
-- Nomenclatura: la entrada de la raíz, su Markdown en `input/` y el PDF de `output/` deben compartir el mismo nombre base. Patrón actual: `sesionXX-modulo-tema.md` (p. ej. `sesion01-pim-bloc-01-02.md`, `sesion01-par-bloque-01.md`); los decks anteriores a este patrón mantienen `ud01-psp-...` y `ud01-prg-...`.
+- Nomenclatura: la entrada de la raíz, su Markdown en `input/` y el PDF de `output/` deben compartir el mismo nombre base. Patrón por módulo: PIM usa `sesionXX-pim-…` (p. ej. `sesion01-pim-bloc-01-02.md`); el resto de módulos usan `udXX-modul-tema.md` con el módulo en minúsculas (`ud01-psp-...`, `ud01-prg-...`, `ud01-par-...`).
 - No ejecutar Slidev directamente contra un archivo de `input/`: usa siempre la entrada de la raíz correspondiente.
 - Los archivos Markdown de `input/` son material docente local y no se versionan.
 - Separador de diapositivas: `---`.
