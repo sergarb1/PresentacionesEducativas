@@ -32,20 +32,25 @@ Puedes elegir el tema declarándolo en la entrada raíz (`theme:` en el frontmat
 
 | Tema | Paquete | Estilo | Uso recomendado |
 | --- | --- | --- | --- |
-| `default` | `@slidev/theme-default` | Flat / Swiss Modernism, sobrio | Presentaciones corporativas y de módulo |
+| `seriph` | `@slidev/theme-seriph` | Serif elegante en títulos, serio pero con carácter | **Tema por defecto** de las presentaciones |
+| `default` | `@slidev/theme-default` | Flat / Swiss Modernism, sobrio | Presentaciones de tono formal de referencia |
 | `bricks` | `@slidev/theme-bricks` | Bloques de colores vivos, alegre | Charlas divulgativas y actividades |
 
-Los componentes compartidos (`.step`, `.info`, `.comparison-grid`, etc.) de `styles/index.css` funcionan con ambos temas.
+Los componentes compartidos (`.step`, `.info`, `.comparison-grid`, etc.) de `styles/index.css` funcionan con los tres temas: el CSS del proyecto redefine tipografía, tablas y componentes por encima del del tema.
 
 ## Estructura
 
 ```text
 .
+├── sesion01-pim-*.md       # Entradas Slidev de Proyecto Intermodular (no versionadas)
 ├── ud01-prg-*.md           # Entradas Slidev de Programación (no versionadas)
 ├── ud01-psp-*.md           # Entradas Slidev de Servicios y Procesos (no versionadas)
+├── ud01-par-*.md           # Entradas Slidev de Redes (no versionadas)
 ├── input/                  # Markdown fuente local (no versionado)
+│   ├── sesion01-pim-*.md
 │   ├── ud01-prg-*.md
-│   └── ud01-psp-*.md
+│   ├── ud01-psp-*.md
+│   └── ud01-par-*.md
 ├── layouts/
 │   ├── cover.vue           # Portada con fondo.png y logo CEEDCV
 │   └── closing.vue         # Cierre con fondoFin.png y logos
@@ -71,11 +76,11 @@ Los archivos Markdown de `input/` son el contenido editable local. Cada diaposit
 </div>
 ```
 
-Para una presentación nueva, usa el patrón `udXX-modul-tema.md`: por ejemplo, `ud01-prg-estructures-control.md`. Crea el contenido en `input/` y una entrada con el mismo nombre en la raíz:
+Para una presentación nueva, usa el patrón `udXX-modul-tema.md` con el módulo en minúsculas: por ejemplo, `ud01-prg-estructures-control.md` (Proyecto Intermodular usa `sesionXX-pim-…`). Crea el contenido en `input/` y una entrada con el mismo nombre en la raíz, donde se declara el tema:
 
 ```markdown
 ---
-theme: default
+theme: seriph
 src: ./input/ud01-prg-estructures-control.md
 ---
 ```
@@ -110,10 +115,26 @@ Todos los estilos están centralizados en `styles/index.css`.
 
 Para PDF, PNG y PPTX, Slidev usa Chromium mediante Playwright. Si es la primera instalación, `npm install` descarga el navegador necesario. La compilación HTML crea una carpeta estática; para abrirla sin internet, conserva toda la carpeta y sírvela con un servidor local.
 
+El formato de entrega habitual es **solo PDF** en `output/`, con el mismo nombre base que la entrada. El PPTX de Slidev son imágenes fijas por diapositiva, sin texto editable, así que solo se genera bajo petición explícita.
+
+## Verificación de maquetación y contraste
+
+Dos scripts en la raíz del proyecto comprueban la calidad visual de una presentación con el servidor de desarrollo abierto:
+
+```bash
+npm run dev -- ud01-psp-python-basico-tipos-colecciones.md
+# en otra terminal:
+node measure.mjs http://localhost:3030          # detecta diapositivas con contenido cortado
+node check-contrast.mjs http://localhost:3030   # contraste WCAG de los tokens de código (AA: 4.5:1)
+```
+
+`measure.mjs` avisa de diapositivas cuyo contenido supera el alto del lienzo (la portada da siempre un falso positivo por el fondo a sangre completa). `check-contrast.mjs` calcula el ratio WCAG de cada token de los bloques de código sobre su fondo real. Conviene pasarlos tras cambios de tema, de estilos globales o de diapositivas muy cargadas. Ambos necesitan Chromium vía `playwright-chromium`.
+
 ## Diseño e imágenes corporativas
 
 - Resolución: 1920×1080, formato 16:9.
 - Tipografías: Inter para el texto y JetBrains Mono para el código.
+- Tema por defecto: `seriph`, con `default` y `bricks` como alternativas.
 - Color acento: azul `#2563EB`.
 - Escala tipográfica: 18 px de base; portada con título de 2.6 rem para no saturar la composición.
 - `public/images/fondo.png`: solo portada.
