@@ -1,5 +1,5 @@
 ---
-theme: bricks
+theme: default
 title: "UD01 — Python básico: entorno y documentación"
 author: Sergi García Barea
 fonts:

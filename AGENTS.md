@@ -3,13 +3,13 @@
 ## Configuración del proyecto
 
 - **Framework**: Slidev 52.x (@slidev/cli)
-- **Tema**: `bricks` (@slidev/theme-bricks, alegre, con bloques de colores) es el **tema por defecto** de todas las presentaciones; `default` (@slidev/theme-default, sobrio) queda disponible para sesiones que pidan un tono más formal
+- **Tema**: `default` (@slidev/theme-default, sobrio) es el **tema por defecto** de todas las presentaciones. Alternativas instaladas: `seriph` (@slidev/theme-seriph, serif elegante en títulos: serio pero con más carácter, ideal si el deck resulta plano) y `bricks` (@slidev/theme-bricks, bloques de colores, tono divulgativo). El tema se elige por entrada y no se mezclan estilos entre decks.
 - **Estilo**: Flat Design / Swiss Modernism, light mode, limpio, profesional
 - **Tipografía**: Inter (800/700/600/500/400) + JetBrains Mono para código
 - **Idioma**: castellano por defecto, valencià para contenido educativo
 - **FP**: priorizar procedimientos, herramientas, casos profesionales
 - **Resolución**: 1920×1080 (Full HD, 16:9)
-- **Selección de tema**: el tema se declara en la entrada de la raíz (`theme:` en el frontmatter), nunca dentro del Markdown de `input/`; si no, Slidev lo ignora. Los componentes compartidos de `styles/index.css` funcionan con cualquiera de los dos temas. Con `bricks` la paleta viva del tema puede prevalecer sobre las reglas de Diseño pensadas para `default` (acento único #2563EB, tablas con cabecera azul, etc.).
+- **Selección de tema**: el tema se declara en la entrada de la raíz (`theme:` en el frontmatter), nunca dentro del Markdown de `input/`; si no, Slidev lo ignora. Los componentes compartidos de `styles/index.css` funcionan con cualquiera de los tres temas (verificado con `measure.mjs` y `check-contrast.mjs`): nuestro CSS redefine tipografía, tablas y componentes por encima del del tema. Con `bricks` la paleta viva del tema puede prevalecer sobre las reglas de Diseño pensadas para `default` (acento único #2563EB, tablas con cabecera azul, etc.).
 
 ## Reglas permanentes
 
@@ -116,7 +116,7 @@ PresentacionesEducativas/
 ```markdown
 # ── udXX-modul-tema.md (entrada raíz) ──────────────
 ---
-theme: bricks            # tema por defecto; default para un tono más formal
+theme: default            # alternativas: seriph (serio con carácter) o bricks (divulgativo)
 title: "Unidad XX — Título de la unidad"
 author: Sergi García Barea
 fonts:

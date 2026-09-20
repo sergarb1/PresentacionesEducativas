@@ -14,6 +14,7 @@
     "@slidev/cli": "^52.19.1",
     "@slidev/theme-bricks": "^0.25.0",
     "@slidev/theme-default": "^0.25.0",
+    "@slidev/theme-seriph": "^0.25.0",
     "playwright-chromium": "^1.63.0"
   }
 }
