@@ -398,6 +398,47 @@
   font-size: 1.05em;
 }
 
+/* --- Frase destacada ("La idea en una frase") --- */
+.key-idea {
+  position: relative;
+  max-width: 56rem;
+  margin: 1.8rem auto 0;
+  padding: 1.5rem 2rem 1.5rem 3.9rem;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-left: 6px solid #2563EB;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(26, 26, 46, 0.07);
+  box-sizing: border-box;
+}
+
+.key-idea::before {
+  content: '\201C';
+  position: absolute;
+  left: 1.05rem;
+  top: 0.5rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 3.4rem;
+  line-height: 1;
+  color: #2563EB;
+  opacity: 0.5;
+}
+
+.key-idea .key-idea-text {
+  font-size: 1.42rem;
+  line-height: 1.55;
+  color: #1A1A2E;
+  font-weight: 500;
+}
+
+.key-idea .key-idea-text strong {
+  color: #2563EB;
+}
+
+.key-idea .key-idea-text code {
+  font-size: 0.92em;
+}
+
 /* --- Pasos / Processos --- */
 .step {
   display: flex;
@@ -620,6 +661,54 @@
 /* --- Layout utils --- */
 /* Diapositivas con poco contenido: centrar verticalmente y agrandar la letra.
    Activación: class: sparse-slide en el frontmatter de la diapositiva. */
+/* Diapositivas densas: compactación puntual (solo donde haga falta, nunca global).
+   Activación: class: compact-slide en el frontmatter de la diapositiva. */
+.slidev-layout.compact-slide {
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+}
+
+.slidev-layout.compact-slide h2 {
+  font-size: 1.85rem;
+  margin-bottom: 0.35rem;
+}
+
+.slidev-layout.compact-slide h3 {
+  font-size: 1.12rem;
+  margin-bottom: 0.4rem;
+}
+
+.slidev-layout.compact-slide p {
+  font-size: 0.92rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.slidev-layout.compact-slide table {
+  font-size: 0.8rem;
+  margin: 0.45rem auto;
+}
+
+.slidev-layout.compact-slide table td,
+.slidev-layout.compact-slide table th {
+  padding: 4px 12px;
+}
+
+.slidev-layout.compact-slide pre {
+  margin: 0.4rem 0;
+}
+
+.slidev-layout.compact-slide .info,
+.slidev-layout.compact-slide .warning,
+.slidev-layout.compact-slide .success {
+  font-size: 0.88rem;
+  padding: 0.5rem 0.85rem;
+  margin: 0.35rem 0;
+}
+
+.slidev-layout.compact-slide .two-cols {
+  align-items: start;
+}
 .slidev-layout.sparse-slide {
   display: flex;
   flex-direction: column;

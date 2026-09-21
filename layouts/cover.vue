@@ -7,16 +7,27 @@
       <slot />
     </div>
     <div class="cover-author">
-      <p>{{ author || 'Sergi García Barea' }}</p>
+      <p>{{ autorPortada }}</p>
     </div>
   </div>
 </template>
 
 <script setup>
-defineProps({
+import { computed } from 'vue'
+import { useSlideContext } from '@slidev/client/context.ts'
+
+const props = defineProps({
   author: {
     type: String,
-    default: 'Sergi García Barea'
+    default: ''
   }
 })
+
+// $frontmatter contiene el frontmatter de la diapositiva actual
+const { $frontmatter } = useSlideContext()
+
+// Prioridad: prop explícito > frontmatter de la slide > default del proyecto
+const autorPortada = computed(() =>
+  props.author || $frontmatter?.value?.author || $frontmatter?.author || 'Sergi García Barea'
+)
 </script>
