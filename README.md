@@ -56,7 +56,8 @@ Los componentes compartidos (`.step`, `.info`, `.comparison-grid`, etc.) de `sty
 │   └── closing.vue         # Cierre con fondoFin.png y logos
 ├── styles/index.css        # Tema y componentes compartidos
 ├── public/images/          # Imágenes corporativas
-├── public/diagrams/        # Diagramas .excalidraw (versionados)
+├── public/diagrams/        # Copia servible de los diagramas (versionada)
+├── input/diagrams/         # Diagramas .excalidraw canónicos (no versionados)
 ├── .agents/skills/         # Skills del agente (excalidraw-skill)
 ├── .mcp.json               # Servidor MCP de Excalidraw (stdio)
 └── output/                 # Exportaciones generadas (no versionadas)
@@ -143,7 +144,7 @@ node check-contrast.mjs http://localhost:3030   # contraste WCAG de los tokens d
 
 ## Diagramas con Excalidraw
 
-Los diagramas se dibujan con [`mcp-excalidraw-server`](https://www.npmjs.com/package/mcp-excalidraw-server) (incluido como devDependency) y se guardan como `.excalidraw` en `public/diagrams/`, donde quedan versionados como artefactos del repo. Se pueden incrustar en cualquier diapositiva con el addon `slidev-addon-excalidraw`.
+Los diagramas se dibujan con [`mcp-excalidraw-server`](https://www.npmjs.com/package/mcp-excalidraw-server) (incluido como devDependency). El archivo canónico vive en `input/diagrams/` (con tu material docente local, fácil de incluir en la copia de seguridad) y siempre se deja una copia en `public/diagrams/` (versionada), que es la ruta que sirve el addon `slidev-addon-excalidraw` al incrustar. Se pueden incrustar en cualquier diapositiva con el addon `slidev-addon-excalidraw`.
 
 Hay tres interfaces equivalentes sobre el mismo lienzo (`http://127.0.0.1:3000`, se auto-arranca):
 
@@ -163,8 +164,9 @@ npx mcp-excalidraw-server add - <<'EOF'
 ]
 EOF
 
-# 2) Guardar el resultado como artefacto del repo
-npx mcp-excalidraw-server export --out public/diagrams/ud02-prg-mi-diagrama.excalidraw
+# 2) Guardar el canónico en input/ y dejar la copia servible en public/
+npx mcp-excalidraw-server export --out input/diagrams/ud02-prg-mi-diagrama.excalidraw
+cp input/diagrams/ud02-prg-mi-diagrama.excalidraw public/diagrams/
 ```
 
 Para incrustarlo en una diapositiva (el addon ya está en las entradas que lo usan):
