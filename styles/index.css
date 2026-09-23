@@ -762,8 +762,9 @@
   align-items: center;
 }
 
-.left { text-align: left; }
-.right { text-align: right; }
+/* .left/.right son columnas de .two-cols: el contenido (steps, info,
+   terminal) siempre alineado a la izquierda aunque la columna esté a la derecha */
+.left, .right { text-align: left; }
 
 /* ══════════════════════════════════════════
    LAYOUTS: COVER & END
