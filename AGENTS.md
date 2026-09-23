@@ -88,7 +88,9 @@ npm run export -- ud01-psp-python-basico-tipos-colecciones.md --format png --out
 
 - `measure.mjs` — detecta diapositivas cuyo contenido desborda el lienzo (texto cortado por abajo). Uso: arranca el servidor de desarrollo (`npm run dev -- <entrada>.md`) y ejecuta `node measure.mjs http://localhost:3030` con el puerto que corresponda. La portada (diapositiva 1) da siempre un falso positivo por el fondo a sangre completa: hay que ignorarla.
 - `check-contrast.mjs` — calcula el contraste WCAG de cada token de los bloques de código sobre su fondo real. Uso: `node check-contrast.mjs http://localhost:3030` con el servidor abierto. Avisa si algún token baja de 4.5:1 (nivel AA).
-- Ambos necesitan Chromium vía `playwright-chromium` (ya está en las dependencias de desarrollo). Conviene pasarlos tras cambios de tema, de estilos globales o de diapositivas muy cargadas.
+- `check-empty.mjs` — recorre todas las diapositivas del deck y marca las que quedan sin contenido visible (excluye portada y cierre corporativos). Uso: `node check-empty.mjs http://localhost:3030 <nº diapositivas>`. **Pasar siempre tras insertar o borrar diapositivas**: un separador duplicado crea páginas en blanco.
+- `debug-overflow.mjs` y `screenshot.mjs` — auxiliares de diagnóstico puntual (detalle de qué desborda una diapositiva concreta; captura PNG de una diapositiva).
+- Todos necesitan Chromium vía `playwright-chromium` (ya está en las dependencias de desarrollo). Conviene pasarlos tras cambios de tema, de estilos globales, de diapositivas muy cargadas o al insertar/borrar diapositivas.
 
 `npm run build` genera una web estática; `npm run export` admite los formatos `pdf`, `png`, `pptx` y `md`. Si Chromium no puede iniciarse dentro del sandbox, PDF, PNG y PPTX necesitan ejecutarse fuera de este.
 
@@ -124,7 +126,12 @@ PresentacionesEducativas/
 │   └── diagrams/               # Diagramas .excalidraw canónicos (con el material docente)
 ├── udXX-modul-tema.md          # Entrada Slidev que importa input/udXX-modul-tema.md
 ├── output/                     # Exportaciones generadas (ignorado por Git)
+├── measure.mjs                 # Scripts de verificación (ver sección Herramientas):
+├── check-contrast.mjs          #   desbordamientos, contraste AA, barrido de vacías
+├── check-empty.mjs             #   y auxiliares de diagnóstico (debug-overflow, screenshot)
 ├── package.json
+├── .mcp.json                   # Servidor MCP de Excalidraw (stdio)
+├── .agents/skills/             # Skills del agente (excalidraw-skill)
 ├── .gitignore
 ├── AGENTS.md                   # Este archivo
 ├── README.md

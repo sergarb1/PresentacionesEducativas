@@ -55,6 +55,9 @@ Los componentes compartidos (`.step`, `.info`, `.comparison-grid`, etc.) de `sty
 │   ├── cover.vue           # Portada con fondo.png y logo CEEDCV
 │   └── closing.vue         # Cierre con fondoFin.png y logos
 ├── styles/index.css        # Tema y componentes compartidos
+├── measure.mjs             # Verificación: desbordamientos, contraste AA,
+├── check-contrast.mjs      # barrido de diapositivas vacías y auxiliares
+├── check-empty.mjs         # de diagnóstico (debug-overflow, screenshot)
 ├── public/images/          # Imágenes corporativas
 ├── public/diagrams/        # Copia servible de los diagramas (versionada)
 ├── input/diagrams/         # Diagramas .excalidraw canónicos (no versionados)
@@ -132,13 +135,14 @@ El formato de entrega habitual es **solo PDF** en `output/`, con el mismo nombre
 
 ## Verificación de maquetación y contraste
 
-Dos scripts en la raíz del proyecto comprueban la calidad visual de una presentación con el servidor de desarrollo abierto:
+Tres scripts en la raíz del proyecto comprueban la calidad visual de una presentación con el servidor de desarrollo abierto:
 
 ```bash
 npm run dev -- ud01-psp-python-basico-tipos-colecciones.md
 # en otra terminal:
-node measure.mjs http://localhost:3030          # detecta diapositivas con contenido cortado
-node check-contrast.mjs http://localhost:3030   # contraste WCAG de los tokens de código (AA: 4.5:1)
+node measure.mjs http://localhost:3030                  # detecta diapositivas con contenido cortado
+node check-contrast.mjs http://localhost:3030           # contraste WCAG de los tokens de código (AA: 4.5:1)
+node check-empty.mjs http://localhost:3030 32           # barrido de diapositivas sin contenido
 ```
 
 `measure.mjs` avisa de diapositivas cuyo contenido supera el alto del lienzo (la portada da siempre un falso positivo por el fondo a sangre completa). `check-contrast.mjs` calcula el ratio WCAG de cada token de los bloques de código sobre su fondo real. `check-empty.mjs` recorre el deck y marca diapositivas sin contenido visible (útil tras insertar o borrar diapositivas: un separador duplicado crea una página vacía). Los tres necesitan Chromium vía `playwright-chromium`.
