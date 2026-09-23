@@ -15,6 +15,8 @@
     "@slidev/theme-bricks": "^0.25.0",
     "@slidev/theme-default": "^0.25.0",
     "@slidev/theme-seriph": "^0.25.0",
-    "playwright-chromium": "^1.63.0"
+    "mcp-excalidraw-server": "^2.0.0",
+    "playwright-chromium": "^1.63.0",
+    "slidev-addon-excalidraw": "^1.1.1"
   }
 }

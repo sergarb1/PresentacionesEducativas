@@ -92,6 +92,13 @@ npm run export -- ud01-psp-python-basico-tipos-colecciones.md --format png --out
 
 Formato de entrega habitual: **solo PDF** en `output/`, con el mismo nombre base que la entrada (p. ej. `sesion01-pim-bloc-03-04.md` → `output/sesion01-pim-bloc-03-04.pdf`). El PPTX de Slidev son imágenes fijas por diapositiva, sin texto editable, y no aporta valor: no generar PPTX salvo petición explícita.
 
+### Diagramas con Excalidraw
+
+- Los diagramas se crean con `mcp-excalidraw-server` (devDependency) y se guardan como `.excalidraw` en `public/diagrams/` (versionado). Nombres alineados con la entrada: `udXX-prg-<tema>.excalidraw`.
+- Tres interfaces equivalentes: la skill del agente (`.agents/skills/excalidraw-skill/`, preferente: carga `excalidraw-skill` y sigue su flujo `add → screenshot → ajustar → export`), el CLI (`npx mcp-excalidraw-server <comando>`) y el servidor MCP declarado en `.mcp.json` (stdio). El lienzo vive en `http://127.0.0.1:3000` y se auto-arranca; capturas y conversión `mermaid` requieren una pestaña del navegador abierta.
+- Para incrustar en una diapositiva: declara `addons: [slidev-addon-excalidraw]` en el frontmatter de la entrada raíz y usa `<Excalidraw drawFilePath="/diagrams/x.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />` dentro de un `<div class="diagram-frame">` (estilos en `styles/index.css`). La ruta es relativa a `public/`.
+- Formato apaisado: el lienzo interno es 980×551 px, así que diseña filas de 2–3 cajas o árboles poco profundos; si el diagrama no cabe, partir en dos diapositivas.
+
 ## Estructura
 
 ```
@@ -103,11 +110,12 @@ PresentacionesEducativas/
 │   ├── cover.vue               # Layout de portada (fondo fondo.png + logo CEEDCV + autor)
 │   └── closing.vue             # Layout de cierre (fondo fondoFin.png + logos centrados)
 ├── public/
-│   └── images/
-│       ├── fondo.png           # Fondo de portada
-│       ├── fondoFin.png        # Fondo de cierre
-│       ├── logoCCBYSA.png      # Logo Creative Commons
-│       └── logoCEEDCV.png      # Logo Generalitat Valenciana / CEEDCV
+│   ├── images/
+│   │   ├── fondo.png           # Fondo de portada
+│   │   ├── fondoFin.png        # Fondo de cierre
+│   │   ├── logoCCBYSA.png      # Logo Creative Commons
+│   │   └── logoCEEDCV.png      # Logo Generalitat Valenciana / CEEDCV
+│   └── diagrams/               # Diagramas .excalidraw (versionados)
 ├── input/                      # Markdown fuente local (ignorado por Git)
 │   └── udXX-modul-tema.md
 ├── udXX-modul-tema.md          # Entrada Slidev que importa input/udXX-modul-tema.md

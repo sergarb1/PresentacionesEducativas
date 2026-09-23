@@ -56,6 +56,9 @@ Los componentes compartidos (`.step`, `.info`, `.comparison-grid`, etc.) de `sty
 │   └── closing.vue         # Cierre con fondoFin.png y logos
 ├── styles/index.css        # Tema y componentes compartidos
 ├── public/images/          # Imágenes corporativas
+├── public/diagrams/        # Diagramas .excalidraw (versionados)
+├── .agents/skills/         # Skills del agente (excalidraw-skill)
+├── .mcp.json               # Servidor MCP de Excalidraw (stdio)
 └── output/                 # Exportaciones generadas (no versionadas)
 ```
 
@@ -137,6 +140,47 @@ node check-contrast.mjs http://localhost:3030   # contraste WCAG de los tokens d
 ```
 
 `measure.mjs` avisa de diapositivas cuyo contenido supera el alto del lienzo (la portada da siempre un falso positivo por el fondo a sangre completa). `check-contrast.mjs` calcula el ratio WCAG de cada token de los bloques de código sobre su fondo real. Conviene pasarlos tras cambios de tema, de estilos globales o de diapositivas muy cargadas. Ambos necesitan Chromium vía `playwright-chromium`.
+
+## Diagramas con Excalidraw
+
+Los diagramas se dibujan con [`mcp-excalidraw-server`](https://www.npmjs.com/package/mcp-excalidraw-server) (incluido como devDependency) y se guardan como `.excalidraw` en `public/diagrams/`, donde quedan versionados como artefactos del repo. Se pueden incrustar en cualquier diapositiva con el addon `slidev-addon-excalidraw`.
+
+Hay tres interfaces equivalentes sobre el mismo lienzo (`http://127.0.0.1:3000`, se auto-arranca):
+
+- **Skill del agente** (recomendada): `.agents/skills/excalidraw-skill/` — el agente la carga y sigue el flujo `add → screenshot → ajustar → export`.
+- **CLI**: `npx mcp-excalidraw-server <comando>` (`add`, `describe`, `screenshot`, `export`, `mermaid`…).
+- **MCP**: servidor stdio declarado en `.mcp.json`, compatible con clientes MCP (Claude Desktop, Cursor, Codebuff…).
+
+Flujo típico:
+
+```bash
+# 1) Dibujar (elementos JSON con etiquetas y flechas enlazadas por id)
+npx mcp-excalidraw-server add - <<'EOF'
+[
+  {"id": "a", "type": "rectangle", "x": 40, "y": 80, "width": 190, "height": 80, "text": "Fuente", "backgroundColor": "#e3f2fd", "strokeColor": "#1565c0", "fillStyle": "solid"},
+  {"id": "b", "type": "rectangle", "x": 420, "y": 80, "width": 210, "height": 80, "text": "Destino", "backgroundColor": "#e8f5e9", "strokeColor": "#2e7d32", "fillStyle": "solid"},
+  {"type": "arrow", "x": 0, "y": 0, "startElementId": "a", "endElementId": "b"}
+]
+EOF
+
+# 2) Guardar el resultado como artefacto del repo
+npx mcp-excalidraw-server export --out public/diagrams/ud02-prg-mi-diagrama.excalidraw
+```
+
+Para incrustarlo en una diapositiva (el addon ya está en las entradas que lo usan):
+
+```markdown
+---
+---
+
+## El diagrama
+
+<div class="diagram-frame">
+  <Excalidraw drawFilePath="/diagrams/ud02-prg-mi-diagrama.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />
+</div>
+```
+
+Consejos: el lienzo interno es 980×551 px — diseña diagramas apaisados (filas de 2–3 cajas o árboles poco profundos); capturas y conversión desde Mermaid requieren una pestaña del navegador abierta en `http://127.0.0.1:3000`.
 
 ## Diseño e imágenes corporativas
 
