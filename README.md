@@ -96,10 +96,18 @@ El contenido debe usar `layout: cover` solo en portada y `layout: closing` solo 
 | Rejillas | `.features-grid`, `.feature-item`, `.feature-icon` |
 | Comparaciones | `.comparison-grid`, `.comparison-item`, `.good`, `.bad` |
 | Código | `.code-card`, `.terminal` |
+| Marcar errores en código | `.error-inline` |
 | Actividades | `.question-card`, `.answer-card` |
 | Dos columnas | `.two-cols` |
 
 Todos los estilos están centralizados en `styles/index.css`.
+
+### Reglas para bloques de código y cierre
+
+- Los bloques HTML `<pre><code>` no deben contener líneas en blanco: el parser de markdown las convierte en `<p>` y rompe el bloque (el export falla con "Element is missing end tag"). Compacta el código o divide la diapositiva.
+- Indenta el contenido de los `<pre><code>` (en Java, 4 espacios): el bloque empieza en la columna del `pre` y el código se sangra dentro. Un cuerpo pegado a columna 0 dentro de una `.code-card` se ve mal maquetado.
+- La diapositiva de cierre (`layout: closing`) va vacía: el layout ya compone el fondo `fondoFin.png` con los logos centrados, así que no añadas títulos ni texto.
+- Los componentes (`.step`, `.info`, `.terminal`…) se usan tal cual están definidos en `styles/index.css`; si un número de paso queda lejos de su texto, se ajusta el componente en el CSS compartido, no en la diapositiva.
 
 ## Comandos
 

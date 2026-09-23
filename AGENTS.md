@@ -38,6 +38,7 @@
 - **Contraste en bloques de código**: asegurar que todo el código dentro de bloques `<pre>` tenga contraste suficiente. Para fondos oscuros (#1E293B, #0F172A), usar colores claros (#E2E8F0, #F8F9FA). Para fondos claros, usar colores oscuros. Evitar colores intermedios como #94A3B8 sobre fondos oscuros. Priorizar el uso de `.code-card` o bloques markdown con Shiki en lugar de estilos inline.
 - **Shiki dual-theme**: los bloques markdown (```python, ```java...) se renderizan con doble tema (vitesse-dark/vitesse-light). `styles/index.css` fuerza siempre la paleta dark (`.slidev-layout pre.shiki span { color: var(--shiki-dark) }`) sobre el fondo oscuro #1E293B, con overrides a equivalentes AA para los tonos con poco contraste (#666666, #758575, #4C9A91, #CB7676...). Sin esas reglas, en light mode el texto sale oscuro sobre oscuro e ilegible (pasó en las presentaciones de PSP). No eliminarlas.
 - Verificación de contraste de código: `node check-contrast.mjs <url>` (dev server abierto). Calcula el ratio WCAG de cada token Shiki sobre su fondo real y avisa si alguno baja de 4.5:1.
+- **Estilos inline en HTML de diapositivas**: usar solo para compactación puntual de esa diapositiva. Los estilos de lista (`.step`, `.code-card`, `.terminal`, etc.) van en `styles/index.css`, no inline.
 
 ### Componentes y Estilos
 Todos los estilos compartidos se definen en `styles/index.css`:
@@ -55,12 +56,16 @@ Todos los estilos compartidos se definen en `styles/index.css`:
 ### Contenido Markdown
 - Los Markdown fuente viven en `input/`.
 - Las entradas de la raíz importan el Markdown de `input/` para que Slidev cargue los estilos y layouts compartidos.
-- Nomenclatura: la entrada de la raíz, su Markdown en `input/` y el PDF de `output/` deben compartir el mismo nombre base. Patrón por módulo: PIM usa `sesionXX-pim-…` (p. ej. `sesion01-pim-bloc-01-02.md`); el resto de módulos usan `udXX-modul-tema.md` con el módulo en minúsculas (`ud01-psp-...`, `ud01-prg-...`, `ud01-par-...`).
+- Nomenclatura: la entrada de la raíz, su Markdown en `input/` y el PDF de `output/` deben compartir el mismo nombre base. Patrón por módulo: PIM usa `sesionXX-pim-…` (p. ej. `sesion01-pim-bloc-01-02.md`); el resto de módulos usan `udXX-modul-tema.md` con el módulo en minúsculas (`ud01-psp-...`, `ud01-prg-...`, `ud01-par-...`). Si una unidad se divide en bloques, el sufijo `-bloc-XX` va siempre tras el tema (p. ej. `ud02-prg-introduccio-java-bloc-01.md`), nunca en solitario.
 - No ejecutar Slidev directamente contra un archivo de `input/`: usa siempre la entrada de la raíz correspondiente.
 - Los archivos Markdown de `input/` son material docente local y no se versionan.
 - Separador de diapositivas: `---`.
 - Frontmatter YAML para configuración general de la presentación o de cada diapositiva.
 - Código con bloques cerrados de markdown (```java) o tarjetas `.code-card`.
+- **Nunca dejes líneas en blanco dentro de un `<pre><code>` HTML**: el parser de markdown inserta un `<p>` en medio, rompe el bloque y el export falla (error "Element is missing end tag"). Compacta el código o divide la diapositiva.
+- **Todo `<pre><code>` debe quedar indentado en el render**: los bloques empiezan sin sangría en la columna del `pre` y su contenido se indenta dentro (4 espacios en Java). Un cuerpo a columna 0 dentro de la tarjeta se ve mal maquetado. Tras crear diapositivas con código, verifícalo (vuelca el `innerText` de los `pre` o haz captura).
+- **Diapositiva de cierre**: con `layout: closing` no escribas título ni texto: el layout ya pinta fondo `fondoFin.png` y los logos centrados. Déjala vacía (`---\nlayout: closing\n---` al final del archivo).
+- Los pasos `.step` llevan el número en una caja y el texto justo al lado (gap 0.55rem en `styles/index.css`): no sitúes el texto lejos del número ni redefinas el componente en las diapositivas.
 
 ## Comandos
 
@@ -88,6 +93,7 @@ Formato de entrega habitual: **solo PDF** en `output/`, con el mismo nombre base
 PresentacionesEducativas/
 ├── styles/
 │   └── index.css               # Estilos compartidos (variables + componentes + layouts)
+│                               #   incluye .error-inline (marcar errores sobre código, claro y sobre fondo oscuro)
 ├── layouts/
 │   ├── cover.vue               # Layout de portada (fondo fondo.png + logo CEEDCV + autor)
 │   └── closing.vue             # Layout de cierre (fondo fondoFin.png + logos centrados)

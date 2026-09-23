@@ -235,6 +235,21 @@
   color: #38BDF8 !important;
 }
 
+/* Marcatge d'errors dins d'una diapositiva (fons clar) */
+.slidev-layout .error-inline {
+  color: #B91C1C;
+  font-weight: 700;
+  text-decoration: underline wavy;
+}
+
+/* Marcatge d'errors dins d'una code-card (fons fosc #1E293B) */
+.code-card .error-inline,
+.code-card pre code .error-inline {
+  color: #FCA5A5 !important;
+  font-weight: 700;
+  text-decoration: underline wavy;
+}
+
 /* ══════════════════════════════════════════
    SHIKI DARK THEME (fallback for non-.code-card blocks)
    ══════════════════════════════════════════ */
@@ -443,7 +458,7 @@
 .step {
   display: flex;
   align-items: flex-start;
-  gap: 0.8rem;
+  gap: 0.55rem;
   margin-bottom: 0.6rem;
 }
 
