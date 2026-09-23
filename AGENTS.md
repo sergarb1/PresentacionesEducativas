@@ -32,7 +32,7 @@
 - Una idea por diapositiva (`---`)
 - Combinar tipos: concepto, código, terminal, diagrama, actividad, tabla, etc.
 - Un solo color acento por presentación (#2563EB por defecto)
-- Escala tipográfica moderada: base de 18 px; título de portada de 2.6 rem. No aumentarla sin revisar la composición.
+- Escala tipográfica moderada: base de 18 px; título de portada de 2.2 rem, para que «Unitat XX — Tema» quepa en una línea (o el bloque en una segunda).
 - Tablas con esquinas redondeadas (`border-radius: 12px`) y cabecera azul
 - Ningún elemento puede superar el tamaño de la diapositiva (sin desbordamientos)
 - **Contraste en bloques de código**: asegurar que todo el código dentro de bloques `<pre>` tenga contraste suficiente. Para fondos oscuros (#1E293B, #0F172A), usar colores claros (#E2E8F0, #F8F9FA). Para fondos claros, usar colores oscuros. Evitar colores intermedios como #94A3B8 sobre fondos oscuros. Priorizar el uso de `.code-card` o bloques markdown con Shiki en lugar de estilos inline.

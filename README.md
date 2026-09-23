@@ -144,7 +144,7 @@ node check-contrast.mjs http://localhost:3030   # contraste WCAG de los tokens d
 - Tipografías: Inter para el texto y JetBrains Mono para el código.
 - Tema por defecto: `seriph`, con `default` y `bricks` como alternativas.
 - Color acento: azul `#2563EB`.
-- Escala tipográfica: 18 px de base; portada con título de 2.6 rem para no saturar la composición.
+- Escala tipográfica: 18 px de base; portada con título de 2.2 rem, para que «Unitat XX — Tema» quepa en una línea (o el bloque en una segunda) sin saturar la composición.
 - `public/images/fondo.png`: solo portada.
 - `public/images/fondoFin.png`: solo cierre.
 - No uses las imágenes corporativas como fondo en diapositivas intermedias.
