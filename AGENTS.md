@@ -67,6 +67,11 @@ Todos los estilos compartidos se definen en `styles/index.css`:
 - **Diapositiva de cierre**: con `layout: closing` no escribas título ni texto: el layout ya pinta fondo `fondoFin.png` y los logos centrados. Déjala vacía (`---\nlayout: closing\n---` al final del archivo).
 - Los pasos `.step` llevan el número en una caja y el texto justo al lado (gap 0.55rem en `styles/index.css`): no sitúes el texto lejos del número ni redefinas el componente en las diapositivas.
 
+### Commits
+
+- **Nunca pongas el nombre de nadie en los commits**: ni como autor, ni como coautor (`Co-Authored-By`), ni mencionado en el mensaje. El autor es quien ejecuta el commit con su propia configuración de Git.
+- **Sin marcas de herramienta**: nada de pies tipo «Generated with …» ni firmas de agentes (Codebuff u otras). El commit queda con el mensaje limpio: título conciso y, si hace falta, cuerpo explicando el porqué.
+
 ## Comandos
 
 ```bash
