@@ -103,6 +103,7 @@ El contenido debe usar `layout: cover` solo en portada y `layout: closing` solo 
 | Marcar errores en código | `.error-inline` |
 | Actividades | `.question-card`, `.answer-card` |
 | Dos columnas | `.two-cols` |
+| Diagramas Excalidraw | `.diagram-frame`, `.diagram-medium` |
 
 Todos los estilos están centralizados en `styles/index.css`.
 
@@ -140,7 +141,7 @@ node measure.mjs http://localhost:3030          # detecta diapositivas con conte
 node check-contrast.mjs http://localhost:3030   # contraste WCAG de los tokens de código (AA: 4.5:1)
 ```
 
-`measure.mjs` avisa de diapositivas cuyo contenido supera el alto del lienzo (la portada da siempre un falso positivo por el fondo a sangre completa). `check-contrast.mjs` calcula el ratio WCAG de cada token de los bloques de código sobre su fondo real. Conviene pasarlos tras cambios de tema, de estilos globales o de diapositivas muy cargadas. Ambos necesitan Chromium vía `playwright-chromium`.
+`measure.mjs` avisa de diapositivas cuyo contenido supera el alto del lienzo (la portada da siempre un falso positivo por el fondo a sangre completa). `check-contrast.mjs` calcula el ratio WCAG de cada token de los bloques de código sobre su fondo real. `check-empty.mjs` recorre el deck y marca diapositivas sin contenido visible (útil tras insertar o borrar diapositivas: un separador duplicado crea una página vacía). Los tres necesitan Chromium vía `playwright-chromium`.
 
 ## Diagramas con Excalidraw
 

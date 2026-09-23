@@ -38,6 +38,7 @@
 - **Contraste en bloques de código**: asegurar que todo el código dentro de bloques `<pre>` tenga contraste suficiente. Para fondos oscuros (#1E293B, #0F172A), usar colores claros (#E2E8F0, #F8F9FA). Para fondos claros, usar colores oscuros. Evitar colores intermedios como #94A3B8 sobre fondos oscuros. Priorizar el uso de `.code-card` o bloques markdown con Shiki en lugar de estilos inline.
 - **Shiki dual-theme**: los bloques markdown (```python, ```java...) se renderizan con doble tema (vitesse-dark/vitesse-light). `styles/index.css` fuerza siempre la paleta dark (`.slidev-layout pre.shiki span { color: var(--shiki-dark) }`) sobre el fondo oscuro #1E293B, con overrides a equivalentes AA para los tonos con poco contraste (#666666, #758575, #4C9A91, #CB7676...). Sin esas reglas, en light mode el texto sale oscuro sobre oscuro e ilegible (pasó en las presentaciones de PSP). No eliminarlas.
 - Verificación de contraste de código: `node check-contrast.mjs <url>` (dev server abierto). Calcula el ratio WCAG de cada token Shiki sobre su fondo real y avisa si alguno baja de 4.5:1.
+- Barrido de diapositivas vacías: `node check-empty.mjs <url> <nº diapositivas>` (dev server abierto). Marca las diapositivas sin contenido visible, excluyendo portada y cierre corporativos. Tras **insertar o borrar diapositivas**, comprobar siempre: un separador duplicado (`---\n---\n--- …`) crea una diapositiva vacía en medio del deck.
 - **Estilos inline en HTML de diapositivas**: usar solo para compactación puntual de esa diapositiva. Los estilos de lista (`.step`, `.code-card`, `.terminal`, etc.) van en `styles/index.css`, no inline.
 
 ### Componentes y Estilos
@@ -50,8 +51,9 @@ Todos los estilos compartidos se definen en `styles/index.css`:
 - `.terminal` — simulación de terminal con prompts
 - `.question-card` / `.question-icon` / `.answer-card` — tarjetas de preguntas y soluciones
 - `.badge` (`.badge-blue`, `.badge-purple`, `.badge-teal`, `.badge-orange`, `.badge-pink`, `.badge-green`)
-- `.two-cols` — maquetación en 2 columnas
+- `.two-cols` — maquetación en 2 columnas (`.left` / `.right`, contenido siempre alineado a la izquierda)
 - `.sparse-slide` — centrado vertical + tipografía mayor para diapositivas con poco contenido (se activa con `class: sparse-slide` en el frontmatter de la diapositiva)
+- `.diagram-frame` (+ variante `.diagram-medium`, 360px) — marco centrado para incrustar diagramas Excalidraw; alto fijo para que el deck no desborde
 
 ### Contenido Markdown
 - Los Markdown fuente viven en `input/`.
