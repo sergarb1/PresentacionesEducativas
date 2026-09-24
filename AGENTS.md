@@ -104,6 +104,20 @@ Formato de entrega habitual: **solo PDF** en `output/`, con el mismo nombre base
 - **Los ajustes del `<div>` van con clase CSS, nunca con `style="..."` inline**: el pipeline los pierde y el marco vuelve a su alto por defecto.
 - Formato apaisado: el lienzo interno es 980×551 px, así que diseña filas de 2–3 cajas o árboles poco profundos; si el diagrama no cabe, partir en dos diapositivas. Tras insertar, pasar `measure.mjs` (los diagramas sin marco de alto fijo pueden empujar el contenido).
 
+### Librerías de Excalidraw (`public/libraries/`)
+
+- `public/libraries/` versiona ficheros `.excalidrawlib` del catálogo oficial (<https://libraries.excalidraw.com>): redes (`network-topology-icons`, dwelle), algoritmos/EDA (`algorithms-data-structures-arrays-matrices-trees`, intradeus), flujo de control (`decision-flow-control`, aretecode), arquitectura software, UML/ER, logos IT, iconos de programación, grafos y figuritas. Detalle y fuentes en `public/libraries/README.md`.
+- El canvas del agente (`mcp-excalidraw-server`) **no carga `.excalidrawlib` directamente**: para usar un item en un diagrama, extraerlo con `scripts/lib-add.mjs`:
+
+  ```bash
+  node scripts/lib-add.mjs --list public/libraries/network-topology-icons.excalidrawlib   # catálogo con índices
+  node scripts/lib-add.mjs public/libraries/network-topology-icons.excalidrawlib 8 4 9 \
+    | npx -y mcp-excalidraw-server add -                                                  # insertar router, firewall y cliente
+  ```
+
+  El helper soporta los formatos v2 (`libraryItems`) y v1 legacy (`library`), normaliza cada item (escala a `--width` px de ancho, 220 por defecto; regenera ids, grupos, bindings y textos ligados) y los coloca en fila; después se recolocan con `update`/`arrange` como cualquier elemento. Validar siempre con `--list` tras descargar o actualizar una librería.
+- En el navegador (excalidraw.com o canvas local), las librerías se importan por UI: menú de librería → «Open», o arrastrando el `.excalidrawlib` al lienzo; se fusionan en la librería persistente del navegador.
+
 ## Estructura
 
 ```
@@ -115,6 +129,7 @@ PresentacionesEducativas/
 │   ├── cover.vue               # Layout de portada (fondo fondo.png + logo CEEDCV + autor)
 │   └── closing.vue             # Layout de cierre (fondo fondoFin.png + logos centrados)
 ├── public/
+│   ├── libraries/             # Librerías .excalidrawlib del catálogo oficial (redes, algoritmos, flujo…) + README
 │   ├── images/
 │   │   ├── fondo.png           # Fondo de portada
 │   │   ├── fondoFin.png        # Fondo de cierre
