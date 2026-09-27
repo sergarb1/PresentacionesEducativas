@@ -4,19 +4,18 @@ node_modules/
 # Build output
 dist/
 
-# Export output
+# Export output (PDFs sí se versionan dentro de output/)
 *.pdf
+!output/*.pdf
 
 # Root entry files (except AGENTS.md and README.md)
 /*.md
 !AGENTS.md
 !README.md
 
-# Local presentation sources and generated exports
+# Local presentation sources (input/ stays out of Git; output/ is versioned)
 input/*
 !input/.gitkeep
-output/*
-!output/.gitkeep
 
 # Legacy HTML source material
 slides/*

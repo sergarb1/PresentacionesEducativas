@@ -99,7 +99,7 @@ Formato de entrega habitual: **solo PDF** en `output/`, con el mismo nombre base
 ### Diagramas con Excalidraw
 
 - Los diagramas se crean con `mcp-excalidraw-server` (devDependency). El archivo `.excalidraw` canónico vive en `input/diagrams/` (con el resto del material docente local, fácil de copiar de respaldo) y **siempre** se deja una copia en `public/diagrams/` (versionada), que es la ruta que sirve el addon. Nombres alineados con la entrada: `udXX-prg-<tema>.excalidraw`.
-- Tres interfaces equivalentes: la skill del agente (`.agents/skills/excalidraw-skill/`, preferente: carga `excalidraw-skill` y sigue su flujo `add → screenshot → ajustar → export`), el CLI (`npx mcp-excalidraw-server <comando>`) y el servidor MCP declarado en `.mcp.json` (stdio). El lienzo vive en `http://127.0.0.1:3000` y se auto-arranca; capturas y conversión `mermaid` requieren una pestaña del navegador abierta.
+- Tres interfaces equivalentes: la skill del agente (`.agents/skills/excalidraw-skill/`, preferente: carga `excalidraw-skill` y sigue su flujo `add → screenshot → ajustar → export`), el CLI (`npx mcp-excalidraw-server <comando>`) y el servidor MCP declarado en `.mcp.json` (stdio). El lienzo vive en `http://127.0.0.1:3001` (puerto fijado con `PORT`/`EXPRESS_SERVER_URL` en `.mcp.json`; si se usa el CLI fuera del MCP, exportar las mismas variables: `PORT=3001 EXPRESS_SERVER_URL=http://127.0.0.1:3001`) y se auto-arranca; capturas y conversión `mermaid` requieren una pestaña abierta en **Chrome** (no en otro navegador) apuntando a `http://127.0.0.1:3001`.
 - Para incrustar en una diapositiva: declara `addons: [slidev-addon-excalidraw]` en el frontmatter de la entrada raíz y usa `<Excalidraw drawFilePath="/diagrams/x.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />` dentro de un `<div class="diagram-frame">` (estilos en `styles/index.css`). La ruta es relativa a `public/`. Para diapositivas que combinan el diagrama con más contenido, añade `diagram-medium` al frame (360px).
 - **Los ajustes del `<div>` van con clase CSS, nunca con `style="..."` inline**: el pipeline los pierde y el marco vuelve a su alto por defecto.
 - Formato apaisado: el lienzo interno es 980×551 px, así que diseña filas de 2–3 cajas o árboles poco profundos; si el diagrama no cabe, partir en dos diapositivas. Tras insertar, pasar `measure.mjs` (los diagramas sin marco de alto fijo pueden empujar el contenido).
@@ -140,7 +140,7 @@ PresentacionesEducativas/
 │   ├── udXX-modul-tema.md
 │   └── diagrams/               # Diagramas .excalidraw canónicos (con el material docente)
 ├── udXX-modul-tema.md          # Entrada Slidev que importa input/udXX-modul-tema.md
-├── output/                     # Exportaciones generadas (ignorado por Git)
+├── output/                     # Ejemplos de salida y PDFs exportados (versionado)
 ├── measure.mjs                 # Scripts de verificación (ver sección Herramientas):
 ├── check-contrast.mjs          #   desbordamientos, contraste AA, barrido de vacías
 ├── check-empty.mjs             #   y auxiliares de diagnóstico (debug-overflow, screenshot)
