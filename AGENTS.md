@@ -60,7 +60,7 @@ Todos los estilos compartidos se definen en `styles/index.css`:
 - Las entradas de la raíz importan el Markdown de `input/` para que Slidev cargue los estilos y layouts compartidos.
 - Nomenclatura: la entrada de la raíz, su Markdown en `input/` y el PDF de `output/` deben compartir el mismo nombre base. Patrón por módulo: PIM usa `sesionXX-pim-…` (p. ej. `sesion01-pim-bloc-01-02.md`); el resto de módulos usan `udXX-modul-tema.md` con el módulo en minúsculas (`ud01-psp-...`, `ud01-prg-...`, `ud01-par-...`). Si una unidad se divide en bloques, el sufijo `-bloc-XX` va siempre tras el tema (p. ej. `ud02-prg-introduccio-java-bloc-01.md`), nunca en solitario.
 - No ejecutar Slidev directamente contra un archivo de `input/`: usa siempre la entrada de la raíz correspondiente.
-- Los archivos Markdown de `input/` son material docente local y no se versionan.
+- Los archivos Markdown de `input/` son material docente y se versionan junto con las entradas y los PDFs de `output/`.
 - Separador de diapositivas: `---`.
 - Frontmatter YAML para configuración general de la presentación o de cada diapositiva.
 - Código con bloques cerrados de markdown (```java) o tarjetas `.code-card`.
@@ -136,7 +136,7 @@ PresentacionesEducativas/
 │   │   ├── logoCCBYSA.png      # Logo Creative Commons
 │   │   └── logoCEEDCV.png      # Logo Generalitat Valenciana / CEEDCV
 │   └── diagrams/               # Copia servible de los diagramas (versionada)
-├── input/                      # Markdown fuente local (ignorado por Git)
+├── input/                      # Markdown fuente (versionado)
 │   ├── udXX-modul-tema.md
 │   └── diagrams/               # Diagramas .excalidraw canónicos (con el material docente)
 ├── udXX-modul-tema.md          # Entrada Slidev que importa input/udXX-modul-tema.md

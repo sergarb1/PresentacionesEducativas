@@ -13,9 +13,9 @@ dist/
 !AGENTS.md
 !README.md
 
-# Local presentation sources (input/ stays out of Git; output/ is versioned)
-input/*
-!input/.gitkeep
+# Presentation sources and generated exports (both versioned now)
+output/*.png
+output/*.pptx
 
 # Legacy HTML source material
 slides/*
