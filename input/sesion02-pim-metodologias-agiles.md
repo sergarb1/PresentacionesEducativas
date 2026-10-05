@@ -12,17 +12,15 @@ author: "Autores: Sergi García, Guillermo Garrido y Alfredo Oltra"
 
 ## 🗺️ La sesión en un mapa
 
-Un recorrido completo por las metodologías de desarrollo: de los enfoques **tradicionales** a los **ágiles**, con especial atención a **Scrum** y su aplicación práctica con el caso **TaskFlow**.
+Un recorrido desde los enfoques **tradicionales** hasta **Scrum**, con práctica real en el caso **TaskFlow**.
 
 <div class="features-grid" style="gap:0.6rem;">
-  <div class="feature-item" style="padding:0.5rem 0.6rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🧭</span><strong>Fundamentos</strong><br>¿Qué es una metodología?</div>
-  <div class="feature-item" style="padding:0.5rem 0.6rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">📏</span><strong>Tradicionales</strong><br>Cascada y modelo en V</div>
-  <div class="feature-item" style="padding:0.5rem 0.6rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">⚡</span><strong>Ágiles</strong><br>Manifiesto y principios</div>
-  <div class="feature-item" style="padding:0.5rem 0.6rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🏆</span><strong>Scrum</strong><br>Roles, ceremonias, artefactos</div>
-  <div class="feature-item" style="padding:0.5rem 0.6rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🧪</span><strong>Práctica</strong><br>TaskFlow y tableros Kanban</div>
+  <div class="feature-item" style="padding:0.5rem 0.6rem;font-size:0.92rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🧭</span><strong>Fundamentos</strong><br>¿Qué es una metodología?</div>
+  <div class="feature-item" style="padding:0.5rem 0.6rem;font-size:0.92rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">📏</span><strong>Tradicionales</strong><br>Cascada y modelo en V</div>
+  <div class="feature-item" style="padding:0.5rem 0.6rem;font-size:0.92rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">⚡</span><strong>Ágiles</strong><br>Manifiesto y principios</div>
+  <div class="feature-item" style="padding:0.5rem 0.6rem;font-size:0.92rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🏆</span><strong>Scrum</strong><br>Roles, ceremonias, artefactos</div>
+  <div class="feature-item" style="padding:0.5rem 0.6rem;font-size:0.92rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🧪</span><strong>Práctica</strong><br>TaskFlow y tableros Kanban</div>
 </div>
-
-<div class="info">Hilo conductor: el caso práctico <strong>TaskFlow</strong> — la gestión ágil en equipos reales de DAW, DAM y ASIR.</div>
 
 ---
 ---
@@ -38,7 +36,7 @@ Un recorrido completo por las metodologías de desarrollo: de los enfoques **tra
 | **Técnicas y herramientas** | Gantt, Kanban, dailies, entregables |
 | **Gestión de riesgos** | Anticipa problemas antes de que ocurran |
 
-<div class="info">Sin metodología: improvisación, caos y proyectos que nunca se entregan. Con ella: un camino estructurado de la idea al resultado.</div>
+<div class="info">Sin metodología: improvisación y proyectos que nunca se entregan. Con ella: un camino estructurado de la idea al resultado.</div>
 
 ---
 ---
@@ -54,7 +52,7 @@ Un recorrido completo por las metodologías de desarrollo: de los enfoques **tra
 .diagram-frame :deep(svg) { max-height: 300px; }
 </style>
 
-<div class="info">No hay una «buena» y una «mala»: el enfoque se elige según el proyecto. La industria actual está dominada por las **ágiles** y las **híbridas**.</div>
+<div class="info">No hay una «buena» y una «mala»: el enfoque se elige según el proyecto. La industria actual está dominada por las <strong>ágiles</strong> y las <strong>híbridas</strong>.</div>
 
 ---
 class: compact-slide
@@ -64,17 +62,17 @@ class: compact-slide
 
 Características: **fuerte planificación inicial** y **ejecución lineal** de las fases — cada fase se cierra antes de empezar la siguiente.
 
-| Modelo | Descripción breve |
-| --- | --- |
-| **Cascada** | Fases lineales; cada una depende de la anterior |
-| **V** | Relaciona desarrollo y pruebas en paralelo |
+<div class="features-grid">
+  <div class="feature-item"><span class="feature-icon">💧</span><strong>Cascada</strong><br>Fases lineales; cada una depende de la anterior</div>
+  <div class="feature-item"><span class="feature-icon">✅</span><strong>Modelo en V</strong><br>Desarrollo y pruebas en paralelo</div>
+</div>
 
 <div class="comparison-grid">
   <div class="comparison-item good"><strong>✅ Ventajas</strong><br><br>Claridad, documentación exhaustiva, previsibilidad.</div>
   <div class="comparison-item bad"><strong>❌ Inconvenientes</strong><br><br>Rigidez, poca adaptación al cambio, feedback tardío.</div>
 </div>
 
-<div class="info">Ejemplo: una app de reservas de aulas siguiendo fases secuenciales — si en pruebas falla un requisito, se vuelve al principio.</div>
+<div class="info">Ejemplo: una app de reservas de aulas por fases secuenciales — si en pruebas falla un requisito, se vuelve al principio.</div>
 
 ---
 ---
@@ -106,7 +104,7 @@ Promueven el desarrollo **iterativo e incremental**, centrado en:
   <div class="feature-item"><span class="feature-icon">💬</span><strong>Retroalimentación</strong><br>Constante, del usuario real</div>
 </div>
 
-<div class="success">Ejemplos: **Scrum**, Kanban, XP (eXtreme Programming). Ventajas: flexibilidad y reducción de riesgos · Inconvenientes: requiere disciplina, menos documentación.</div>
+<div class="success">Ejemplos: <strong>Scrum</strong>, Kanban, XP (eXtreme Programming). Ventajas: flexibilidad y reducción de riesgos · Inconvenientes: requiere disciplina, menos documentación.</div>
 
 ---
 ---
@@ -122,25 +120,26 @@ Promueven el desarrollo **iterativo e incremental**, centrado en:
 .diagram-frame :deep(svg) { max-height: 300px; }
 </style>
 
-<div class="info">17 desarrolladores, montaña de Utah: «aunque valoramos lo de la derecha, **valoramos más lo de la izquierda**».</div>
+<div class="info">17 desarrolladores, montaña de Utah: «aunque valoramos lo de la derecha, <strong>valoramos más lo de la izquierda</strong>».</div>
 
 ---
 ---
 
 ## 🏆 Scrum: la metodología ágil de referencia
 
-Un **marco de trabajo** (framework), no una receta: define roles, eventos y artefactos dentro de iteraciones llamadas **Sprints**.
+Un **marco de trabajo** (framework), no una receta: no te dice exactamente cómo hacer tu trabajo, sino <strong>quién trabaja, cuándo se reúne y qué se entrega</strong> en iteraciones llamadas <strong>Sprints</strong>.
 
 <div class="features-grid">
-  <div class="feature-item"><span class="feature-icon">👥</span><strong>Roles</strong><br>PO · SM · Developers</div>
+  <div class="feature-item"><span class="feature-icon">👥</span><strong>3 roles</strong><br>PO · SM · Developers</div>
   <div class="feature-item"><span class="feature-icon">📅</span><strong>Ceremonias</strong><br>Planning · Daily · Review · Retrospectiva</div>
   <div class="feature-item"><span class="feature-icon">📦</span><strong>Artefactos</strong><br>Product Backlog · Sprint Backlog · Incremento</div>
   <div class="feature-item"><span class="feature-icon">⏱️</span><strong>Sprint</strong><br>Ciclo fijo de 1–4 semanas</div>
 </div>
 
-<div class="info">Empírico: se basa en la **experiencia** (iterar) y la **transparencia** (inspeccionar y adaptar).</div>
+<div class="info">Es <strong>empírico</strong>: se basa en la <strong>experiencia</strong> (iterar) y la <strong>transparencia</strong> (inspeccionar y adaptar lo que no funciona).</div>
 
 ---
+class: sparse-slide
 ---
 
 ## 👥 Roles de Scrum
@@ -151,7 +150,7 @@ Un **marco de trabajo** (framework), no una receta: define roles, eventos y arte
 | 🧑‍🏫 **Scrum Master** | Facilita y protege el proceso; elimina impedimentos |
 | 💻 **Equipo de Desarrollo** | Construye el producto; autoorganizado y multidisciplinar |
 
-<div class="warning">El PO decide **qué** se construye y en qué orden; el equipo decide **cómo**; el Scrum Master no manda sobre nadie: sirve al proceso.</div>
+<div class="warning">El PO decide <strong>qué</strong> se construye y en qué orden; el equipo decide <strong>cómo</strong>; el Scrum Master no manda sobre nadie: sirve al proceso.</div>
 
 ---
 ---
@@ -167,12 +166,32 @@ Un **marco de trabajo** (framework), no una receta: define roles, eventos y arte
 .diagram-frame :deep(svg) { max-height: 300px; }
 </style>
 
-<div class="info">Todo gira alrededor del **Sprint**: los artefactos alimentan las ceremonias y cada ciclo entrega un incremento potencialmente entregable.</div>
+<div class="info">Todo gira alrededor del <strong>Sprint</strong>: los artefactos alimentan las ceremonias y cada ciclo entrega un incremento potencialmente entregable.</div>
+
+---
+---
+
+## 🔄 El ciclo de un Sprint
+
+Un **ciclo corto que se repite**, entregando valor en cada vuelta.
+
+<div class="diagram-frame">
+  <Excalidraw drawFilePath="/diagrams/ud02-pim-sprint-ciclo.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />
+</div>
+
+<style>
+.diagram-frame { height: 290px; }
+.diagram-frame :deep(svg) { max-height: 260px; }
+</style>
+
+<div class="info">Al acabar cada Sprint hay <strong>software funcionando</strong> que se puede enseñar: aunque sea poco, es real y sirve para recibir feedback.</div>
 
 ---
 ---
 
 ## 📅 Ceremonias de Scrum
+
+Reuniones con **fecha, hora y duración fijas**: son el momento de inspeccionar y adaptar.
 
 | Ceremonia | Qué es | Duración (Sprint 2 sem.) |
 | --- | --- | --- |
@@ -181,7 +200,7 @@ Un **marco de trabajo** (framework), no una receta: define roles, eventos y arte
 | **Sprint Review** | Revisión del incremento con feedback | 2 h máx. |
 | **Retrospectiva** | Mejora continua del proceso | 1,5 h máx. |
 
-<div class="success">La Daily no es «rendir cuentas al jefe»: es el equipo **inspeccionando su plan** hacia el objetivo del Sprint.</div>
+<div class="success">La Daily no es «rendir cuentas al jefe»: es el equipo <strong>inspeccionando su plan</strong> hacia el objetivo del Sprint.</div>
 
 ---
 ---
@@ -190,11 +209,11 @@ Un **marco de trabajo** (framework), no una receta: define roles, eventos y arte
 
 | Artefacto | Qué es | Lo cuida |
 | --- | --- | --- |
-| **Product Backlog** | Lista **priorizada** de requisitos del producto | Product Owner |
+| **Product Backlog** | Lista priorizada de requisitos del producto | Product Owner |
 | **Sprint Backlog** | Tareas seleccionadas para el Sprint | Developers |
 | **Incremento** | Resultado funcional del Sprint | Todo el equipo |
 
-<div class="info">Los tres son **transparentes** por definición: cualquiera del equipo puede verlos en cualquier momento. Sin transparencia no hay inspección ni adaptación.</div>
+<div class="info">Los tres son <strong>transparentes</strong> por definición: cualquiera del equipo puede verlos en cualquier momento. Sin transparencia no hay inspección ni adaptación.</div>
 
 ---
 ---
@@ -205,7 +224,7 @@ Un **marco de trabajo** (framework), no una receta: define roles, eventos y arte
 
 <div class="step"><div class="step-number">1</div><div class="step-content"><strong>El PO trae el Backlog priorizado</strong> — las historias más importantes arriba.</div></div>
 <div class="step"><div class="step-number">2</div><div class="step-content"><strong>El equipo estima y selecciona</strong> — cuánto cabe en este Sprint.</div></div>
-<div class="step"><div class="step-number">3</div><div class="step-content"><strong>Se crea el Sprint Backlog</strong> — plan de trabajo **vivo y transparente**.</div></div>
+<div class="step"><div class="step-number">3</div><div class="step-content"><strong>Se crea el Sprint Backlog</strong> — plan de trabajo <strong>vivo y transparente</strong>.</div></div>
 
 <div class="info">El Sprint Backlog no es un contrato: puede ajustarse a medida que el equipo aprende durante el Sprint.</div>
 
@@ -220,7 +239,7 @@ Un **marco de trabajo** (framework), no una receta: define roles, eventos y arte
 
 <div class="comparison-grid">
   <div class="comparison-item"><strong>🔄 Refinamiento</strong><br><br>Pulir y detallar el Product Backlog continuamente: ni demasiado pronto ni demasiado tarde.</div>
-  <div class="comparison-item good"><strong>🎯 Foco en una mejora</strong><br><br>La retrospectiva funciona con ambiente seguro y **una mejora clave** por Sprint.</div>
+  <div class="comparison-item good"><strong>🎯 Foco en una mejora</strong><br><br>La retrospectiva funciona con ambiente seguro y <strong>una mejora clave</strong> por Sprint.</div>
 </div>
 
 ---
@@ -236,7 +255,7 @@ Aplicación real de Scrum en equipos de DAW, DAM y ASIR:
 | **DAM** | 4 | Mobile Dev, Backend, QA |
 | **ASIR** | 3 | DevOps, Sysadmin |
 
-<div class="info">Evolución de artefactos: Product Backlog inicial con historias de usuario → Sprint Planning y selección de tareas → Daily Scrum y adaptación → Review y Retrospectiva conjunta.</div>
+<div class="info">Evolución: Product Backlog inicial → Sprint Planning y selección de tareas → Daily Scrum y adaptación → Review y Retrospectiva conjunta.</div>
 
 ---
 ---
@@ -249,33 +268,11 @@ Aplicación real de Scrum en equipos de DAW, DAM y ASIR:
 | 📋 **Trello** | Visualización simple de tareas y sprints |
 | 🎯 **Jira** | Seguimiento ágil profesional (sprints, burndown) |
 
-<div class="warning">La herramienta no hace ágil al equipo: **el proceso sí**. Empieza simple (Trello) y evoluciona si lo necesitas.</div>
+<div class="warning">La herramienta no hace ágil al equipo: <strong>el proceso sí</strong>. Empieza simple (Trello) y evoluciona si lo necesitas.</div>
 
 ---
 ---
 
-## 🎯 Actividad práctica
-
-<div class="step"><div class="step-number">1</div><div class="step-content">Elige una herramienta y crea un **tablero Kanban** para tu proyecto.</div></div>
-<div class="step"><div class="step-number">2</div><div class="step-content">Simula un **Sprint**: define tareas, realiza la Daily, la Review y la Retrospectiva.</div></div>
-<div class="step"><div class="step-number">3</div><div class="step-content">Aplica una **mejora continua** en el siguiente Sprint.</div></div>
-
-<div class="success">Entregable: enlace al tablero + breve documento con el objetivo del Sprint, el feedback de la Review y la mejora acordada en la Retrospectiva.</div>
-
----
----
-
-## 🧠 Chequeo rápido de la sesión
-
-1. ¿Qué cuatro elementos aporta una metodología a un proyecto?
-2. Cascada: ¿cuál es su mayor ventaja y su mayor riesgo?
-3. Nombra las 4 dualidades del Manifiesto Ágil.
-4. ¿Quién prioriza el Product Backlog y quién protege el proceso?
-5. ¿Qué artefacto se crea en el Sprint Planning y cuál es el resultado del Sprint?
-6. ¿Qué diferencia hay entre Sprint Review y Retrospectiva?
-
----
----
 
 ## ✅ Resumen de la sesión
 
