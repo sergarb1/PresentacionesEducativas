@@ -1,0 +1,483 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "mcp-excalidraw-server",
+  "elements": [
+    {
+      "id": "parte-como",
+      "type": "rectangle",
+      "x": 80,
+      "y": 110,
+      "width": 300,
+      "height": 150,
+      "angle": 0,
+      "backgroundColor": "#a5d8ff",
+      "boundElements": [
+        {
+          "id": "parte-como-label",
+          "type": "text"
+        },
+        {
+          "id": "muyke8ozu2ti8e914oj",
+          "type": "arrow"
+        }
+      ],
+      "fillStyle": "solid",
+      "fontSize": 18,
+      "frameId": null,
+      "groupIds": [],
+      "index": "a0",
+      "isDeleted": false,
+      "link": null,
+      "locked": false,
+      "opacity": 100,
+      "roughness": 1,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 319814092,
+      "strokeColor": "#1971c2",
+      "strokeStyle": "solid",
+      "strokeWidth": 2,
+      "updated": 1791405186984,
+      "version": 1,
+      "versionNonce": 1748781896
+    },
+    {
+      "id": "parte-quiero",
+      "type": "rectangle",
+      "x": 430,
+      "y": 110,
+      "width": 300,
+      "height": 150,
+      "angle": 0,
+      "backgroundColor": "#b2f2bb",
+      "boundElements": [
+        {
+          "id": "parte-quiero-label",
+          "type": "text"
+        },
+        {
+          "id": "muyke8ozet0njmk5df",
+          "type": "arrow"
+        }
+      ],
+      "fillStyle": "solid",
+      "fontSize": 18,
+      "frameId": null,
+      "groupIds": [],
+      "index": "a2",
+      "isDeleted": false,
+      "link": null,
+      "locked": false,
+      "opacity": 100,
+      "roughness": 1,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 684149939,
+      "strokeColor": "#2f9e44",
+      "strokeStyle": "solid",
+      "strokeWidth": 2,
+      "updated": 1791405186984,
+      "version": 1,
+      "versionNonce": 211351055
+    },
+    {
+      "id": "parte-para",
+      "type": "rectangle",
+      "x": 780,
+      "y": 110,
+      "width": 300,
+      "height": 150,
+      "angle": 0,
+      "backgroundColor": "#ffec99",
+      "boundElements": [
+        {
+          "id": "parte-para-label",
+          "type": "text"
+        },
+        {
+          "id": "muyke8ozdzagg5m4o35",
+          "type": "arrow"
+        }
+      ],
+      "fillStyle": "solid",
+      "fontSize": 18,
+      "frameId": null,
+      "groupIds": [],
+      "index": "a4",
+      "isDeleted": false,
+      "link": null,
+      "locked": false,
+      "opacity": 100,
+      "roughness": 1,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 182741964,
+      "strokeColor": "#e8590c",
+      "strokeStyle": "solid",
+      "strokeWidth": 2,
+      "updated": 1791405186984,
+      "version": 1,
+      "versionNonce": 195805510
+    },
+    {
+      "id": "hu-final",
+      "type": "rectangle",
+      "x": 80,
+      "y": 420,
+      "width": 1000,
+      "height": 130,
+      "angle": 0,
+      "backgroundColor": "#d0bfff",
+      "boundElements": [
+        {
+          "id": "hu-final-label",
+          "type": "text"
+        },
+        {
+          "id": "muyke8ozu2ti8e914oj",
+          "type": "arrow"
+        },
+        {
+          "id": "muyke8ozet0njmk5df",
+          "type": "arrow"
+        },
+        {
+          "id": "muyke8ozdzagg5m4o35",
+          "type": "arrow"
+        }
+      ],
+      "fillStyle": "solid",
+      "fontSize": 18,
+      "frameId": null,
+      "groupIds": [],
+      "index": "a6",
+      "isDeleted": false,
+      "link": null,
+      "locked": false,
+      "opacity": 100,
+      "roughness": 1,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 1131137415,
+      "strokeColor": "#6741d9",
+      "strokeStyle": "solid",
+      "strokeWidth": 2,
+      "updated": 1791405186984,
+      "version": 1,
+      "versionNonce": 1343570413
+    },
+    {
+      "id": "muyke8ozu2ti8e914oj",
+      "type": "arrow",
+      "x": 323.5740528189224,
+      "y": 265.20633098764773,
+      "angle": 0,
+      "backgroundColor": "transparent",
+      "boundElements": null,
+      "elbowed": false,
+      "endArrowhead": "arrow",
+      "endBinding": {
+        "elementId": "hu-final",
+        "fixedPoint": null,
+        "focus": 0,
+        "gap": 4
+      },
+      "fillStyle": "solid",
+      "frameId": null,
+      "groupIds": [],
+      "index": "a8",
+      "isDeleted": false,
+      "lastCommittedPoint": null,
+      "link": null,
+      "locked": false,
+      "opacity": 100,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          174.51856102882192,
+          149.58733802470454
+        ]
+      ],
+      "roughness": 1,
+      "roundness": null,
+      "seed": 199037497,
+      "startArrowhead": null,
+      "startBinding": {
+        "elementId": "parte-como",
+        "fixedPoint": null,
+        "focus": 0,
+        "gap": 4
+      },
+      "strokeColor": "#495057",
+      "strokeStyle": "solid",
+      "strokeWidth": 2,
+      "updated": 1791405186984,
+      "version": 1,
+      "versionNonce": 1409680797
+    },
+    {
+      "id": "muyke8ozet0njmk5df",
+      "type": "arrow",
+      "x": 580,
+      "y": 268,
+      "angle": 0,
+      "backgroundColor": "transparent",
+      "boundElements": null,
+      "elbowed": false,
+      "endArrowhead": "arrow",
+      "endBinding": {
+        "elementId": "hu-final",
+        "fixedPoint": null,
+        "focus": 0,
+        "gap": 4
+      },
+      "fillStyle": "solid",
+      "frameId": null,
+      "groupIds": [],
+      "index": "a9",
+      "isDeleted": false,
+      "lastCommittedPoint": null,
+      "link": null,
+      "locked": false,
+      "opacity": 100,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          144
+        ]
+      ],
+      "roughness": 1,
+      "roundness": null,
+      "seed": 1783414489,
+      "startArrowhead": null,
+      "startBinding": {
+        "elementId": "parte-quiero",
+        "fixedPoint": null,
+        "focus": 0,
+        "gap": 4
+      },
+      "strokeColor": "#495057",
+      "strokeStyle": "solid",
+      "strokeWidth": 2,
+      "updated": 1791405186985,
+      "version": 1,
+      "versionNonce": 2040102589
+    },
+    {
+      "id": "muyke8ozdzagg5m4o35",
+      "type": "arrow",
+      "x": 836.4259471810776,
+      "y": 265.20633098764773,
+      "angle": 0,
+      "backgroundColor": "transparent",
+      "boundElements": null,
+      "elbowed": false,
+      "endArrowhead": "arrow",
+      "endBinding": {
+        "elementId": "hu-final",
+        "fixedPoint": null,
+        "focus": 0,
+        "gap": 4
+      },
+      "fillStyle": "solid",
+      "frameId": null,
+      "groupIds": [],
+      "index": "a10",
+      "isDeleted": false,
+      "lastCommittedPoint": null,
+      "link": null,
+      "locked": false,
+      "opacity": 100,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -174.51856102882186,
+          149.58733802470454
+        ]
+      ],
+      "roughness": 1,
+      "roundness": null,
+      "seed": 168943929,
+      "startArrowhead": null,
+      "startBinding": {
+        "elementId": "parte-para",
+        "fixedPoint": null,
+        "focus": 0,
+        "gap": 4
+      },
+      "strokeColor": "#495057",
+      "strokeStyle": "solid",
+      "strokeWidth": 2,
+      "updated": 1791405186985,
+      "version": 1,
+      "versionNonce": 1658011543
+    },
+    {
+      "id": "parte-como-label",
+      "type": "text",
+      "x": 90,
+      "y": 147.5,
+      "width": 280,
+      "height": 75,
+      "angle": 0,
+      "autoResize": true,
+      "backgroundColor": "transparent",
+      "boundElements": null,
+      "containerId": "parte-como",
+      "fillStyle": "solid",
+      "fontFamily": 1,
+      "fontSize": 18,
+      "frameId": null,
+      "groupIds": [],
+      "index": "a1",
+      "isDeleted": false,
+      "lineHeight": 1.25,
+      "link": null,
+      "locked": false,
+      "opacity": 100,
+      "originalText": "COMO…\n¿Quién lo pide?\n«miembro del equipo»",
+      "roughness": 1,
+      "roundness": null,
+      "seed": 1979265399,
+      "strokeColor": "#1971c2",
+      "strokeStyle": "solid",
+      "strokeWidth": 1,
+      "text": "COMO…\n¿Quién lo pide?\n«miembro del equipo»",
+      "textAlign": "center",
+      "updated": 1791405186984,
+      "version": 1,
+      "versionNonce": 932754907,
+      "verticalAlign": "middle"
+    },
+    {
+      "id": "parte-quiero-label",
+      "type": "text",
+      "x": 440,
+      "y": 147.5,
+      "width": 280,
+      "height": 75,
+      "angle": 0,
+      "autoResize": true,
+      "backgroundColor": "transparent",
+      "boundElements": null,
+      "containerId": "parte-quiero",
+      "fillStyle": "solid",
+      "fontFamily": 1,
+      "fontSize": 18,
+      "frameId": null,
+      "groupIds": [],
+      "index": "a3",
+      "isDeleted": false,
+      "lineHeight": 1.25,
+      "link": null,
+      "locked": false,
+      "opacity": 100,
+      "originalText": "QUIERO…\n¿Qué necesita?\n«asignar tareas»",
+      "roughness": 1,
+      "roundness": null,
+      "seed": 1162361870,
+      "strokeColor": "#2f9e44",
+      "strokeStyle": "solid",
+      "strokeWidth": 1,
+      "text": "QUIERO…\n¿Qué necesita?\n«asignar tareas»",
+      "textAlign": "center",
+      "updated": 1791405186984,
+      "version": 1,
+      "versionNonce": 1125343226,
+      "verticalAlign": "middle"
+    },
+    {
+      "id": "parte-para-label",
+      "type": "text",
+      "x": 790,
+      "y": 147.5,
+      "width": 280,
+      "height": 75,
+      "angle": 0,
+      "autoResize": true,
+      "backgroundColor": "transparent",
+      "boundElements": null,
+      "containerId": "parte-para",
+      "fillStyle": "solid",
+      "fontFamily": 1,
+      "fontSize": 18,
+      "frameId": null,
+      "groupIds": [],
+      "index": "a5",
+      "isDeleted": false,
+      "lineHeight": 1.25,
+      "link": null,
+      "locked": false,
+      "opacity": 100,
+      "originalText": "PARA…\n¿Qué valor aporta?\n«distribuir el trabajo»",
+      "roughness": 1,
+      "roundness": null,
+      "seed": 1469715319,
+      "strokeColor": "#e8590c",
+      "strokeStyle": "solid",
+      "strokeWidth": 1,
+      "text": "PARA…\n¿Qué valor aporta?\n«distribuir el trabajo»",
+      "textAlign": "center",
+      "updated": 1791405186984,
+      "version": 1,
+      "versionNonce": 1742502875,
+      "verticalAlign": "middle"
+    },
+    {
+      "id": "hu-final-label",
+      "type": "text",
+      "x": 90,
+      "y": 452.5,
+      "width": 980,
+      "height": 65,
+      "angle": 0,
+      "autoResize": true,
+      "backgroundColor": "transparent",
+      "boundElements": null,
+      "containerId": "hu-final",
+      "fillStyle": "solid",
+      "fontFamily": 1,
+      "fontSize": 18,
+      "frameId": null,
+      "groupIds": [],
+      "index": "a7",
+      "isDeleted": false,
+      "lineHeight": 1.25,
+      "link": null,
+      "locked": false,
+      "opacity": 100,
+      "originalText": "HU DAW-03 · Historia completa\n«Como miembro del equipo, quiero asignar tareas a otros usuarios, para distribuir el trabajo de manera eficiente»",
+      "roughness": 1,
+      "roundness": null,
+      "seed": 1540247928,
+      "strokeColor": "#6741d9",
+      "strokeStyle": "solid",
+      "strokeWidth": 1,
+      "text": "HU DAW-03 · Historia completa\n«Como miembro del equipo, quiero asignar tareas a otros usuarios, para distribuir el trabajo de manera eficiente»",
+      "textAlign": "center",
+      "updated": 1791405186984,
+      "version": 1,
+      "versionNonce": 1679306196,
+      "verticalAlign": "middle"
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": null
+  }
+}

@@ -724,6 +724,22 @@
 .slidev-layout.compact-slide .two-cols {
   align-items: start;
 }
+
+/* Fichas de ejemplo compactas (HU completas): listas y citas más ajustadas */
+.slidev-layout.compact-slide ul {
+  font-size: 0.9rem;
+  line-height: 1.42;
+}
+
+.slidev-layout.compact-slide li {
+  margin-bottom: 0.15rem;
+}
+
+.slidev-layout.compact-slide blockquote {
+  margin: 0.4rem 0;
+  padding: 7px 14px;
+  font-size: 0.95rem;
+}
 .slidev-layout.sparse-slide {
   display: flex;
   flex-direction: column;
