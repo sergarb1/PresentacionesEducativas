@@ -146,13 +146,33 @@ La **barra de calidad** común que toda historia debe superar antes de darse por
 
 Estimar es un **ejercicio colaborativo**: el debate descubre requisitos ocultos antes de comprometer el sprint.
 
-<div class="features-grid">
-  <div class="feature-item"><span class="feature-icon">🃏</span><strong>Planning Poker</strong><br>Cada persona revela su carta a la vez; las diferencias se discuten.</div>
-  <div class="feature-item"><span class="feature-icon">👕</span><strong>T-shirt sizes</strong><br>XS · S · M · L · XL para estimaciones rápidas y gruesas.</div>
-  <div class="feature-item"><span class="feature-icon">🗳️</span><strong>Dot Voting</strong><br>Votos repartidos para ordenar historias por complejidad o valor.</div>
+<div class="features-grid" style="grid-template-columns:repeat(3,1fr);gap:0.8rem;">
+  <div class="feature-item" style="padding:0.6rem 0.8rem;"><span class="feature-icon">🃏</span><strong>Planning Poker</strong><br>Cada persona revela su carta a la vez; las diferencias se discuten.</div>
+  <div class="feature-item" style="padding:0.6rem 0.8rem;"><span class="feature-icon">👕</span><strong>T-shirt sizes</strong><br>XS · S · M · L · XL para estimaciones rápidas y gruesas.</div>
+  <div class="feature-item" style="padding:0.6rem 0.8rem;"><span class="feature-icon">🗳️</span><strong>Dot Voting</strong><br>Votos repartidos para ordenar historias por complejidad o valor.</div>
 </div>
 
 <div class="info">El resultado se expresa en <strong>story points</strong>: complejidad y esfuerzo relativos, nunca horas. En TaskFlow: asignar tareas = 5 · lista móvil = 3 · backups = 5.</div>
+
+---
+class: compact-slide
+---
+
+## 🌶️ Story points y «tallas de camiseta»: cómo funciona de verdad
+
+<div style="font-size:1.02rem;">Los <strong>story points</strong> miden el <strong>esfuerzo relativo</strong>: cuánto pesa una historia comparada con las demás, no cuánto dura. El equipo crea un <em>tamaño de referencia</em> (p. ej. «asignar tareas = 5») y el resto se compara con él.</div>
+
+| Puntos | Carta | Qué significa | Ejemplo TaskFlow |
+| --- | --- | --- | --- |
+| 1 · XS | **1** | Trivial: un toque, una config | «Cambiar un texto de la interfaz» |
+| 2 · S | **2** | Pequeña y clara: una tarde | «Validar el registro» |
+| 3 · M | **3** | Media: varios archivos y algo de lógica | «Lista móvil por prioridad» |
+| 5 · L | **5** | Compleja: backend + frontend + pruebas | «Asignar tareas con avisos» |
+| 8 · XL | **8** | Muy grande: pista de que **hay que dividirla** | — |
+
+<div class="warning" style="padding:0.5rem 1rem;">La escala usa la serie de Fibonacci (1, 2, 3, 5, 8…): a mayor tamaño, la <strong>incertidumbre crece más rápido</strong>; los saltos obligan a discutir «¿5 o 8?» — ahí está el valor del debate.</div>
+
+<div class="success" style="padding:0.5rem 1rem;">Reglas de oro: no se re-estima a mitad del sprint · los puntos son del <strong>equipo</strong> · la <strong>velocidad</strong> sirve para planificar el siguiente sprint, no para comparar equipos.</div>
 
 ---
 ---
@@ -278,33 +298,6 @@ class: compact-slide
     </ul>
   </div>
 </div>
-
----
----
-
-## 🧪 Actividad: del requisito a la historia
-
-> Requisito de partida: *«El sistema debe permitir enviar mensajes de texto a otros usuarios en tiempo real.»*
-
-<div class="step"><div class="step-number">1</div><div class="step-content"><strong>Redacta tu HU</strong> desde tu perfil — web (DAW), móvil (DAM) o infraestructura (ASIR) — con la plantilla «como… quiero… para…».</div></div>
-<div class="step"><div class="step-number">2</div><div class="step-content"><strong>Define el DoR</strong>: ¿qué debe estar listo antes del sprint (mockups, contratos de API, accesos)?</div></div>
-<div class="step"><div class="step-number">3</div><div class="step-content"><strong>Escribe los criterios de aceptación</strong>: claros, medibles y verificables.</div></div>
-<div class="step"><div class="step-number">4</div><div class="step-content"><strong>Estimad y priorizad</strong>: story points en equipo y posición en la matriz valor/esfuerzo.</div></div>
-
-<div class="success">Entregable: ficha completa de la historia con el formato de los ejemplos — ID, historia, criterios, estimación, prioridad, dependencias y DoD.</div>
-
----
-class: sparse-slide
----
-
-## 🧠 Chequeo rápido de la sesión
-
-1. ¿Qué diferencia hay entre un requisito funcional y uno no funcional?
-2. Completa la plantilla: «Como ___, quiero ___ para ___». ¿Qué responde cada parte?
-3. ¿Qué condiciones debe cumplir una historia antes de entrar al sprint (DoR)?
-4. ¿En qué se diferencian los criterios de aceptación del DoD?
-5. INVEST: ¿qué significa cada letra? ¿Cuál falla más a menudo en tus historias?
-6. En la matriz valor/esfuerzo, ¿qué cuadrante se ataca primero y cuál se descarta?
 
 ---
 ---
