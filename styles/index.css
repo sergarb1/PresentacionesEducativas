@@ -846,6 +846,12 @@
   flex-shrink: 0;
 }
 
+/* Variant extra compacta: diagrama ancho + caja de texto debajo en la misma diapositiva */
+.diagram-frame.diagram-small {
+  height: 300px;
+  flex-shrink: 0;
+}
+
 .slidev-layout.cover .cover-content h1 {
   font-size: 1.85rem;
   font-weight: 800;
