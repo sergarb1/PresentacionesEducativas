@@ -302,6 +302,20 @@ class: compact-slide
 ---
 ---
 
+## 🧪 Actividad: del requisito a la historia
+
+> Requisito de partida: *«El sistema debe permitir enviar mensajes de texto a otros usuarios en tiempo real.»*
+
+<div class="step"><div class="step-number">1</div><div class="step-content"><strong>Redacta tu HU</strong> desde tu perfil — web (DAW), móvil (DAM) o infraestructura (ASIR) — con la plantilla «como… quiero… para…».</div></div>
+<div class="step"><div class="step-number">2</div><div class="step-content"><strong>Define el DoR</strong>: ¿qué debe estar listo antes del sprint (mockups, contratos de API, accesos)?</div></div>
+<div class="step"><div class="step-number">3</div><div class="step-content"><strong>Escribe los criterios de aceptación</strong>: claros, medibles y verificables.</div></div>
+<div class="step"><div class="step-number">4</div><div class="step-content"><strong>Estimad y priorizad</strong>: story points en equipo y posición en la matriz valor/esfuerzo.</div></div>
+
+<div class="success">Entregable: ficha completa de la historia con el formato de los ejemplos — ID, historia, criterios, estimación, prioridad, dependencias y DoD.</div>
+
+---
+---
+
 ## ✅ Resumen de la sesión
 
 - Los **requisitos** (funcionales y no funcionales) fijan qué debe hacer el sistema y cómo debe comportarse.
