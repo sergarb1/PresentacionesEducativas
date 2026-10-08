@@ -166,7 +166,7 @@ layout: cover
         <span class="code-card-badge">🧠</span>
       </div>
       <pre><code><span class="type">int</span>[] dades = {3, 1, 2};
-
+<span class="comment">// passades fixes: només 2</span>
 <span class="keyword">for</span> (<span class="type">int</span> i = 0; i &lt; 2; i++) {
   <span class="keyword">for</span> (<span class="type">int</span> j = 0;
        j &lt; dades.length - 1 - i; j++) {
@@ -303,7 +303,6 @@ class: compact-slide
 <span class="keyword">public static int</span> primer(<span class="type">int</span>[] a) {
   <span class="keyword">return</span> a[0];  <span class="comment">// un pas, sempre</span>
 }
-
 <span class="comment">// O(n) — LINEAL</span>
 <span class="keyword">public static int</span> sumar(<span class="type">int</span>[] a) {
   <span class="type">int</span> s = 0;
@@ -378,14 +377,12 @@ class: compact-slide
       <pre><code><span class="comment">// mètode A</span>
 <span class="keyword">for</span> (<span class="type">int</span> i = 0; i &lt; a.length; i++) { ... }
 <span class="keyword">for</span> (<span class="type">int</span> i = 0; i &lt; a.length; i++) { ... }
-
 <span class="comment">// mètode B</span>
 <span class="keyword">for</span> (<span class="type">int</span> i = 0; i &lt; a.length; i++) {
   <span class="keyword">for</span> (<span class="type">int</span> j = 0; j &lt; a.length; j++) {
     <span class="type">System</span>.out.println(a[i] + <span class="string">" "</span> + a[j]);
   }
 }
-
 <span class="comment">// mètode C</span>
 <span class="keyword">return</span> a[a.length - 1];</code></pre>
     </div>
@@ -630,6 +627,7 @@ class: compact-slide
     </div>
     <div class="question-card">
       <span class="question-icon">6</span> No mesure segons: mesure com creix el temps quan creixen les dades.
+    </div>
   </div>
 </div>
 

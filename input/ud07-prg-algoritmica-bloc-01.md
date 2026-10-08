@@ -341,10 +341,9 @@ layout: cover
   <pre><code><span class="keyword">public static int</span> buscar(<span class="type">int</span>[] array, <span class="type">int</span> objectiu) {
   <span class="type">int</span> esquerra = 0;
   <span class="type">int</span> dreta = array.length - 1;
-
+  <span class="comment">// dos punters</span>
   <span class="keyword">while</span> (esquerra &lt;= dreta) {
     <span class="type">int</span> mig = esquerra + (dreta - esquerra) / 2;
-
     <span class="keyword">if</span> (array[mig] == objectiu) {
       <span class="keyword">return</span> mig;              <span class="comment">// bingo!</span>
     } <span class="keyword">else if</span> (array[mig] &lt; objectiu) {
@@ -394,7 +393,6 @@ layout: cover
 <span class="comment">// amb arrays gegants, la suma</span>
 <span class="comment">// pot desbordar l'int i fer-se</span>
 <span class="comment">// negativa de sobte</span>
-
 <span class="comment">// ✅ la fórmula segura:</span>
 <span class="type">int</span> mig =
     esquerra + (dreta - esquerra) / 2;</code></pre>
@@ -446,7 +444,6 @@ layout: cover
       <pre><code><span class="type">int</span>[] dades = {1, 4, 8, 12, 20, 33};
 <span class="type">int</span> esquerra = 0;
 <span class="type">int</span> dreta = dades.length - 1;
-
 <span class="keyword">while</span> (esquerra &lt;= dreta) {
   <span class="type">int</span> mig =
       esquerra + (dreta - esquerra) / 2;

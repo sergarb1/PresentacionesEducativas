@@ -105,7 +105,7 @@ layout: cover
 cambiarNumero(numero);
 <span class="comment">// numero seguix en 5:</span>
 <span class="comment">// el mètode rep una còpia</span>
-
+<span class="comment">// —————</span>
 <span class="type">int</span>[] arr = {1, 2, 3};
 cambiarArray(arr);
 <span class="comment">// arr[0] val 99:</span>
@@ -281,7 +281,7 @@ cambiarArray(arr);
       </div>
       <pre><code><span class="type">String</span>[] clase = {<span class="string">"Ana"</span>, <span class="string">"Bruno"</span>,
         <span class="string">"Carla"</span>, <span class="string">"Diego"</span>};
-
+<span class="comment">// recorrega sense índex</span>
 <span class="keyword">for</span> (<span class="type">String</span> alumno : clase) {
   <span class="type">System</span>.out.println(<span class="string">"Hola, "</span> + alumno);
 }</code></pre>

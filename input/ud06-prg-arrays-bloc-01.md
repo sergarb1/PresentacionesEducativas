@@ -231,7 +231,7 @@ gatos[3] = <span class="string">"Calcetines"</span>; <span class="error-inline">
       </div>
       <pre><code><span class="type">String</span>[] gatos = {<span class="string">"Bigotes"</span>, <span class="string">"Garfield"</span>,
         <span class="string">"Misifú"</span>, <span class="string">"Calcetines"</span>};
-
+<span class="comment">// recorrega amb índex</span>
 <span class="keyword">for</span> (<span class="type">int</span> i = 0; i &lt; gatos.length; i++) {
     <span class="type">System</span>.out.println(<span class="string">"Gato "</span> + i
         + <span class="string">": "</span> + gatos[i]);
@@ -323,7 +323,7 @@ gatos[3] = <span class="string">"Calcetines"</span>; <span class="error-inline">
       </div>
       <pre><code><span class="type">String</span>[] gatos = {<span class="string">"Bigotes"</span>,
         <span class="string">"Garfield"</span>, <span class="string">"Misifú"</span>};
-
+<span class="comment">// recorrega sense índex</span>
 <span class="keyword">for</span> (<span class="type">String</span> gato : gatos) {
    <span class="type">System</span>.out.println(<span class="string">"Miau: "</span> + gato);
 }</code></pre>
@@ -424,7 +424,7 @@ gatos[3] = <span class="string">"Calcetines"</span>; <span class="error-inline">
     <span class="code-card-title">Aparcament.java</span>
   </div>
   <pre><code><span class="type">int</span>[][] tabla = <span class="keyword">new</span> <span class="type">int</span>[3][4]; <span class="comment">// 3 files, 4 columnes</span>
-
+<span class="comment">// acces per fila i columna</span>
 tabla[0][0] = 1; <span class="comment">// fila 0, columna 0</span>
 tabla[1][2] = 5; <span class="comment">// fila 1, columna 2</span></code></pre>
 </div>
@@ -716,7 +716,7 @@ minas[2][3] = <span class="keyword">true</span>; <span class="comment">// hi ha 
       </div>
       <pre><code><span class="type">int</span>[] a = {1, 2, 3};
 <span class="type">int</span>[] b = {1, 2, 3};
-
+<span class="comment">// ¿mateix objecte o mateix contingut?</span>
 System.out.println(a == b);
 <span class="comment">// false: són el MATEIX objecte?</span>
 System.out.println(
