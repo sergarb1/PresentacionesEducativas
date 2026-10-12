@@ -87,7 +87,10 @@ onMounted(async () => {
     })
 
     svgElement.style.maxWidth = '100%'
-    svgElement.style.height = 'auto'
+    svgElement.style.maxHeight = '100%'
+    svgElement.style.width = 'auto'
+    svgElement.style.height = '100%'
+    svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet')
 
     // Namespace all IDs to avoid collisions when same file renders on multiple slides
     let svgString = svgElement.outerHTML

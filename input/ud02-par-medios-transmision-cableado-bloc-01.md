@@ -2,7 +2,7 @@
 layout: cover
 ---
 
-# Unidad 02 — Ethernet, medios de transmisión y cableado<br>Bloque 01
+# Unidad 02 — Medios de transmisión y cableado<br>Bloque 01
 
 ## 1r CFGS ASIR · Planificación y Administración de Redes
 
@@ -14,11 +14,11 @@ layout: cover
 
 <div class="key-idea">
   <div class="key-idea-text">
-    Antes de cualquier IP o VLAN, hay alguien que convierte un <strong>1 binario</strong> en un pulso eléctrico, un destello de luz o una onda de radio — y garantiza que ese 1 llegue entero a su destino. Ese alguien es la <strong>capa física</strong>, y <strong>Ethernet es su idioma</strong>.
+    Antes de cualquier IP o VLAN, hay alguien que convierte un <strong>1 binario</strong> en un pulso eléctrico, un destello de luz o una onda de radio — y garantiza que ese 1 llegue entero a su destino. Ese alguien es la <strong>capa física</strong>.
   </div>
 </div>
 
-En esta unidad: los medios de transmisión, el cable UTP y su crimpado, el cableado estructurado del edificio y, de regalo, el modelo OSI y la trama Ethernet.
+En esta unidad: los tres medios de transmisión y cómo elegir entre ellos, el cable UTP por dentro, los tres tipos de cable y el crimpado con su comprobación.
 
 ---
 class: compact-slide
@@ -436,17 +436,17 @@ class: compact-slide
   <div class="feature-item">
     <span class="feature-icon">🧵</span>
     <strong>Medios y UTP</strong>
-    <p style="font-size:0.9rem;">Cobre (100 m, barato), fibra (km, inmune) y aire (flexible). 8 hilos en 4 pares trenzados contra interferencias y diafonía.</p>
+    <p style="font-size:0.9rem;">Cobre (100 m, barato), fibra (km, inmune) y aire (flexible). 8 hilos en 4 pares trenzados contra interferencias y diafonía; la categoría marca el techo.</p>
   </div>
   <div class="feature-item">
     <span class="feature-icon">🔌</span>
     <strong>Pinout y cables</strong>
-    <p style="font-size:0.9rem;">T568A/B difieren solo en los pares 2-3. Directo = distinto tipo, cruzado = mismo tipo, consola = pines invertidos.</p>
+    <p style="font-size:0.9rem;">T568A/B difieren solo en los pares 2-3. Directo = distinto tipo, cruzado = mismo tipo, consola = pines invertidos. Auto MDI-X perdona casi todo.</p>
   </div>
   <div class="feature-item">
     <span class="feature-icon">🛠️</span>
     <strong>Crimpado</strong>
-    <p style="font-size:0.9rem;">6 pasos que terminan siempre en tester. Cuidado con el split pair y con la funda sin anclar.</p>
+    <p style="font-size:0.9rem;">6 pasos que terminan siempre en tester: cuidado con el split pair y con la funda sin anclar. La prueba de verdad es en red (negociación a 1 Gbps).</p>
   </div>
 </div>
 
