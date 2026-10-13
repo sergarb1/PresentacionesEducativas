@@ -173,6 +173,17 @@ class: compact-slide
 class: compact-slide
 ---
 
+## Anatomía de una MAC
+### OUI de IEEE + número de serie
+
+<div class="diagram-frame">
+  <Excalidraw drawFilePath="/diagrams/ud03-par-estructura-mac.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />
+</div>
+
+---
+class: compact-slide
+---
+
 ## Los tres tipos de trama
 
 <div class="two-cols" style="align-items:start;">
@@ -289,19 +300,6 @@ class: compact-slide
 <div class="two-cols">
   <div class="left">
     <div class="success">
-      <strong>No cambia:</strong> capa 2 y entrega por MAC. El chip WiFi <strong>reconstruye una trama válida</strong> para la capa 3.
-    </div>
-  </div>
-  <div class="right">
-    <div class="warning">
-      <strong>Cambia en el aire:</strong> hasta <strong>4 MACs</strong> por trama, cabecera más larga (Frame Control, duración…), radio compartida y el AP cifra (WPA2/WPA3).
-    </div>
-  </div>
-</div>
-
-<div class="two-cols">
-  <div class="left">
-    <div class="success">
       <strong>Lo que no cambia:</strong> sigue siendo <strong>capa 2</strong>, entrega local por MAC, y el mundo IP de arriba ni se entera de si venías de un RJ45 o de una antena.
     </div>
     <div class="info" style="margin-top:0.6rem;">
@@ -391,6 +389,17 @@ class: compact-slide
       <strong>La cabecera solo la entiende su capa:</strong> el switch mira MACs y ni sabe que hay un puerto 80 dentro; el router mira la IP y le da igual quién mandó el cable o el WiFi.
     </div>
   </div>
+</div>
+
+---
+class: compact-slide
+---
+
+## El viaje de las MACs, visto de cerca
+### Cada tramo, su trama; misma IP de destino
+
+<div class="diagram-frame">
+  <Excalidraw drawFilePath="/diagrams/ud03-par-viaje-macs.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />
 </div>
 
 ---
