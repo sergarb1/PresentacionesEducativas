@@ -49,7 +49,12 @@
       "height": 70,
       "angle": 0,
       "backgroundColor": "#F5F3FF",
-      "boundElements": null,
+      "boundElements": [
+        {
+          "id": "caja-datos-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "frameId": null,
       "groupIds": [],
@@ -59,7 +64,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 2011,
       "strokeColor": "#8B5CF6",
       "strokeStyle": "solid",
@@ -123,7 +130,16 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "points": [[0, 0], [0, 25]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          25
+        ]
+      ],
       "roughness": 1,
       "roundness": null,
       "seed": 2013,
@@ -137,34 +153,6 @@
       "versionNonce": 103
     },
     {
-      "id": "capa7-rect",
-      "type": "rectangle",
-      "x": 240,
-      "y": 90,
-      "width": 500,
-      "height": 70,
-      "angle": 0,
-      "backgroundColor": "#F5F3FF",
-      "boundElements": null,
-      "fillStyle": "solid",
-      "frameId": null,
-      "groupIds": [],
-      "index": "a1",
-      "isDeleted": false,
-      "link": null,
-      "locked": false,
-      "opacity": 100,
-      "roughness": 1,
-      "roundness": { "type": 3 },
-      "seed": 2011,
-      "strokeColor": "#8B5CF6",
-      "strokeStyle": "solid",
-      "strokeWidth": 2,
-      "updated": 1791152597834,
-      "version": 1,
-      "versionNonce": 101
-    },
-    {
       "id": "caja4",
       "type": "rectangle",
       "x": 200,
@@ -173,7 +161,12 @@
       "height": 70,
       "angle": 0,
       "backgroundColor": "#DBEAFE",
-      "boundElements": null,
+      "boundElements": [
+        {
+          "id": "caja4-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "frameId": null,
       "groupIds": [],
@@ -183,7 +176,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 2014,
       "strokeColor": "#1D4ED8",
       "strokeStyle": "solid",
@@ -198,7 +193,7 @@
       "x": 210,
       "y": 217,
       "width": 560,
-      "height": 26,
+      "height": 23,
       "angle": 0,
       "autoResize": true,
       "backgroundColor": "transparent",
@@ -206,7 +201,7 @@
       "containerId": "caja4",
       "fillStyle": "solid",
       "fontFamily": 1,
-      "fontSize": 20,
+      "fontSize": 18,
       "frameId": null,
       "groupIds": [],
       "index": "a5",
@@ -247,7 +242,16 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "points": [[0, 0], [0, 25]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          25
+        ]
+      ],
       "roughness": 1,
       "roundness": null,
       "seed": 2016,
@@ -269,7 +273,12 @@
       "height": 70,
       "angle": 0,
       "backgroundColor": "#D1FAE5",
-      "boundElements": null,
+      "boundElements": [
+        {
+          "id": "caja3-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "frameId": null,
       "groupIds": [],
@@ -279,7 +288,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 2017,
       "strokeColor": "#15803D",
       "strokeStyle": "solid",
@@ -343,7 +354,16 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "points": [[0, 0], [0, 25]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          25
+        ]
+      ],
       "roughness": 1,
       "roundness": null,
       "seed": 2019,
@@ -365,7 +385,12 @@
       "height": 70,
       "angle": 0,
       "backgroundColor": "#FEF3C7",
-      "boundElements": null,
+      "boundElements": [
+        {
+          "id": "caja2-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "frameId": null,
       "groupIds": [],
@@ -375,7 +400,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 2020,
       "strokeColor": "#D97706",
       "strokeStyle": "solid",
@@ -389,8 +416,8 @@
       "type": "text",
       "x": 130,
       "y": 427,
-      "width": 720,
-      "height": 26,
+      "width": 650,
+      "height": 23,
       "angle": 0,
       "autoResize": true,
       "backgroundColor": "transparent",
@@ -398,7 +425,7 @@
       "containerId": "caja2",
       "fillStyle": "solid",
       "fontFamily": 1,
-      "fontSize": 20,
+      "fontSize": 18,
       "frameId": null,
       "groupIds": [],
       "index": "a11",
@@ -407,14 +434,14 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "originalText": "2 · Enlace: [ MACdst | MACsrc | EtherType || todo lo de arriba || FCS ]  = TRAMA",
+      "originalText": "2 · Enlace: [ MACdst | MACsrc | Tipo || todo lo de arriba || FCS ] = TRAMA",
       "roughness": 1,
       "roundness": null,
       "seed": 2021,
       "strokeColor": "#D97706",
       "strokeStyle": "solid",
       "strokeWidth": 1,
-      "text": "2 · Enlace: [ MACdst | MACsrc | EtherType || todo lo de arriba || FCS ]  = TRAMA",
+      "text": "2 · Enlace: [ MACdst | MACsrc | Tipo || todo lo de arriba || FCS ] = TRAMA",
       "textAlign": "center",
       "updated": 1791152597834,
       "version": 1,
@@ -439,7 +466,16 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "points": [[0, 0], [0, 25]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          25
+        ]
+      ],
       "roughness": 1,
       "roundness": null,
       "seed": 2022,
@@ -461,7 +497,12 @@
       "height": 55,
       "angle": 0,
       "backgroundColor": "#FFE4E6",
-      "boundElements": null,
+      "boundElements": [
+        {
+          "id": "caja1-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "frameId": null,
       "groupIds": [],
@@ -471,7 +512,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": { "type": 3 },
+      "roundness": {
+        "type": 3
+      },
       "seed": 2023,
       "strokeColor": "#BE123C",
       "strokeStyle": "solid",
