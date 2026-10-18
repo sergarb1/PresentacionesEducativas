@@ -2,7 +2,7 @@
 layout: cover
 ---
 
-# Unidad 04 — Direccionamiento IP<br>Bloque 3: IPv6
+# Unidad 04 — Direccionamiento IP<br>Bloque 3: IPv6, transición y CG-NAT
 
 ## 1r CFGS ASIR · Planificación y Administración de Redes
 
@@ -323,6 +323,20 @@ Divide, inserción FF:FE y flip del bit 7… y para la IP completa hace falta el
 
 ---
 
+## Transición IPv4 → IPv6: la idea en una frase
+
+<div class="key-idea">
+  <div class="key-idea-text">
+    No hay ningún <strong>interruptor que apague IPv4</strong>: la migración se apoya en <strong>Dual Stack</strong> (las dos pilas a la vez), <strong>túneles</strong> (IPv6 dentro de IPv4 cuando el camino no lo soporta) y <strong>NAT64 + DNS64</strong> (traducción para que una red solo-IPv6 hable con los servidores solo-IPv4 de toda la vida).
+  </div>
+</div>
+
+<div class="info" style="margin-top:0.6rem;">
+  Los tres mecanismos <strong>conviven</strong> mientras la Internet entera migra poco a poco… y mientras tanto los operadores se apañan con <strong>CG-NAT</strong>, el parche que <strong>exprime lo que queda de IPv4</strong>.
+</div>
+
+---
+
 ## Dual Stack: los dos protocolos a la vez
 
 IPv4 no desaparece de golpe. Estrategia recomendada con IPv6 nativo del ISP:
@@ -330,15 +344,14 @@ IPv4 no desaparece de golpe. Estrategia recomendada con IPv6 nativo del ISP:
 ```
 PC con Dual Stack:  IPv4 192.168.1.10
                     IPv6 2001:DB8:1:2:21A:2BFF:FE3C:4D5E
-
 "¿google.com?" → ¿registro AAAA? (IPv6) → usamos IPv6
               → ¿solo registro A? (IPv4) → usamos IPv4
 ```
 
-<div class="two-cols" style="margin-top:0.5rem;">
+<div class="two-cols" style="margin-top:0.3rem;">
   <div class="left">
     <div class="comparison-grid">
-      <div class="comparison-item good">✅ Funciona con todo; si una pila falla, la otra sigue</div>
+      <div class="comparison-item good">✅ Funciona con todo, sin encapsular ni traducir; si una pila falla, la otra sigue</div>
     </div>
   </div>
   <div class="right">
@@ -346,6 +359,10 @@ PC con Dual Stack:  IPv4 192.168.1.10
       <div class="comparison-item bad">❌ Configurar y mantener el doble (routing, DNS, firewalls)</div>
     </div>
   </div>
+</div>
+
+<div class="success" style="margin-top:0.35rem;">
+  <strong>Regla de oro de entrevista:</strong> ante un proyecto de migración, «<strong>Dual Stack si hay IPv6 nativo</strong>» es la respuesta esperada.
 </div>
 
 ---
@@ -368,6 +385,10 @@ Cuando *el camino* intermedio solo habla IPv4, se encapsula el paquete IPv6 dent
     <tr><td><strong>ISATAP</strong></td><td>Sobre la LAN IPv4 interna</td><td>Dentro del campus/empresa</td></tr>
   </tbody>
 </table>
+
+<div class="warning" style="margin-top:0.5rem;">
+  <strong>Ojo:</strong> los túneles <em>automáticos</em> (6to4, Teredo) han caído en desuso por <strong>seguridad y fiabilidad</strong>: hoy se prefiere Dual Stack… o GRE manual si no hay alternativa.
+</div>
 
 ---
 
@@ -400,7 +421,7 @@ NAT64 → la traduce a 192.0.2.1 y la emite</div>
 </div>
 
 <div class="warning" style="margin-top:0.5rem;">
-  <strong>Distinción que siempre preguntan:</strong> el <strong>túnel encapsula</strong> (el interior sigue siendo IPv6); <strong>NAT64 traduce</strong> (cambia las cabeceras entre familias).
+  <strong>Distinción que siempre preguntan:</strong> el <strong>túnel encapsula</strong> (el interior sigue siendo IPv6); <strong>NAT64 traduce</strong> (reescribe las cabeceras entre familias de direcciones).
 </div>
 
 ---
@@ -419,6 +440,145 @@ NAT64 → la traduce a 192.0.2.1 y la emite</div>
 
 <div class="answer-card" style="margin-top:0.8rem;">
   <strong>1.</strong> 16 bits por grupo, 8 grupos = 128 bits. · <strong>2.</strong> LLA, ULA, multicast (todos los nodos), GUA. · <strong>3.</strong> Partir, FF:FE, invertir bit 7 → <strong>021A:2BFF:FE3C:4D5E</strong>. · <strong>4.</strong> NDP con NS/NA; el NS va a <code>FF02::1:FFxx:xxxx</code>.
+</div>
+
+---
+class: compact-slide
+---
+
+## Dual stack en la práctica: lo mínimo que no puede faltar
+
+<div class="two-cols">
+  <div class="left">
+    <div class="code-card">
+      <div class="code-card-header">
+        <div class="code-card-dots"><span></span><span></span><span></span></div>
+        <div class="code-card-title">PC Windows: las dos pilas</div>
+      </div>
+      <pre><code>netsh interface ipv6 add address
+    "Ethernet" 2001:DB8:1:2::10/64
+netsh interface ipv6 add route
+    ::/0 "Ethernet" fe80::1%12</code></pre>
+    </div>
+  </div>
+  <div class="right">
+    <div class="code-card">
+      <div class="code-card-header">
+        <div class="code-card-dots"><span></span><span></span><span></span></div>
+        <div class="code-card-title">Router Cisco: encender IPv6</div>
+      </div>
+      <pre><code>R1(config)# ipv6 unicast-routing ← sin esto, ignora IPv6
+R1(config)# interface GigabitEthernet0/0
+R1(config-if)# ipv6 address 2001:DB8:1:2::1/64
+R1(config-if)# no shutdown</code></pre>
+    </div>
+  </div>
+</div>
+
+<div class="info" style="margin-top:0.5rem;">
+  <strong>Verificación que da vida:</strong> <code>show ipv6 interface brief</code> (puerto <em>Up/Up</em> con su GUA), <code>ping</code> con la IPv6 literal y <code>ipconfig /all</code> en el PC (GUA + link-local con su <code>%zona</code>). Si falta la GUA, revisa los <strong>flags del RA</strong>: <em>A</em> (SLAAC), <em>M</em> (DHCPv6 stateful) u <em>O</em> (stateless).
+</div>
+
+---
+class: sparse-slide
+---
+
+## Curiosidad para la sobremesa: ¿y la «IPv8»?
+
+<div class="key-idea">
+  <div class="key-idea-text">
+    Cada cierto tiempo reaparece alguna «<strong>propuesta de IPv8</strong>» con 64 bits y tono revolucionario: <strong>sin IETF, sin RFC, sin despliegue real</strong>. Es un <em>Internet-Draft</em> y marketing.
+  </div>
+</div>
+
+<div class="success" style="margin-top:0.6rem;">
+  La familia IP sigue en la <strong>versión 6</strong>. Si alguien te habla de IPv8 en una entrevista, sonríe… y cuenta que los estándares los aprueba la <strong>IETF</strong>, no los hilos virales.
+</div>
+
+---
+class: sparse-slide
+---
+
+## Cuando el ISP no llega: CG-NAT
+
+<div class="key-idea">
+  <div class="key-idea-text">
+    El ISP <strong>no tiene IPv4 públicas para dar una a cada cliente</strong>. Su parche mientras despliega IPv6: el <strong>CG-NAT</strong> (Carrier-Grade NAT, también <strong>NAT444</strong>), una <strong>traducción de direcciones</strong> a escala de operador.
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-number">1</div>
+  <div class="step-content">Tu router recibe en su <strong>WAN una IP privada del operador</strong>: rango dedicado <strong>100.64.0.0/10</strong> (RFC 6598).</div>
+</div>
+<div class="step">
+  <div class="step-number">2</div>
+  <div class="step-content">En la central, un equipo CG-NAT traduce <strong>miles de usuarios hacia un pool ínfimo de públicas</strong> mediante PAT (el <em>overload</em>, a fondo en la unidad de NAT).</div>
+</div>
+<div class="step">
+  <div class="step-number">3</div>
+  <div class="step-content">Resultado: un esquema de <strong>triple NAT (NAT444)</strong> — LAN privada (tuya) → WAN privada del operador → IP pública compartida.</div>
+</div>
+
+---
+class: compact-slide
+---
+
+## El rango exclusivo del operador: 100.64.0.0/10
+
+| | IPs privadas de casa | IPs privadas de operador |
+|---|---|---|
+| <strong>Rango</strong> | 10.0.0.0/8 · 172.16.0.0/12 · 192.168.0.0/16 | <strong>100.64.0.0/10</strong> (100.64.0.0 – 100.127.255.255) |
+| <strong>Estándar</strong> | RFC 1918 | <strong>RFC 6598</strong> (IETF, 2012) |
+| <strong>Para quién</strong> | Redes locales de usuarios: ninguna funciona en Internet | Solo la <strong>red interna del ISP</strong>: nunca enrutable en Internet |
+
+<div class="warning" style="margin-top:0.5rem;">
+  <strong>Identificación rápida:</strong> si la IP WAN de tu router cae entre <strong>100.64.x.x y 100.127.x.x</strong>, estás detrás de un <strong>CG-NAT</strong>. Ese rango no es una privada de casa: es un bloque especial reservado a operadores en 2012, y su presencia en tu WAN es la <strong>firma inequívoca</strong> del parche.
+</div>
+
+---
+
+## CG-NAT en la vida real: qué se rompe y qué no
+
+<div class="comparison-grid">
+  <div class="comparison-item bad">
+    ❌ <strong>Lo que se rompe</strong>
+    <p><strong>Redirección de puertos</strong> (port forwarding)<br><strong>Servidores autoalojados</strong>: web, VPN en casa<br><strong>Consolas</strong>: NAT estricta / «Tipo 3»<br><strong>Cámaras IP</strong> sin nube, sin acceso desde fuera</p>
+  </div>
+  <div class="comparison-item good">
+    ✅ <strong>Lo que sigue funcionando</strong>
+    <p>Navegación, streaming y <strong>vídeollamadas</strong><br>Juegos online <em>hacia servidores</em> del estudio<br>La conexión IPv6 <strong>si el operador la da</strong>: sin NAT de ningún tipo</p>
+  </div>
+</div>
+
+<div class="info" style="margin-top:0.6rem;">
+  El problema no es <em>salir</em>, es que <strong>el mundo entra</strong>: el CG-NAT solo guarda la sesión que tú iniciaste, así que nadie de Internet puede inaugurarte una conexión.
+</div>
+
+---
+
+## CG-NAT, dibujado: el NAT444
+
+<div class="diagram-frame">
+  <Excalidraw drawFilePath="/diagrams/ud04-cg-nat.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />
+</div>
+
+---
+
+## Mini-chequeo: transición y CG-NAT
+
+<div class="question-card">
+  <span class="question-icon">🧠</span>
+  Responde rápido:
+</div>
+
+1. ¿Qué diferencia hay entre un túnel y NAT64?
+2. ¿Quién inventa direcciones IPv6 sintéticas y para qué registros?
+3. Tu router muestra IP WAN `100.67.20.5`: ¿qué hay detrás?
+4. ¿Qué significan las tres traducciones del NAT444?
+
+<div class="answer-card" style="margin-top:0.8rem;">
+  <strong>1.</strong> El túnel <strong>encapsula</strong> (el interior sigue siendo IPv6); NAT64 <strong>traduce</strong> entre familias. · <strong>2.</strong> <strong>DNS64</strong>, para los registros A (IPv4). · <strong>3.</strong> <strong>CG-NAT</strong>: es una IP privada de operador (RFC 6598), no una de casa. · <strong>4.</strong> LAN privada → WAN privada de operador → IP pública compartida.
 </div>
 
 ---
