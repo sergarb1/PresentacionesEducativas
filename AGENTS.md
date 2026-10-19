@@ -9,6 +9,7 @@
 - **Idioma**: castellano por defecto, valencià para contenido educativo
 - **FP**: priorizar procedimientos, herramientas, casos profesionales
 - **Resolución**: 1920×1080 (Full HD, 16:9)
+- **Botón de copiar**: siempre `codeCopy: false` en el frontmatter de la entrada raíz. Nunca se muestra el icono de copiar de Slidev sobre los bloques de código (en PDF queda flotando sobre el código y no aporta). Nuevas presentaciones lo llevan en la plantilla; si falta en una entrada existente, añadirlo.
 - **Selección de tema**: el tema se declara en la entrada de la raíz (`theme:` en el frontmatter), nunca dentro del Markdown de `input/`; si no, Slidev lo ignora. Los componentes compartidos de `styles/index.css` funcionan con cualquiera de los tres temas (verificado con `measure.mjs` y `check-contrast.mjs`): nuestro CSS redefine tipografía, tablas y componentes por encima del del tema. Con `bricks` la paleta viva del tema puede prevalecer sobre las reglas de Diseño pensadas para `default` (acento único #2563EB, tablas con cabecera azul, etc.).
 
 ## Reglas permanentes
@@ -171,6 +172,7 @@ drawings:
   persist: false
 transition: slide-left
 mdc: false
+codeCopy: false
 src: ./input/udXX-modul-tema.md
 ---
 ```
