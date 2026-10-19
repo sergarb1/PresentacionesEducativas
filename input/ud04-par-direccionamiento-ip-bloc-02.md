@@ -72,7 +72,7 @@ Nº de hosts por subred  = 2ʰ−2  (h = bits de host restantes)
 
 ---
 
-## Ejemplo completo: 192.168.1.0/24 → 4 subredes
+## Ejemplo completo: los cuatro pasos
 
 ```
 Paso 1:  2ⁿ ≥ 4  → n = 2            (2² = 4)
@@ -80,6 +80,14 @@ Paso 2:  /24 + 2 = /26 = 255.255.255.192
 Paso 3:  32 − 26 = 6 bits → 2⁶−2 = 62 hosts por subred
 Paso 4:  incremento = 2⁶ = 64
 ```
+	
+<div class="diagram-frame diagram-small">
+  <Excalidraw drawFilePath="/diagrams/ud04-subnetting-bloque.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />
+</div>
+
+---
+
+## El resultado: 4 subredes encadenadas
 
 <table>
   <thead><tr><th>Subred</th><th>Dirección de red</th><th>Primer host</th><th>Último host</th><th>Broadcast</th></tr></thead>
@@ -91,8 +99,8 @@ Paso 4:  incremento = 2⁶ = 64
   </tbody>
 </table>
 
-<div class="diagram-frame diagram-medium" style="margin-top:0.5rem;">
-  <Excalidraw drawFilePath="/diagrams/ud04-subnetting-bloque.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />
+<div class="success" style="margin-top:0.5rem;">
+  Con n = 2 bits se pierden la mitad de direcciones (<code>192.168.1.256</code> no existe); la compensación es <strong>4 departamentos aislados</strong> en vez de 1 mezclado.
 </div>
 
 ---
@@ -235,10 +243,12 @@ class: sparse-slide
 </div>
 
 ---
+class: compact-slide
+---
 
 ## El proceso DORA
 
-<div class="diagram-frame diagram-medium">
+<div class="diagram-frame diagram-small">
   <Excalidraw drawFilePath="/diagrams/ud04-dora.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />
 </div>
 
