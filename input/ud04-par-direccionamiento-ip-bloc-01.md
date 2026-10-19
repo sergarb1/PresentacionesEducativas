@@ -59,14 +59,13 @@ En este bloque: la estructura IPv4, la cabecera del paquete, el binario y la ope
         <tr><td><strong>IP origen / destino</strong></td><td>32 + 32 bits</td><td>Quién envía y a quién</td></tr>
         <tr><td><strong>TTL</strong></td><td>8 bits</td><td>Contador de saltos; a 0 se descarta <em>(evita bucles)</em></td></tr>
         <tr><td><strong>Protocolo</strong></td><td>8 bits</td><td><strong>1</strong> = ICMP · <strong>6</strong> = TCP · <strong>17</strong> = UDP</td></tr>
-        <tr><td><strong>Longitud total</strong></td><td>16 bits</td><td>Cabecera + datos, en bytes</td></tr>
         <tr><td><strong>ID + Flags + Offset</strong></td><td>16 bits</td><td>Campos de la <strong>fragmentación</strong></td></tr>
         <tr><td><strong>Checksum</strong></td><td>16 bits</td><td>Integridad de la <em>cabecera</em>, no de los datos</td></tr>
       </tbody>
     </table>
   </div>
   <div class="right">
-    <div class="diagram-frame diagram-medium">
+    <div class="diagram-frame diagram-small">
       <Excalidraw drawFilePath="/diagrams/ud04-cabecera-ipv4.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />
     </div>
     <div class="info" style="margin-top:0.5rem;">
@@ -83,20 +82,20 @@ En este bloque: la estructura IPv4, la cabecera del paquete, el binario y la ope
   <div class="left">
     <div class="key-idea">
       <div class="key-idea-text">
-        Cada medio tiene un techo de tamaño: el <strong>MTU</strong>. En Ethernet es <strong>1500 bytes</strong> de payload. Si el paquete es más grande, <strong>se fragmenta</strong>.
+        Cada medio tiene un techo: el <strong>MTU</strong> (<strong>1500 B</strong> en Ethernet). Paquete mayor ⇒ <strong>se fragmenta</strong>.
       </div>
     </div>
-    <div class="step" style="margin-top:0.5rem;">
+    <div class="step" style="margin-top:0.4rem;">
       <div class="step-number">1</div>
-      <div class="step-content"><strong>Quién fragmenta (IPv4):</strong> el emisor o <em>cualquier router</em> con un enlace de MTU menor.</div>
+      <div class="step-content"><strong>Fragmenta (IPv4):</strong> el emisor o <em>cualquier router</em> con MTU menor.</div>
     </div>
     <div class="step">
       <div class="step-number">2</div>
-      <div class="step-content"><strong>Quien reensambla:</strong> solo el <strong>host destino</strong>. Los routers no se molestan.</div>
+      <div class="step-content"><strong>Reensambla:</strong> solo el <strong>host destino</strong>; los routers no se molestan.</div>
     </div>
   </div>
   <div class="right">
-    <div class="diagram-frame diagram-medium">
+    <div class="diagram-frame diagram-small">
       <Excalidraw drawFilePath="/diagrams/ud04-fragmentacion.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />
     </div>
     <div class="info" style="margin-top:0.5rem;">
@@ -210,14 +209,7 @@ Red:     192.168.1.0
 
 ## ARP: de la IP a la MAC
 
-La IP dice <strong>a qué equipo</strong>; la trama necesita <strong>a qué MAC</strong>. El traductor es ARP:
-
-```
-ARP Request (broadcast FF:FF:FF:FF:FF:FF)
-  → "¿Quién tiene la IP 192.168.1.20?"   → everyone lo recibe
-ARP Reply (unicast)
-  → "Yo, mi MAC es aa:bb:cc:dd:ee:ff"    → solo al solicitante
-```
+La IP dice <strong>a qué equipo</strong>; la trama necesita <strong>a qué MAC</strong>. El traductor es <strong>ARP</strong>:
 
 <div class="diagram-frame">
   <Excalidraw drawFilePath="/diagrams/ud04-arp.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />
@@ -335,14 +327,14 @@ Tres rangos reservados <strong>solo para uso interno</strong>: no son enrutables
       </div>
     </div>
     <div class="info" style="margin-top:0.6rem;">
-      Solo existen <strong>9 valores posibles por octeto</strong>: 0, 128, 192, 224, 240, 248, 252, 254, 255. Si ves otro (<em>172 como máscara</em>), algo está mal.
+      Solo existen <strong>9 valores por octeto</strong>: 0, 128, 192, 224, 240, 248, 252, 254, 255. Otro (<em>172 como máscara</em>) ⇒ error.
     </div>
   </div>
   <div class="right">
-    <div class="diagram-frame diagram-medium">
+    <div class="diagram-frame diagram-small">
       <Excalidraw drawFilePath="/diagrams/ud04-mascara-bits.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />
     </div>
-    <div class="success" style="margin-top:0.5rem;">
+    <div class="success" style="margin-top:0.2rem; font-size:1.05rem;">
       Sin máscara, una IP es una isla: no sabe quién es vecino suyo y quién necesita el gateway.
     </div>
   </div>
@@ -363,8 +355,8 @@ Tres rangos reservados <strong>solo para uso interno</strong>: no son enrutables
 | /24 | 255.255.255.0 | 256 | **254** | Oficina estándar |
 | /16 | 255.255.0.0 | 65.536 | **65.534** | Empresa mediana |
 
-<div class="warning" style="margin-top:0.5rem;">
-  Hosts útiles = <strong>2ʰ − 2</strong> (h = 32 − n): se descuentan la <strong>dirección de red</strong> y el <strong>broadcast</strong>. Cada bit de host ganado <strong>duplica</strong> el tamaño.
+<div class="warning" style="margin-top:0.2rem; padding-top:0.3rem; padding-bottom:0.3rem; font-size:0.85rem;">
+  Hosts útiles = <strong>2ʰ − 2</strong>: se descuentan <strong>red</strong> y <strong>broadcast</strong>; cada bit de host ganado <strong>duplica</strong> el tamaño.
 </div>
 
 ---
