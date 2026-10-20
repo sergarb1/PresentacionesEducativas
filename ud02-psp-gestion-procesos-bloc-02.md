@@ -9,6 +9,7 @@ drawings:
   persist: false
 transition: slide-left
 mdc: false
+codeCopy: false
 addons:
   - slidev-addon-excalidraw
 src: ./input/ud02-psp-gestion-procesos-bloc-02.md

@@ -735,32 +735,122 @@ print("Todos cerrados 🏁")</code></pre>
 </div>
 
 ---
+class: compact-slide
+---
+
+## multiprocessing: procesos nativos
+### La idea en una frase
+
+<div class="key-idea" style="margin-top:0.3rem;padding:0.6rem 1.4rem 0.6rem 3.1rem;">
+  <div class="key-idea-text" style="font-size:1.02rem;">
+    Mientras que <code>subprocess</code> lanza <strong>programas externos</strong> (la calculadora, un comando del sistema), <code>multiprocessing</code> <strong>clona tu propio programa</strong> Python para ejecutar varias de tus funciones al mismo tiempo en distintos núcleos del procesador.
+  </div>
+</div>
+
+<table style="margin-top:0.35rem;font-size:0.75rem;">
+  <thead><tr><th>Característica</th><th>subprocess</th><th>multiprocessing</th></tr></thead>
+  <tbody>
+    <tr><td><strong>¿Qué lanza?</strong></td><td>Ejecutables externos (ping, notepad.exe, ls)</td><td>Funciones de tu propio código Python</td></tr>
+    <tr><td><strong>Paso de datos</strong></td><td>Difícil: tuberías de texto (stdin/stdout)</td><td>Fácil: variables y objetos como argumentos</td></tr>
+    <tr><td><strong>Uso típico</strong></td><td>Automatización del SO y scripts</td><td>Concurrencia, servidores y cálculos pesados</td></tr>
+  </tbody>
+</table>
+
+<div class="two-cols" style="margin-top:0.3rem;gap:0.8rem;align-items:start;">
+  <div class="left">
+    <div class="info">
+      ¿Tu propio servidor debe atender a <strong>cinco clientes a la vez</strong>? Con <code>subprocess.Popen</code> no puedes hacerlo de forma elegante para cada tarea interna. Aquí entra la librería estándar <strong>multiprocessing</strong>.
+    </div>
+  </div>
+  <div class="right">
+    <div class="success">
+      La base es la clase <strong>Process</strong>: le dices qué <strong>función</strong> (target) y qué <strong>argumentos</strong> (args) debe ejecutar un proceso clon de tu programa.
+    </div>
+  </div>
+</div>
+
+---
+class: compact-slide
+---
+
+## Process, start() y join()
+### Clona tu propio programa
+
+<div class="two-cols">
+  <div class="left">
+    <div class="code-card">
+      <div class="code-card-header">
+        <div class="code-card-dots"><span></span><span></span><span></span></div>
+        <div class="code-card-title">trabajador.py</div>
+        <div class="code-card-badge">Python</div>
+      </div>
+      <pre style="font-size:0.72rem;"><code>import multiprocessing, os, time
+def trabajador(nombre, repeticiones):
+    print(f"[{os.getpid()}] Soy el trabajador {nombre}")
+    time.sleep(repeticiones)
+    print(f"[{os.getpid()}] {nombre} ha terminado")
+if __name__ == "__main__":
+    # IMPORTANTE en Windows: protege el main
+    print(f"[{os.getpid()}] Soy el proceso PADRE")
+    p1 = multiprocessing.Process(
+        target=trabajador, args=("Alice", 2))
+    p2 = multiprocessing.Process(
+        target=trabajador, args=("Bob", 1))
+    p1.start()  # pasan al estado LISTO/EJECUCIÓN
+    p2.start()
+    p1.join()   # espera bloqueante, como wait()
+    p2.join()
+    print("Todos los trabajadores han finalizado")</code></pre>
+    </div>
+  </div>
+  <div class="right">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content" style="font-size:0.85rem;"><code>target</code>: el nombre de la función <strong>sin paréntesis</strong> (no la ejecutas ahora, se la pasas al proceso)</div>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content" style="font-size:0.85rem;"><code>args</code>: tupla con los argumentos; con uno solo, <strong>recuerda la coma final</strong>: <code>("Alice",)</code></div>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content" style="font-size:0.85rem;"><code>start()</code>: lanza el proceso al <strong>planificador</strong> del SO</div>
+    </div>
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content" style="font-size:0.85rem;"><code>join()</code>: bloquea al padre hasta que <strong>este hijo</strong> termine</div>
+    </div>    <div class="warning" style="margin-top:0.35rem;">
+      <code>if __name__ == "__main__"</code> es <strong>obligatorio en Windows</strong>: sin él los hijos reimportan el script y entran en un <strong>bucle infinito de procesos</strong> (lo veremos en el bloque 02).
+    </div>
+  </div>
+</div>
+
+---
 ---
 
 ## Resumen — Bloque 01 completado
 ### Lo que hemos aprendido
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:0.8rem;">
-  <div style="background:#EFF6FF;border:2px solid #3B82F6;border-radius:12px;padding:12px;">
-    <div style="font-weight:700;color:#3B82F6;margin-bottom:4px;">📦 Sección 1</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:0.4rem;">
+  <div style="background:#EFF6FF;border:2px solid #3B82F6;border-radius:12px;padding:8px 12px;">
+    <div style="font-weight:700;color:#3B82F6;margin-bottom:2px;">📦 Sección 1</div>
     <p style="font-size:0.82rem;"><strong>Qué es un proceso</strong><br>Burbuja de memoria, PID, aislamiento, analogía de la cocina</p>
   </div>
-  <div style="background:#F5F3FF;border:2px solid #8B5CF6;border-radius:12px;padding:12px;">
-    <div style="font-weight:700;color:#8B5CF6;margin-bottom:4px;">🔄 Sección 2</div>
+  <div style="background:#F5F3FF;border:2px solid #8B5CF6;border-radius:12px;padding:8px 12px;">
+    <div style="font-weight:700;color:#8B5CF6;margin-bottom:2px;">🔄 Sección 2</div>
     <p style="font-size:0.82rem;"><strong>Estados</strong><br>NUEVO, LISTO, EJECUCIÓN, BLOQUEADO, TERMINADO y el planificador</p>
   </div>
-  <div style="background:#F0FDF4;border:2px solid #22C55E;border-radius:12px;padding:12px;">
-    <div style="font-weight:700;color:#22C55E;margin-bottom:4px;">🤹 Sección 3</div>
+  <div style="background:#F0FDF4;border:2px solid #22C55E;border-radius:12px;padding:8px 12px;">
+    <div style="font-weight:700;color:#22C55E;margin-bottom:2px;">🤹 Sección 3</div>
     <p style="font-size:0.82rem;"><strong>Paralela vs distribuida</strong><br>CPUs vs máquinas, concurrencia, multiprocessing.Pool</p>
-  </div>
-  <div style="background:#FFF7ED;border:2px solid #F59E0B;border-radius:12px;padding:12px;">
-    <div style="font-weight:700;color:#F59E0B;margin-bottom:4px;">🚀 Secciones 4-5</div>
-    <p style="font-size:0.82rem;"><strong>subprocess</strong><br>run() para esperar y capturar; Popen() para segundo plano</p>
+  </div>    <div style="background:#FFF7ED;border:2px solid #F59E0B;border-radius:12px;padding:8px 12px;">
+    <div style="font-weight:700;color:#F59E0B;margin-bottom:2px;">🚀🧬 Secciones 4-5 · multiprocessing</div>
+    <p style="font-size:0.82rem;"><strong>subprocess y procesos nativos</strong><br>run() para esperar y capturar · Popen() para segundo plano · Process con start() y join()</p>
   </div>
 </div>
 
 <div class="success">
-  <strong>Ya sabes qué es un proceso, cómo vive y cómo lanzarlo desde Python.</strong> En el bloque 02: comunicación por pipes, Windows vs Linux y práctica real. 🚀
+  <strong>Ya sabes qué es un proceso, cómo vive y cómo lanzarlo desde Python.</strong> En el bloque 02: comunicación por pipes, compartir memoria con Manager, sincronizar con Lock, Windows vs Linux y práctica real. 🚀
 </div>
 
 ---
