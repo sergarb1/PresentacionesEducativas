@@ -67,7 +67,7 @@ def servidor_lento():
 </div>
 
 <div class="info" style="margin-top:0.5rem;">
-  El bucle hace: <strong>acepta → procesa (3s) → cierra → acepta de nuevo</strong>. Mientras procesa, el siguiente <code>accept()</code> no se ejecuta: <strong>nadie más entra</strong.
+  El bucle hace: <strong>acepta → procesa (3s) → cierra → acepta de nuevo</strong>. Mientras procesa, el siguiente <code>accept()</code> no se ejecuta: <strong>nadie más entra</strong>.
 </div>
 
 ---
