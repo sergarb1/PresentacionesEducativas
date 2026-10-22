@@ -9,6 +9,7 @@ drawings:
   persist: false
 transition: slide-left
 mdc: false
+codeCopy: false
 addons:
   - slidev-addon-excalidraw
 src: ./input/sesion05-pim-arquitectura-diagramas.md

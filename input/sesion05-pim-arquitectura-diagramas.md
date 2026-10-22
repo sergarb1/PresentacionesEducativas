@@ -331,7 +331,19 @@ Describen **QUÉ** hace el sistema desde la perspectiva de un actor. Propósito:
   </div>
 </div>
 
-<div class="info">Ejemplo TaskFlow móvil: los casos «Ver Proyectos» y «Ver Tareas» incluyen «Sincronizar Datos» — sin conexión no hay datos que enseñar.</div>
+<div class="info">Ejemplo TaskFlow web, en la siguiente diapositiva: «Crear Tarea» incluye «Validar Autenticación» (siempre), «Recuperar Contraseña» extiende a «Iniciar Sesión» (solo a veces) y el Administrador hereda del Usuario Registrado.</div>
+
+---
+class: compact-slide
+---
+
+## 🎭 Ejemplo: casos de uso de TaskFlow (web)
+
+<div class="diagram-frame diagram-medium">
+  <Excalidraw drawFilePath="/diagrams/sesion05-pim-casos-uso.excalidraw" class="diagram-svg" :darkMode="false" :background="false" />
+</div>
+
+<div class="info">Lectura: continuas = actor–caso de uso · «include» (<em>siempre</em>): <em>Crear Tarea</em> → <em>Validar Autenticación</em> · «extend» (<em>opcional</em>): <em>Recuperar Contraseña</em> → <em>Iniciar Sesión</em> · triángulo: el <em>Administrador</em> hereda del <em>Usuario</em> (y añade <em>Gestionar Usuarios</em>).</div>
 
 ---
 ---
@@ -462,91 +474,6 @@ SI NO:
 <div class="info">Escribir el pseudocódigo antes del diagrama evita olvidar el camino de error: el 90&nbsp;% de los flujos reales son «todo va bien» … hasta que no.</div>
 
 ---
-class: compact-slide
----
-
-## 🧑‍💻 Práctica — Diseñando TaskFlow (DAW)
-
-Cada equipo crea **2 diagramas** que necesitaréis de verdad durante el desarrollo. Criterio de éxito: que respondan preguntas reales y sirvan de **contrato entre equipos**.
-
-<div class="two-cols">
-  <div class="left">
-    <h3>DAW-1 · Ampliar el ERD</h3>
-    <ul>
-      <li>Añadir <strong>COMENTARIOS</strong> (1:N con TAREAS), <strong>ETIQUETAS</strong> (N:M con TAREAS) y <strong>ARCHIVOS_ADJUNTOS</strong> (1:N).</li>
-      <li>Ampliar TAREAS: <code>fecha_limite</code>, <code>prioridad</code>, <code>usuario_creador_id</code>.</li>
-      <li><strong>Entregable</strong>: ERD de 7 entidades + consultas SQL de ejemplo.</li>
-    </ul>
-  </div>
-  <div class="right">
-    <h3>DAW-2 · Secuencia de comentario</h3>
-    <ul>
-      <li>Flujo: añadir comentario → validar auth y permisos → INSERT → notificación <strong>asíncrona</strong> al asignado → WebSocket actualiza la UI.</li>
-      <li>Debe incluir fragmento <strong>alt</strong>, <strong>activate</strong> y mensajes síncronos/asíncronos.</li>
-      <li><strong>Entregable</strong>: diagrama + controlador Laravel.</li>
-    </ul>
-  </div>
-</div>
-
-<div class="info">Podéis partir del ERD de 4 entidades visto en teoría y de la secuencia de registro.</div>
-
----
-class: compact-slide
----
-
-## 🧑‍💻 Práctica — Diseñando TaskFlow (DAM)
-
-<div class="two-cols">
-  <div class="left">
-    <h3>DAM-1 · Ampliar casos de uso</h3>
-    <ul>
-      <li>Añadir: Gestionar Comentarios, Adjuntar Archivos (solo <strong>Usuario Premium</strong>), Recibir Notificaciones Push, Filtrar por Etiqueta, Preferencias <em>Offline</em>.</li>
-      <li><strong>Entregable</strong>: 12+ casos de uso, 3 actores (Usuario, Premium, Sistema Notificaciones), relaciones «include», «extend» y herencia.</li>
-    </ul>
-  </div>
-  <div class="right">
-    <h3>DAM-2 · Sincronización con conflictos</h3>
-    <ul>
-      <li>Usuario A modifica <em>offline</em> y sincroniza primero (versión 2).</li>
-      <li>Usuario B modifica la misma tarea y al sincronizar: <strong>409 Conflict</strong>.</li>
-      <li>Sistema muestra diálogo de resolución de conflicto.</li>
-      <li><strong>Entregable</strong>: diagrama con <strong>par</strong>, <strong>alt</strong>, <strong>opt</strong> + código Kotlin de versioning.</li>
-    </ul>
-  </div>
-</div>
-
-<div class="info">El escenario del conflicto es el ejemplo perfecto de diagrama que «responde una pregunta real»: ¿qué pasa cuando dos usuarios editan sin conexión?</div>
-
----
-class: compact-slide
----
-
-## 🧑‍💻 Práctica — Diseñando TaskFlow (ASIR)
-
-<div class="two-cols">
-  <div class="left">
-    <h3>ASIR-1 · Despliegue multi-entorno</h3>
-    <ul>
-      <li>3 entornos: <strong>Desarrollo</strong> (~30&nbsp;€/mes), <strong>Staging</strong> (~60), <strong>Producción</strong> (~180, con HA y Auto Scaling).</li>
-      <li>Pipeline CI/CD: DEV → STAGING → PROD.</li>
-      <li>3 VPCs separadas, subnets públicas/privadas, Security Groups por entorno.</li>
-      <li><strong>Entregable</strong>: diagrama + justificación de costos + IaC (Terraform/CloudFormation).</li>
-    </ul>
-  </div>
-  <div class="right">
-    <h3>ASIR-2 · Red híbrida Cloud + oficina</h3>
-    <ul>
-      <li>Cloud AWS: VPC 10.0.0.0/16 con subnets.</li>
-      <li>Oficina física: 4 VLANs (Admin, Dev, Testing, Servers).</li>
-      <li>VPN Site-to-Site <strong>IPsec</strong>: router Cisco ↔ AWS VPN Gateway.</li>
-      <li><strong>Entregable</strong>: diagrama + reglas de firewall por VLAN + plan de routing + DRP.</li>
-    </ul>
-  </div>
-</div>
-
-<div class="warning">Cada entregable debe ser un diagrama que los otros dos equipos puedan leer: la arquitectura no se defiende, se comparte.</div>
-
----
 ---
 
 ## ✅ Resumen de la sesión
@@ -556,7 +483,7 @@ class: compact-slide
 - El **ERD** es el plano de la BD; las N:M se materializan con tabla pivote.
 - Los **casos de uso** documentan el *qué* (include/extend); la **secuencia**, el *cómo* (alt, síncrono/asíncrono).
 - **DaC con Mermaid**: diagramas versionados junto al código; WYSIWYG (Draw.io, Lucidchart) para layouts complejos.
-- En la **práctica**, cada equipo entrega 2 diagramas: contrato real entre DAW, DAM y ASIR.
+- Los **ejemplos** de cada diagrama (contexto, ERD, casos de uso, secuencia) sirven de plantilla para los del proyecto.
 
 ---
 layout: closing
