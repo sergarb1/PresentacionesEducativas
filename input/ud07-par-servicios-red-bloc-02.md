@@ -49,7 +49,7 @@ El nombre se lee «al revés», de lo más general a lo más específico:
 <div class="comparison-grid">
   <div class="comparison-item good">
     <strong>Recursivo ✅ (el cliente)</strong>
-    <p>“Respóndeme tú y <strong>no me regreses hasta que la tengas</strong>». El puff (resolver local) se encarga del peregrinaje: visita raíz, TLD y autoritativo por él mismo.</p>
+    <p>«Respóndeme tú y <strong>no vuelvas sin la respuesta</strong>». El cliente hace una sola pregunta; el <strong>resolver</strong> recorre él solo raíz, TLD y autoritativo, y devuelve el resultado final.</p>
   </div>
   <div class="comparison-item bad">
     <strong>Iterativo (los servidores)</strong>
@@ -76,6 +76,45 @@ El nombre se lee «al revés», de lo más general a lo más específico:
 
 <div class="warning" style="margin-top:0.5rem;">
   <strong>MX y PTR se olvidan y se ingresan mal:</strong> sin MX el correo de dominio se pierde; sin PTR, los servidores de correo de los demás te tratan como spam.
+</div>
+
+---
+
+## Tu zona: el SOA y el serial
+
+Una <strong>zona</strong> es tu bloque de autoridad: para <code>ceedcv.local</code>, todos los nombres que cuelgan de ese dominio. Su primera fila obligatoria es el <strong>SOA</strong> (<em>Start of Authority</em>): declara el administrador, el <strong>serial</strong> (número de versión de la zona) y los timers de replicación y caché.
+
+<div class="warning" style="margin-top:0.45rem;">
+  Cada vez que editas la zona, el <strong>serial sube</strong> (o lo hace el software por ti). Es lo único que miran los secundarios para decidir si replican: <strong>si no sube, no viaja nada</strong>. Y la <strong>zona inversa</strong> es su espejo: IPs → nombres con <code>PTR</code> en dominios <code>in-addr.arpa</code> — sin tu PTR público, el correo ajeno te trata como spam.
+</div>
+
+<div class="info" style="margin-top:0.45rem;">
+  <strong>Primaria</strong> = donde editas (copia de lectura/escritura). <strong>Secundaria</strong> = copia de solo lectura que replica del primario y responde a los clientes igual. Se replican con transferencias: <strong>AXFR</strong> manda la zona entera, <strong>IXFR</strong> solo los cambios incrementales. <em>CONRAD puntúa:</em> dejar las AXFR abiertas a cualquiera es regalar el mapa de tu red — <strong>limita las transferencias a los secundarios declarados</strong>.
+</div>
+
+---
+
+## Reenviadores: cómo tu DNS interno habla con el mundo
+
+Tu DNS interno casi nunca pregunta directamente a la raíz. Se conecta mediante <strong>reenviadores</strong>:
+
+<div class="two-cols" style="font-size:0.9rem;">
+  <div class="left">
+    <div class="info">
+      <p><strong>Reenviador global</strong></p>
+      <p>«Todo lo desconocido, a <code>8.8.8.8</code>». Sencillo, pero pierdes caché corporativa, filtros y registro de consultas.</p>
+    </div>
+  </div>
+  <div class="right">
+    <div class="info">
+      <p><strong>Reenviador condicional</strong></p>
+      <p>«Las consultas de <code>partner.com</code>, a <code>10.20.30.40</code>». Imprescindible con dominios de socios, sin exponer tu zona.</p>
+    </div>
+  </div>
+</div>
+
+<div class="warning" style="margin-top:0.5rem;">
+  <strong>La trampa:</strong> poner <code>8.8.8.8</code> como DNS <strong>en cada PC</strong> no es «más seguro ni más rápido»: Google no sabe que <code>intranet.ceedcv.local</code> es la 10.0.0.20. Orden correcto: <strong>PC → DNS interno → reenviador → mundo</strong>.
 </div>
 
 ---
@@ -155,7 +194,7 @@ class: compact-slide
 </div>
 
 1. ¿Qué tres niveles pregunta el resolver local y qué responde cada uno?
-2. Diferencian recursivo e iterativo en una frase.
+2. Diferencia recursivo e iterativo en una frase.
 3. Web accesible `93.176.134.6` pero no `www.ceedcv.es`: ¿dónde está el problema y qué comando lo confirma?
 
 <div class="answer-card" style="margin-top:0.7rem;">
@@ -177,6 +216,21 @@ class: sparse-slide
 Toda seguridad empieza por la hora: un log que no cuadra con el del PC de al lado, un Kerberos que rechaza tickets o un TLS con certificado «aún no vencido» — <strong>el reloj va desfasado</strong>. Casi siempre es un reloj mal sincronizado.
 
 ---
+
+## ¿Para qué sirve la hora exacta? (spoiler: para todo)
+
+| Ámbito | Qué rompe un reloj desajustado |
+|---|---|
+| <strong>Logs y auditoría</strong> | Un ataque a las 10:03 en el router y a las 10:04 en el firewall no se puede correlacionar: la traza se pierde |
+| <strong>Certificados TLS</strong> | El navegador cree que «aún no valen» o «ya caducaron» |
+| <strong>Kerberos / dominio Windows</strong> | Tolerancia típica de <strong>5 minutos</strong>: pasado eso, nadie inicia sesión |
+| <strong>Acceso y facturación</strong> | Logs de proxies, tarificación por tiempo de conexión… |
+
+<div class="info" style="margin-top:0.45rem;">
+  No es un adorno de examen: el <strong>orden judicial</strong> de una intrusión, el <em>debug</em> de una caída y la validación de un certificado dependen de que todos los relojes <strong>cuenten la misma historia</strong>. Por eso NTP es infraestructura crítica, no un capricho.
+</div>
+
+---
 class: compact-slide
 ---
 
@@ -190,7 +244,7 @@ class: compact-slide
 
 ## Los estratos de la hora
 
-| Estratum | Quién | Nota |
+| Estrato | Quién | Nota |
 |---|---|---|
 | <strong>0</strong> | GPS, reloj atómico | La fuente (no habla NTP por sí misma) |
 | <strong>1</strong> | Servidores oficiales (<code>es.pool.ntp.org</code>, ROA) | Directo a la fuente |
@@ -199,19 +253,19 @@ class: compact-slide
 | … | Hasta 15 | Cada salto cuesta algo de precisión |
 
 <div class="warning" style="margin-top:0.6rem;">
-  Regla de aula: <strong>ningún PC pregunta directamente a Internet</strong>. Un servidor interno (Stratum 3) sincroniza con la nube — por firewalls controlados — y tus PCs con él. Caché, oro y auditoría centralizada.
+  Regla de aula: <strong>ningún PC pregunta directamente a Internet</strong>. Un servidor interno (Stratum 3) sincroniza con fuentes fiables — el <strong>pool español</strong> (<code>es.pool.ntp.org</code>), el <strong>Observatorio Naval</strong> (<code>hora.roa.es</code>) o el reloj del ISP — y tus PCs apuntan a él. Configura <strong>varias fuentes (al menos 3)</strong>: con una sola, si se vuelve errática, tu red entera se desajusta.
 </div>
 
 ---
 
 ## Configurar NTP en IOS y en Windows
 
-En el router/servidor NTP (el Stratum 3 del aula):
+En el router del aula (cliente de fuentes externas + plan B autoritativo):
 
 ```
+Router(config)# clock timezone CET 1 0
 Router(config)# ntp server es.pool.ntp.org
 Router(config)# ntp master 3
-Router(config)# ntp access-group restricted
 ```
 
 Y los clientes (Cisco puro o Windows):
@@ -226,7 +280,26 @@ C:\> w32tm /resync
 ```
 
 <div class="info" style="margin-top:0.5rem;">
-  <code>ntp master 3</code> declara el propio router como fuente; <code>access-group</code> evita que sirvas hora al público: <strong>tu NTP es para tu red</strong>.
+  <code>ntp master 3</code> convierte el router en <strong>fuente autoritativa</strong> de stratum 3 <em>aunque pierda sus fuentes externas</em>: respaldo interno, no norma. <strong>Parche</strong>: <code>clock set</code> se da en modo privilegiado y solo para arrancar (los routers viejos pierden la hora al reiniciar). En <strong>Packet Tracer</strong>, <code>ntp server</code> pide <strong>IP, no nombres</strong> — usa la del core del aula.
+</div>
+
+---
+
+## NTP autenticado: que el impostor no te dicte la hora
+
+Quien te impone la hora, <strong>te impone tus logs</strong>: un «servidor NTP falso» puede desplazar tu reloj y hacer fallar certificados o confundir una auditoría. La solución: <strong>autenticar</strong> la relación con MD5 — en <strong>ambos extremos</strong>, el core y cada cliente:
+
+```
+! Común en origen y cliente:
+Router(config)# ntp authenticate
+Router(config)# ntp authentication-key 1 md5 Cl4veNTP2026
+Router(config)# ntp trusted-key 1
+! El cliente lo exige sobre su fuente:
+Switch(config)# ntp server 10.0.0.1 key 1
+```
+
+<div class="info" style="margin-top:0.45rem;padding:0.7rem 0.95rem;font-size:0.9rem;">
+  Así, el cliente <strong>solo acepta sincronización firmada con la clave 1</strong> — las tres piezas van en ambos extremos, y el <code>key 1</code> en la línea del server. En Packet Tracer la sintaxis md5 funciona igual entre routers y switches.
 </div>
 
 ---
@@ -243,22 +316,63 @@ class: compact-slide
 | `show clock detail` | Router | La hora vigente y su fuente |
 
 <div class="info" style="margin-top:0.5rem;">
-  En <code>associations</code> buscas la palabra <strong><em>symm. active</em></strong> o <em>reach</em> con 377 (contacto estable) y un <em>offset</em> pequeño — típico pocos ms.
+  En <code>associations</code> buscas la <strong>IP marcada con <code>*</code></strong> (el <em>sys.peer</em>: la fuente elegida), el campo <code>reach</code> en <strong>377</strong> (registro octal de los últimos 8 sondeos: 8/8 correctos; <strong>ceros</strong> = problema de alcance: conectividad, ACL o autenticación) y un <em>offset</em> pequeño, de pocos ms.
 </div>
 
 ---
 
-## Logros y siguientes pasos
+## La escalera del servicio: diagnostica en orden
 
-| Logro | Cómo conseguirlo |
+«No funciona» es verdadero e inútil a la vez: conviértelo en datos subiendo la cadena <strong>DHCP → conectividad → DNS → hora</strong>, en ese orden:
+
+| Escalón | Comando que lo abre (cliente Windows / equipo de red) |
 |---|---|
-| 🏅 <strong>Conserje de direcciones</strong> | Monta un pool DHCP por VLAN y reserva la IP de una impresora por client-identifier |
-| 🏅 <strong>Olfato de APIPA</strong> | Diagnosticar un `169.254.x.x` hasta la causa con solo `ipconfig` y `binding` |
-| 🏅 <strong>Bibliotecario</strong> | Zona DNS local con A, CNAME y MX; demostrado con nslookup por registros |
-| 🏅 <strong>Reloj de aula</strong> | Router como Stratum 3 y los PCs del lab cada uno se resincroniza con `w32tm /resync` |
+| <strong>1. IP y gateway</strong> | <code>ipconfig /all</code> (¿169.254.x.x? → DHCP) |
+| <strong>2. Gateway</strong> | <code>ping 192.168.10.1</code> |
+| <strong>3. Internet por IP</strong> | <code>ping 8.8.8.8</code> |
+| <strong>4. Nombres</strong> | <code>nslookup www.ceedcv.es</code> |
+| <strong>5. Hora</strong> | <code>show ntp status</code> (Cisco) · <code>w32tm /query /status</code> (Windows) |
 
-<div class="info" style="margin-top:0.6rem;">
-  <strong>Para practicar:</strong> boletines U07 en Packet Tracer. Con DHCP, DNS y NTP funcionando, tu red de prácticas ya tiene <strong>direcciones que se reparten solas, nombres que se resuelven y hora que se sostiene</strong>: la mecánica de cualquier empresa que contratará una red.
+<div class="warning" style="margin-top:0.45rem;">
+  Regla inquebrantable: <strong>no subas de escalón hasta que el actual esté verde</strong>. Si el paso 1 falla, el problema es DHCP aunque el usuario jure que «se ha caído Internet». Y antes de reiniciar nada, <code>show</code>: reiniciar borra la <strong>evidencia</strong> (concesiones, contadores, tablas).
+</div>
+
+---
+
+## Tres casos, la escalera en acción
+
+<div class="two-cols" style="font-size:0.85rem;line-height:1.35;">
+  <div class="left">
+    <div class="info" style="padding:0.65rem 0.85rem;">
+      <p><strong>«El portátil no navega»</strong> (escalón 1)</p>
+      <p><code>ipconfig /all</code> → 169.254.x.x (<strong>APIPA</strong>): el DORA falló. <code>show ip dhcp pool</code> → agotado por las exclusiones. Amplías → <code>/renew</code> → navega.</p>
+    </div>
+    <div class="info" style="margin-top:0.4rem;padding:0.65rem 0.85rem;">
+      <p><strong>«Navega por IP, no por nombre»</strong> (escalón 4)</p>
+      <p><code>ping 8.8.8.8</code> OK, el nombre falla. <code>nslookup</code> mudo: el DNS entregado por DHCP es una IP muerta. Corriges <code>dns-server</code> del pool → <code>/renew</code>.</p>
+    </div>
+  </div>
+  <div class="right">
+    <div class="info" style="height:100%;padding:0.65rem 0.85rem;display:flex;flex-direction:column;justify-content:center;">
+      <p><strong>«No entro en el dominio» (solo a ciertas horas)</strong> (escalón 5)</p>
+      <p>Credenciales, red y DNS perfectos… pero el equipo va <strong>dos meses atrás</strong>: Kerberos rechaza (tolerancia 5 min). Apuntaba a un NTP desmontado: corriges la fuente → login OK.</p>
+      <p><strong>El patrón:</strong> el síntoma lo cuenta el usuario; la causa la encuentras tú subiendo la escalera <strong>en orden</strong>.</p>
+    </div>
+  </div>
+</div>
+
+---
+
+## Sé el Paquete: el portátil recién nacido
+
+Eres un portátil recién desembalado, enchufado al switch de la oficina. No tienes ni IP, ni nombre, ni hora:
+
+<div class="step"><div class="step-number">1</div><div class="step-content">Tu pila <strong>grita un DISCOVER</strong>; el router de la VLAN 10 ofrece la .57 (gateway .1, DNS 10.0.0.5). REQUEST y ACK: <strong>ya tienes identidad</strong>.</div></div>
+<div class="step"><div class="step-number">2</div><div class="step-content">El navegador pregunta por <code>intranet.ceedcv.local</code> y el <strong>resolver responde</strong> con la 10.0.0.20: los <strong>nombres también fluyen</strong>.</div></div>
+<div class="step"><div class="step-number">3</div><div class="step-content">Pero tu reloj marca <strong>2019</strong>… y la intranet <strong>rechaza el acceso</strong>: el fallo vive en la <strong>capa de hora</strong> — NTP sin configurar.</div></div>
+
+<div class="info" style="margin-top:0.5rem;padding:0.7rem 0.95rem;font-size:0.9rem;line-height:1.4;">
+  <strong>La moraleja:</strong> un equipo se integra por capas de servicio — identidad IP (DHCP) → memoria de nombres (DNS) → consenso horario (NTP): cuando algo falle, pregunta en qué capa te quedaste atascado. <strong>Para practicar:</strong> boletines U07 en Packet Tracer — <strong>direcciones que se reparten solas, nombres que se resuelven y hora que se sostiene</strong>: la mecánica de cualquier empresa.
 </div>
 
 ---

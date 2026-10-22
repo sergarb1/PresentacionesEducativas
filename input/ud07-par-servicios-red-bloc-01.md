@@ -21,6 +21,23 @@ class: sparse-slide
 Cuando alguien visita un hotel no negocia el número de habitación: le asignan una llave con un plazo de devolución. Igual un PC al arrancar: pregunta, el conserje le presta la 192.168.10.50 hasta mañana y deja la reserva anotada en su libro. En este bloque: cómo es el intercambio completo, cómo configura el router como servidor y qué pasa cuando el conserje no está.
 
 ---
+---
+
+## ¿Por qué necesitas servicios?
+
+Tu red ya <strong>transporta</strong> (tramas, VLANs, trunks, routing). Pero el usuario no pide transporte, pide <strong>trabajo hecho</strong> — abrir una web, imprimir, iniciar sesión:
+
+| Servicio | Pregunta que resuelve | Si se cae… |
+|---|---|---|
+| <strong>DHCP</strong> | ¿Qué IP, máscara, gateway y DNS me tocan? | Sin dirección: «no hay red» |
+| <strong>DNS</strong> | ¿Qué IP tiene www.ceedcv.es? | Nada carga por nombre |
+| <strong>NTP</strong> | ¿Qué hora es, exactamente? | Los logs no cuadran, el dominio rechaza |
+
+<div class="info" style="margin-top:0.35rem;padding:0.7rem 0.95rem;font-size:0.9rem;line-height:1.4;">
+  Invisibles al funcionar, visibles al fallar: nadie sabe qué es DHCP, pero todos saben que «Internet no va». Y van <strong>en cadena</strong>: el DNS llega dentro del lease de DHCP, y una hora desajustada invalida credenciales. En este bloque, el primero; los otros dos, en el bloque 2.
+</div>
+
+---
 class: compact-slide
 ---
 
@@ -149,10 +166,11 @@ Router(dhcp-config)# network 192.168.10.0 255.255.255.0
 Router(dhcp-config)# default-router 192.168.10.1
 Router(dhcp-config)# dns-server 1.1.1.1
 Router(dhcp-config)# domain-name ceedcv.local
+Router(dhcp-config)# lease 1 12
 ```
 
 <div class="info" style="margin-top:0.5rem;">
-  El propio <code>network</code> decide la subred atendida: PCs en la 192.168.20.0 «caen» al pool de la 20 sin configurar nada más — un pool por subred y el router escucha en cada gateway.
+  El propio <code>network</code> decide la subred atendida: PCs en la 192.168.20.0 «caen» al pool de la 20 sin configurar nada más — un pool por subred y el router escucha en cada gateway. <code>lease 1 12</code> fija la concesión en 1 día y 12 horas: los valores son días [horas min].
 </div>
 
 ---
@@ -194,25 +212,16 @@ De la UD06 lo tenías a la vista; ahora sabes <strong>por qué existe</strong>: 
 
 ---
 
-## Laboratorio: conserje central, clientes en dos VLANs
+## Tres preguntas, tres causas distintas
 
-<div class="two-cols" style="font-size:0.95rem;line-height:1.4;">
-  <div class="left">
-    <div class="info" style="padding:0.85rem 1rem;">
-      <p><strong>Montaje</strong> (Packet Tracer, 45 min): router 2911 + switch 2960 + 4 PCs en las VLANs 10 (Ventas) y 20 (RRHH) de la UD06; el router, con pool para ambas.</p>
-      <p>A. Cada PC toma su IP del pool correcto (aquí no hace falta relay: el router vive en ambas VLANs).<br>
-      B. Exclusiones: verificar que <code>.1-.9</code> nunca salen.<br>
-      C. Reserva fija para una «impresora» y comprobar que sí salta al arrancar.</p>
-    </div>
-  </div>
-  <div class="right">
-    <div class="info" style="height:100%;padding:0.85rem 1rem;display:flex;flex-direction:column;justify-content:center;">
-      <p><strong>Qué verificar</strong></p>
-      <p><code>show ip dhcp binding</code>: asignaciones MAC ↔ IP y su plazo.<br>
-      <code>show ip dhcp pool</code>: uso y cabida de cada pool.<br>
-      Cliente: <code>ipconfig /all</code> tras <code>/release</code> y <code>/renew</code>; con un lease de 2 h verás la renovación en vida.</p>
-    </div>
-  </div>
+<strong>Solo son tres escenarios</strong>; aprende a distinguirlos y el DHCP deja de dar miedo:
+
+<div class="step"><div class="step-number">1</div><div class="step-content"><strong>Sin IP</strong> (169.254.x.x): no hay pool para su red, el rango está agotado/comido por exclusiones, o el broadcast ni siquiera alcanza al servidor.</div></div>
+<div class="step"><div class="step-number">2</div><div class="step-content"><strong>Con IP pero sin salida</strong>: navega en su propia red y no llega a otras. Casi siempre el <strong>default-router del pool es incorrecto</strong> — el fallo clásico de laboratorio.</div></div>
+<div class="step"><div class="step-number">3</div><div class="step-content"><strong>Cliente en otra subred sin IP</strong>: el Discover es broadcast y <strong>no cruza el router</strong>. Falta el <code>ip helper-address</code> en la interfaz (o SVI) de <strong>su</strong> red — los helpers no «se contagian» entre VLANs: se configuran en cada una.</div></div>
+
+<div class="info" style="margin-top:0.6rem;">
+  «No asigna» y «no navega» <strong>no son el mismo fallo</strong>: el usuario siempre grita «no hay red», pero la causa vive en un escalón distinto según el síntoma.
 </div>
 
 ---
@@ -227,10 +236,11 @@ class: compact-slide
 | `show ip dhcp pool` | Router | Uso del pool por subred |
 | `ipconfig /all` | Cliente Windows | IP recibida, gateway, DNS, lease |
 | `ipconfig /release` + `/renew` | Cliente | Repite DORA completo a mano |
-| `ipconfig /showclassid` | Cliente | (avanzado) clases DHCP para perfil por equipo |
+| `show ip dhcp conflict` | Router | IPs duplicadas detectadas (dos equipos, misma IP) |
+| `debug ip dhcp server events` | Router | El DORA en directo (con tiento: en producción puede inundar la consola) |
 
 <div class="info" style="margin-top:0.5rem;">
-  Ruta de diagnóstico: <strong>① del cliente</strong> (¿169.254.x.x? → no llega servidor) → <strong>② relay/pool</strong> → <strong>③ server</strong>. El 80% de las «no tengo Internet» arranca por una IP del grupo 169.254.
+  Ruta de diagnóstico en tres preguntas: <strong>① ¿asigna?</strong> (¿169.254.x.x? → no hay pool, no quedan libres o no llega) → <strong>② ¿navega?</strong> (con IP pero sin salida → mira el <code>default-router</code>) → <strong>③ ¿cruzó el router?</strong> (otra subred → mira el <code>ip helper-address</code>). El 80 % de las «no tengo Internet» arranca en una IP 169.254.x.x.
 </div>
 
 ---
