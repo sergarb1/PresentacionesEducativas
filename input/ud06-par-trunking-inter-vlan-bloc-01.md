@@ -2,7 +2,7 @@
 layout: cover
 ---
 
-# Unidad 06 — Trunking y enrutamiento inter-VLAN<br>Bloque 1: trunks y 802.1Q
+# Unidad 06 — Trunking y enrutamiento inter-VLAN<br>Bloque 1
 
 ## 1r CFGS ASIR · Planificación y Administración de Redes
 
@@ -65,6 +65,19 @@ El switch inserta la etiqueta entre la MAC origen y el EtherType; luego <strong>
 
 <div class="info" style="margin-top:0.5rem;">
   El VLAN ID de 12 bits permite <strong>4096</strong> IDs, pero 0 y 4095 están reservados: máximo usable <strong>4094 VLANs</strong> — y los switches baratos soportan muchas menos.
+</div>
+
+---
+
+## El viaje de una trama por el trunk
+
+<div class="step"><div class="step-number">1</div><div class="step-content">El PC de Ventas envía una trama Ethernet <strong>normal, sin etiqueta</strong>: los PCs no saben nada de VLANs ni de 802.1Q.</div></div>
+<div class="step"><div class="step-number">2</div><div class="step-content">Switch1 la asigna a la VLAN 10 (por el puerto access por el que entró) y, al salir por el trunk, le <strong>añade la etiqueta</strong> con el VLAN ID 10.</div></div>
+<div class="step"><div class="step-number">3</div><div class="step-content">Switch2 recibe la trama ya etiquetada, <strong>lee el VLAN ID</strong> y consulta su tabla MAC de esa VLAN para decidir el puerto por el que sale.</div></div>
+<div class="step"><div class="step-number">4</div><div class="step-content">La entrega por el puerto access <strong>quitando la etiqueta</strong>: el PC de destino ve una trama normal, como siempre.</div></div>
+
+<div class="info" style="margin-top:0.55rem;">
+  La etiqueta vive <strong>solo entre switches</strong>: se pone al entrar al trunk y se quita al salir hacia el PC. Por eso en el equipo no hay nada que configurar, y por eso los errores del trunk se notan «a ratos»: solo afecta al tráfico que cruza entre switches.
 </div>
 
 ---
@@ -251,6 +264,30 @@ Switch1(config-if)# switchport trunk allowed vlan 10,20
 class: compact-slide
 ---
 
+## ¿Cómo pinta «funciona»? Las salidas que esperas
+
+```
+Switch1# show interfaces trunk
+Port      Mode   Encapsulation  Status    Native vlan
+Fa0/24    on     802.1Q         trunking  99          ! igual en ambas puntas
+Port      Vlans allowed on trunk
+Fa0/24    10,20
+```
+
+```
+Switch1# show vlan brief
+10   Ventas    active    Fa0/1, Fa0/2, Fa0/3, Fa0/4, Fa0/5
+20   RRHH      active    Fa0/6, Fa0/7, Fa0/8, Fa0/9, Fa0/10
+```
+
+<div class="info" style="margin-top:0.4rem;">
+  Tres señales de «todo bien»: <code>Status trunking</code> en los dos switches, la <strong>misma</strong> native VLAN (99) en ambas puntas y las VLANs del escenario con sus puertos access bien listados.
+</div>
+
+---
+class: compact-slide
+---
+
 ## El kit de verificación: los 5 shows de oro
 
 | Comando | Qué te dice |
@@ -264,6 +301,21 @@ class: compact-slide
 <div class="info" style="margin-top:0.5rem;">
   Diagnóstico: ① VLANs y puertos correctos → ② trunk correcto → ③ router. <strong>El 90% de los «no me veo» viven en los dos primeros.</strong>
 </div>
+
+---
+class: compact-slide
+---
+
+## Plan de troubleshooting rápido
+
+| Síntoma | Causa probable | Comando clave |
+|---|---|---|
+| PCs de la misma VLAN no se ven dentro del switch | Puerto mal asignado (`switchport access vlan`) | `show vlan brief` |
+| Una VLAN llega al switch A pero no al B | No permitida en `allowed vlan` | `show interfaces trunk` |
+| Todo «funciona a ratos» | Native VLAN distinta en el trunk | `show interfaces trunk` (mismatch) |
+| PCs de VLANs distintas no se ven, con subinterfaces OK | `no shutdown` olvidado en Fa0/0, o gateway mal puesto | `show ip interface brief` |
+| Un puerto de repente se vuelve trunk | DTP negociando solo | `switchport mode access` + `nonegotiate` |
+| Un PC «cambia de VLAN» al mover el cable | Asignación por puerto (estática) y una MAC nueva | `show mac address-table` |
 
 ---
 

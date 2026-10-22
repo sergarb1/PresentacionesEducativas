@@ -2,7 +2,7 @@
 layout: cover
 ---
 
-# Unidad 06 — Trunking y enrutamiento inter-VLAN<br>Bloque 2: inter-VLAN routing, switch capa 3, VTP y DTP
+# Unidad 06 — Trunking y enrutamiento inter-VLAN<br>Bloque 2
 
 ## 1r CFGS ASIR · Planificación y Administración de Redes
 
@@ -84,6 +84,20 @@ Router(config-subif)# ip address 192.168.20.1 255.255.255.0</code></pre>
 </div>
 
 ---
+
+## ¿Por qué subinterfaces y no «más IPs»?
+
+Una interfaz física solo admite <strong>una IP por subred</strong>… y el router necesita una puerta diferente en cada VLAN, con su subred y su etiqueta. La solución:
+
+<div class="step"><div class="step-number">1</div><div class="step-content">Sobre la interfaz física (<code>fa0/0</code>) se montan <strong>subinterfaces lógicas</strong>: <code>.10</code>, <code>.20</code>, <code>.30</code>… una por VLAN.</div></div>
+<div class="step"><div class="step-number">2</div><div class="step-content">Cada subinterfaz <strong>solo escucha su etiqueta</strong>: lo que decide el «sombrero» es el número de <code>encapsulation dot1Q 20</code>, no el <code>.20</code> del nombre.</div></div>
+<div class="step"><div class="step-number">3</div><div class="step-content">La física queda <strong>sin IP</strong> (en <code>show ip interface brief</code> sale <em>unassigned</em>, up/up) y hace de cable: todas las VLANs entran y salen por ella.</div></div>
+
+<div class="info" style="margin-top:0.55rem;">
+  Esa es la idea del «stick»: un solo cable físico, muchas puertas lógicas. El nombre <code>.10</code> es solo orden en la configuración; lo que manda es la etiqueta del <code>dot1Q</code>.
+</div>
+
+---
 class: compact-slide
 ---
 
@@ -136,6 +150,30 @@ Router# show ip route
 
 ---
 
+## ¿Cómo pinta «funciona»? El router en verde
+
+```
+Router# show ip interface brief
+Interface            IP-Address      OK? Method  Status  Protocol
+FastEthernet0/0      unassigned      YES unset   up      up    ← la física manda
+FastEthernet0/0.10   192.168.10.1    YES manual  up      up
+FastEthernet0/0.20   192.168.20.1    YES manual  up      up
+FastEthernet0/0.30   192.168.30.1    YES manual  up      up
+```
+
+```
+Router# show ip route
+C  192.168.10.0/24 is directly connected, FastEthernet0/0.10
+C  192.168.20.0/24 is directly connected, FastEthernet0/0.20
+C  192.168.30.0/24 is directly connected, FastEthernet0/0.30
+```
+
+<div class="info" style="margin-top:0.4rem;">
+  Las rutas conectadas (la <code>C</code>) aparecen <strong>solas</strong> al crear cada subinterfaz con su IP. Si falta una, esa VLAN está huérfana: revisa el <code>encapsulation</code> y la IP.
+</div>
+
+---
+
 ## Switch capa 3: el propio switch se convierte en router
 
 <div class="key-idea">
@@ -148,6 +186,22 @@ Router# show ip route
 |---|---|---|
 | <strong>Switch (capa 2)</strong> | Reenvía tramas entre puertos de la misma VLAN | Hardware de forwarding por MAC |
 | <strong>Router (capa 3)</strong> | Reenvía paquetes entre VLANs | Hardware de forwarding por IP (ASIC) |
+
+---
+class: compact-slide
+---
+
+## SVI: el gateway vive dentro del switch
+
+| Con router-on-a-stick | Con switch capa 3 |
+|---|---|
+| El gateway es una <strong>subinterfaz del router</strong>, al otro lado de un cable trunk | El gateway es una <strong>interfaz virtual del switch</strong> (`interface vlan X`), sin cable ni router externo |
+| Todas las VLANs pasan por <strong>la misma interfaz</strong> del router | El switch hace <strong>switching y routing</strong> a la vez, en hardware |
+| Para el PC: gateway 192.168.10.1 | Para el PC: <strong>la misma IP</strong> — solo cambia <em>quién responde al ARP</em> |
+
+<div class="warning" style="margin-top:0.5rem;">
+  Una SVI solo queda <em>up</em> si existe la VLAN y hay <strong>al menos un puerto activo</strong> de esa VLAN. Y recuerda: sin <code>ip routing</code>, los SVIs están up/up pero <strong>no rutean</strong>.
+</div>
 
 ---
 class: compact-slide

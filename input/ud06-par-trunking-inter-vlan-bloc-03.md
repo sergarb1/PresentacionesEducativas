@@ -2,7 +2,7 @@
 layout: cover
 ---
 
-# Unidad 06 — Trunking y enrutamiento inter-VLAN<br>Bloque 3: seguridad, DHCP y cierre
+# Unidad 06 — Trunking y enrutamiento inter-VLAN<br>Bloque 3
 
 ## 1r CFGS ASIR · Planificación y Administración de Redes
 
@@ -137,6 +137,21 @@ El baile DORA ya lo conoces de la unidad de direccionamiento IP. La diferencia e
 
 ---
 
+## DORA en 30 segundos: el reparto paso a paso
+
+| # | Mensaje | Quién | Qué pasa | ¿Broadcast? |
+|---|---|---|---|---|
+| 1 | <strong>DISCOVER</strong> | Cliente | «¿Hay algún DHCP por aquí? Necesito una IP» | <strong>Sí</strong> (toda la VLAN lo ve) |
+| 2 | <strong>OFFER</strong> | Servidor | Propone una IP libre de su pool: lease, máscara, gateway, DNS | Sí |
+| 3 | <strong>REQUEST</strong> | Cliente | «Me quedo con esa oferta» (acepta la primera que llegó) | Sí |
+| 4 | <strong>ACK</strong> | Servidor | Concede la IP y la arrienda por el tiempo del lease | Sí |
+
+<div class="info" style="margin-top:0.6rem;">
+  Los cuatro mensajes viven <strong>dentro de una misma VLAN</strong> (son broadcast). Por eso cada VLAN necesita su pool… y por eso, si el servidor DHCP vive en otra VLAN, hace falta un <em>relay</em> — lo vemos en un rato.
+</div>
+
+---
+
 ## Los pools: tres líneas por VLAN
 
 ```
@@ -152,6 +167,18 @@ Router(dhcp-config)# dns-server 8.8.8.8 1.1.1.1
 | `network 192.168.10.0/24` | Debe coincidir <strong>exactamente</strong> con la subred de esa VLAN |
 | `default-router 192.168.10.1` | La IP de la subinterfaz/SVI de esa VLAN |
 | `ip dhcp excluded-address` | Aparta gateways y servidores del reparto |
+
+---
+
+## ¿Cómo sabe el router qué pool usar?
+
+<div class="step"><div class="step-number">1</div><div class="step-content">El DISCOVER del PC de Ventas es broadcast para los PCs, pero entra al router <strong>por una puerta concreta</strong>: la subinterfaz <code>fa0/0.10</code> (o la SVI <code>vlan 10</code>).</div></div>
+<div class="step"><div class="step-number">2</div><div class="step-content">El router elige el pool cuya <code>network</code> coincide con la subred de <strong>esa puerta</strong>: 192.168.10.0/24 → pool VENTAS.</div></div>
+<div class="step"><div class="step-number">3</div><div class="step-content">La OFFER sale por <strong>la misma puerta</strong>, con una IP del rango del pool, la máscara y el <code>default-router</code> (192.168.10.1) como gateway.</div></div>
+
+<div class="warning" style="margin-top:0.6rem;">
+  Piénsalo al revés: si la petición entra por la puerta de la VLAN 10 pero el pool dice <code>network 192.168.20.0</code>, ofrecería IP de la 20 «por la ventana» de la 10 — un disparate que desde el PC no puedes arreglar.
+</div>
 
 ---
 class: compact-slide
@@ -241,46 +268,6 @@ class: compact-slide
 
 <div class="answer-card" style="margin-top:0.7rem;">
   1. El trunk (802.1Q) · 2. La native VLAN · 3. La SVI (`interface vlan X`) · 4. Router-on-a-stick (`.10`, `.20`… con dot1Q)
-</div>
-
----
-
-## ⚡ Laboratorio: inter-VLAN con fallos escondidos
-
-<div class="two-cols">
-  <div class="left">
-    <div class="info" style="padding:0.85rem 1rem;font-size:0.95rem;line-height:1.45;">
-      <p><strong>Montaje</strong> (1,5 h, Packet Tracer): router 2911 o switch L3 3560 + switch 2960 + 4 PCs en 2 VLANs. Verifica antes: PC VLAN 10 ⇄ VLAN 20.</p>
-      <p><strong>Tus tres fallos:</strong></p>
-      <p><strong>A.</strong> Falta la subinterfaz `.20` (o el `ip routing` en el L3)<br>
-      <strong>B.</strong> Native VLAN 55 solo en un extremo<br>
-      <strong>C.</strong> SVI de la VLAN 20 apagada</p>
-    </div>
-  </div>
-  <div class="right">
-    <div class="info" style="height:100%;padding:0.85rem 1rem;font-size:0.95rem;line-height:1.45;display:flex;flex-direction:column;justify-content:center;">
-      <p><strong>Pistas:</strong></p>
-      <p><em>A:</em> los PCs de VLAN 20 no pingen su gateway vía subinterfaz/SVI Up/Up.<br>
-      <em>B:</em> `show interfaces trunk` mostrará <em>Native VLAN mismatch</em> (CDP lo susurra en los logs).<br>
-      <em>C:</em> `show ip interface brief` — una SVI apagada no responde ARP aunque el trunk esté perfecto.</p>
-      <p>Documenta: síntoma → causa → solución de cada fallo.</p>
-    </div>
-  </div>
-</div>
-
----
-
-## Logros y siguientes pasos
-
-| Logro | Cómo conseguirlo |
-|---|---|
-| 🏅 <strong>Contratista de trunks</strong> | Trunk 802.1Q con native 99 y nonegotiate en ambos extremos |
-| 🏅 <strong>Fronterero</strong> | Ping entre dos VLANs por router-on-a-stick y luego por switch L3 |
-| 🏅 <strong>Cazador de nativas</strong> | Detectar el native mismatch solo con `show interfaces trunk` |
-| 🏅 <strong>Llanero espacial</strong> | Explicar SVI vs subinterfaz en menos de 1 minuto |
-
-<div class="info" style="margin-top:0.6rem;">
-  <strong>Siguiente unidad:</strong> servicios de red (DHCP, DNS, NTP) — ahora que las VLANs se hablan entre sí, toca dar de comer a la red. Para practicar: boletines U06 en Packet Tracer.
 </div>
 
 ---
