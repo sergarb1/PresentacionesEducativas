@@ -16,10 +16,10 @@ layout: cover
   <div class="feature-item" style="padding:0.6rem 0.5rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🔒</span><strong>Sincronización</strong><br>Lock para el estado compartido</div>
   <div class="feature-item" style="padding:0.6rem 0.5rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🔢</span><strong>Límites</strong><br>Context switch y fugas de recursos</div>
   <div class="feature-item" style="padding:0.6rem 0.5rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🏗️</span><strong>Servidor completo</strong><br>servidor.py + lanzaclientes.py</div>
-  <div class="feature-item" style="padding:0.6rem 0.5rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">⭐</span><strong>Cierre</strong><br>Sé el servidor y buenas prácticas</div>
+  <div class="feature-item" style="padding:0.6rem 0.5rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🧱</span><strong>Procesos</strong><br>Un Process por cliente + estado compartido</div>
 </div>
 
-<p style="margin-top:0.7rem;">Partimos del bloque 01: secuencial, hilo por cliente y <code>ThreadPoolExecutor</code>. Aquí <strong>medimos de verdad</strong>, protegemos el estado y montamos el servidor de producción.</p>
+<p style="margin-top:0.7rem;">Partimos del bloque 01: secuencial, hilo por cliente y <code>ThreadPoolExecutor</code>. Aquí <strong>medimos de verdad</strong>, protegemos el estado y montamos el servidor completo <strong>con hilos y con procesos</strong>.</p>
 
 ---
 ---
@@ -508,8 +508,111 @@ if __name__ == "__main__":
 ---
 ---
 
+## El bucle de mensajes
+### Un `recv()` suelto cerraría tras el primer mensaje
+
+<div class="two-cols">
+  <div class="left">
+    <div class="code-card">
+      <div class="code-card-header">
+        <div class="code-card-dots"><span></span><span></span><span></span></div>
+        <div class="code-card-title">atender() con bucle</div>
+        <div class="code-card-badge">Python</div>
+      </div>
+      <pre style="font-size:0.62rem;line-height:1.32;"><code>with conn:
+    try:
+        while True:
+            datos = conn.recv(1024)
+            if not datos:       # el cliente cerró
+                break
+            mensaje = datos.decode().strip()
+            print(f"Recibido: {mensaje}")
+            conn.sendall(b"OK: " + datos)
+            if mensaje.upper() == "SALIR":
+                break
+    except (ConnectionResetError,
+            BrokenPipeError, OSError):
+        print(f"{addr} se desconectó")</code></pre>
+    </div>
+  </div>
+  <div class="right">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content" style="font-size:0.86rem;"><code>recv()</code> devuelve <code>b""</code> cuando el otro extremo cierra: por eso se comprueba <code>if not datos</code> antes de decodificar</div>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content" style="font-size:0.86rem;">El bucle mantiene la conversación viva hasta <strong>SALIR</strong> o hasta que el cliente se desconecta</div>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content" style="font-size:0.86rem;">El <code>try/except</code> evita que un cliente que se cae a mitad ensucie la consola con un traceback</div>
+    </div>
+    <div class="info" style="margin-top:0.5rem;">
+      Sin bucle, el servidor responde una vez y cierra: con un cliente interactivo se colgaría a la segunda línea.
+    </div>
+  </div>
+</div>
+
+---
+class: compact-slide
+---
+
+## El cliente interactivo
+### cliente.py: hablar con el servidor a mano
+
+<div class="two-cols">
+  <div class="left">
+    <div class="code-card">
+      <div class="code-card-header">
+        <div class="code-card-dots"><span></span><span></span><span></span></div>
+        <div class="code-card-title">cliente.py</div>
+        <div class="code-card-badge">Python</div>
+      </div>
+      <pre style="font-size:0.6rem;line-height:1.3;"><code>import socket
+def cliente():
+    nombre = input("Tu nombre: ").strip() or "anónimo"
+    try:
+        with socket.socket() as s:
+            s.connect(("127.0.0.1", 5000))
+            s.sendall(f"REGISTRO:{nombre}".encode())
+            print(s.recv(1024).decode().strip())
+            while True:
+                texto = input("tú> ").strip()
+                if not texto:
+                    continue
+                s.sendall(texto.encode())
+                print("servidor> " + s.recv(1024).decode().strip())
+                if texto.upper() == "SALIR":
+                    break
+    except ConnectionRefusedError:
+        print("Servidor no disponible. ¿Terminal 1?")</code></pre>
+    </div>
+  </div>
+  <div class="right">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content" style="font-size:0.86rem;">Pide el nombre y se registra con <code>REGISTRO:nombre</code></div>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content" style="font-size:0.86rem;">Bucle de conversación: cada línea se envía y se lee la respuesta</div>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content" style="font-size:0.86rem;"><code>SALIR</code> cierra desde el cliente; <code>ConnectionRefusedError</code> avisa si el servidor no está arrancado</div>
+    </div>
+    <div class="success" style="margin-top:0.5rem;">
+      El <code>with socket</code> cierra la conexión por cualquier vía.
+    </div>
+  </div>
+</div>
+
+---
+---
+
 ## Cómo probarlos juntos
-### Dos terminales, y el servidor en marcha
+### Tres terminales: servidor, cliente interactivo y lanzador
 
 <div class="terminal" style="padding:0.8rem 1rem;font-size:0.8rem;">
   <div style="color:#94A3B8;font-size:0.75rem;">TERMINAL 1 (servidor)</div>
@@ -609,6 +712,210 @@ print(f"Tiempo total: {time.time() - inicio:.2f}s")</code></pre>
 ---
 ---
 
+## Servidor concurrente con procesos
+### El mismo servidor, con un `Process` por cliente
+
+<div class="info" style="margin-top:0.3rem;font-size:0.86rem;">
+  Hilos → <code>multiprocessing.Process</code>: cada cliente en su burbuja; estado en <code>manager.dict()</code> protegido con <code>multiprocessing.Lock</code>.
+</div>
+
+<div class="two-cols" style="margin-top:0.3rem;">
+  <div class="left">
+    <table style="font-size:0.8rem;">
+      <thead><tr><th></th><th>Hilo</th><th>Proceso</th></tr></thead>
+      <tbody>
+        <tr><td>Memoria</td><td>Compartida</td><td><strong>Aislada</strong></td></tr>
+        <tr><td>Fallo</td><td>Puede tumbar todo</td><td><strong>Servidor vivo</strong></td></tr>
+        <tr><td>Coste</td><td>Muy ligero</td><td>Clona la memoria</td></tr>
+        <tr><td>Escalado</td><td>Limitado por el GIL</td><td>Núcleos reales</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="right">
+    <div class="success" style="font-size:0.82rem;">
+      Aislamiento de fallos: un cliente puede morir sin arrastrar al resto del servidor.
+    </div>
+    <div class="warning" style="margin-top:0.4rem;font-size:0.8rem;">
+      Crear procesos es mucho más caro: para miles de clientes, el pool de hilos o asyncio siguen ganando.
+    </div>
+  </div>
+</div>
+
+---
+class: compact-slide
+---
+
+## servidor.py con procesos (I)
+### El estado compartido y la atención al cliente
+
+<div class="code-card">
+  <div class="code-card-header">
+    <div class="code-card-dots"><span></span><span></span><span></span></div>
+    <div class="code-card-title">servidor.py</div>
+    <div class="code-card-badge">Python</div>
+  </div>
+  <pre style="font-size:0.55rem;line-height:1.28;"><code>import socket
+import multiprocessing
+def atender(conn, addr, estado, candado):
+    with conn:
+        try:
+            while True:
+                datos = conn.recv(1024)
+                if not datos:         # el cliente cerró
+                    break
+                mensaje = datos.decode().strip()
+                if mensaje.upper() == "SALIR":
+                    conn.sendall(b"Adios")
+                    break
+                with candado:         # sección crítica
+                    estado["atendidos"] = estado.get("atendidos", 0) + 1
+                    estado["ultimo"] = mensaje
+                    total = estado["atendidos"]
+                conn.sendall(f"OK [{total}]: {mensaje}".encode())
+        except (ConnectionResetError, BrokenPipeError, OSError):
+            print(f"Cliente {addr} se desconectó a mitad")</code></pre>
+</div>
+
+---
+class: compact-slide
+---
+
+## servidor.py con procesos (II)
+### Aceptar y lanzar un proceso por cliente
+
+<div class="code-card">
+  <div class="code-card-header">
+    <div class="code-card-dots"><span></span><span></span><span></span></div>
+    <div class="code-card-title">servidor.py (main)</div>
+    <div class="code-card-badge">Python</div>
+  </div>
+  <pre style="font-size:0.58rem;line-height:1.3;"><code>def servidor_con_procesos():
+    with multiprocessing.Manager() as manager:
+        estado = manager.dict({"atendidos": 0, "ultimo": None})
+        candado = multiprocessing.Lock()
+        with socket.socket() as srv:
+            srv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            srv.bind(("127.0.0.1", 5000))
+            srv.listen()
+            print("Servidor por PROCESOS en 127.0.0.1:5000")
+            while True:
+                conn, addr = srv.accept()
+                p = multiprocessing.Process(
+                    target=atender,
+                    args=(conn, addr, estado, candado),
+                    name=f"cliente-{addr[1]}")
+                p.start()
+                conn.close()   # el padre cierra SU copia del socket
+if __name__ == "__main__":
+    servidor_con_procesos()</code></pre>
+</div>
+
+---
+class: compact-slide
+---
+
+## La línea que casi todos olvidan
+### `conn.close()` después de `p.start()`
+
+<div class="two-cols">
+  <div class="left">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content" style="font-size:0.88rem;">Al pasar <code>conn</code> como argumento, el hijo recibe <strong>su propia copia</strong> del socket</div>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content" style="font-size:0.88rem;">Si el padre no cierra la suya, el canal sigue abierto en sus manos: un cliente que espera respuesta puede <strong>quedarse colgado</strong> aunque el hijo haya muerto</div>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content" style="font-size:0.88rem;"><code>with conn:</code> en el hijo garantiza el cierre final, pase lo que pase</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="warning">
+      El <code>if __name__ == "__main__":</code> no es decoración: en Windows no hay <code>fork</code> y cada hijo reimporta el script. Sin él, los hijos crearían más hijos en bucle.
+    </div>
+    <div class="info" style="margin-top:0.5rem;">
+      Cada línea del servidor muestra un <strong>PID distinto</strong>: es el proceso hijo que atiende a ese cliente.
+    </div>
+  </div>
+</div>
+
+---
+---
+
+## Probarlo: tres terminales
+### Cliente interactivo y lanzador masivo
+
+<div class="two-cols">
+  <div class="left">
+    <div class="terminal" style="padding:0.7rem 0.9rem;font-size:0.72rem;">
+      <div style="color:#94A3B8;font-size:0.7rem;">TERMINAL 1 (servidor)</div>
+      <div><span class="prompt">$</span> python servidor.py</div>
+      <div class="output">Servidor por PROCESOS en 127.0.0.1:5000</div>
+      <div class="output">[+] Cliente ('127.0.0.1', 52341) → proceso cliente-52341 (pid 8123)</div>
+      <div class="output">  [pid 8123] Recibido de ('127.0.0.1', 52341): hola</div>
+      <div class="output">[+] Cliente ('127.0.0.1', 52342) → proceso cliente-52342 (pid 8140)</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="terminal" style="padding:0.7rem 0.9rem;font-size:0.72rem;">
+      <div style="color:#94A3B8;font-size:0.7rem;">TERMINAL 2 (cliente) · TERMINAL 3 (lanzador)</div>
+      <div><span class="prompt">$</span> python cliente.py</div>
+      <div class="output">tú&gt; hola<br>servidor&gt; OK [2]: hola</div>
+      <div><span class="prompt">$</span> python lanzaclientes.py</div>
+      <div class="output">✅ cliente-0: OK [2]: cliente-0<br>✅ cliente-1: OK [3]: cliente-1<br>🏁 Todos terminaron en 0,15s</div>
+    </div>
+    <div class="success" style="margin-top:0.4rem;">
+      El contador sube <strong>compartido</strong> entre todos los procesos, y cada cliente se atiende en un PID distinto.
+    </div>
+  </div>
+</div>
+
+---
+---
+
+## Aprieta el lápiz: aísla un fallo
+### Que un cliente muera no tumbe el servidor
+
+<div class="two-cols">
+  <div class="left">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content" style="font-size:0.9rem;"><strong>Añade el nombre al estado</strong>: guarda en <code>estado["registrados"]</code> los nombres y responde <code>STATUS</code> con la lista</div>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content" style="font-size:0.9rem;"><strong>Aísla un fallo</strong>: si el mensaje es <code>CRASH</code>, lanza una excepción dentro del hijo y comprueba que el servidor sigue atendiendo</div>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content" style="font-size:0.9rem;"><strong>Recoge a los hijos</strong>: haz <code>join()</code> a los procesos que ya terminaron para no dejar zombis</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="code-card">
+      <div class="code-card-header">
+        <div class="code-card-dots"><span></span><span></span><span></span></div>
+        <div class="code-card-title">fallo aislado</div>
+        <div class="code-card-badge">Python</div>
+      </div>
+      <pre style="font-size:0.66rem;line-height:1.3;"><code>if mensaje == "CRASH":
+    raise ValueError("fallo provocado")
+# El proceso hijo muere con su traceback,
+# pero el accept() del padre sigue vivo
+# y atiende al siguiente cliente.</code></pre>
+    </div>
+    <div class="success" style="margin-top:0.5rem;">
+      Ese es el <strong>aislamiento de fallos</strong> que la versión con hilos compartidos no tiene.
+    </div>
+  </div>
+</div>
+
+---
+---
+
 ## ¿Quién soy?
 ### Adivina el concepto
 
@@ -642,12 +949,12 @@ print(f"Tiempo total: {time.time() - inicio:.2f}s")</code></pre>
   <div class="feature-item" style="padding:0.6rem 0.5rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🧪</span><strong>Benchmark</strong><br>n × t · max(t) · ceil(n/w) × t</div>
   <div class="feature-item" style="padding:0.6rem 0.5rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🔒</span><strong>Lock</strong><br>with lock: en lo compartido; sockets sin lock</div>
   <div class="feature-item" style="padding:0.6rem 0.5rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🔢</span><strong>Límites</strong><br>~100 hilos razonables; fugas de sockets</div>
-  <div class="feature-item" style="padding:0.6rem 0.5rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🏗️</span><strong>Completo</strong><br>servidor.py + lanzaclientes.py + Lock</div>
+  <div class="feature-item" style="padding:0.6rem 0.5rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">🏗️</span><strong>Completo</strong><br>servidor, cliente y lanzador: hilos y procesos</div>
   <div class="feature-item" style="padding:0.6rem 0.5rem;font-size:0.9rem;"><span class="feature-icon" style="font-size:1.4rem;margin-bottom:0.1rem;">⭐</span><strong>Regla</strong><br>Pool + with conn: + Lock + timeout + benchmark</div>
 </div>
 
 <div class="success" style="margin-top:0.6rem;">
-  Unidad cerrada. Para la entrevista: recorre la cadena <strong>secuencial → cliente lento → hilo por cliente → ThreadPool → Lock → benchmark</strong>.
+  Unidad cerrada. Para la entrevista: recorre la cadena <strong>secuencial → cliente lento → hilo por cliente → ThreadPool → Lock → benchmark</strong> y termina con el <strong>servidor por procesos</strong> (aislamiento de fallos).
 </div>
 
 ---

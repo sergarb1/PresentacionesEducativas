@@ -353,6 +353,207 @@ class: compact-slide
 ---
 ---
 
+## Ejemplo resuelto: estado compartido con procesos
+### Un almacén que cuatro procesos actualizan sin perder una escritura
+
+<div class="info" style="margin-top:0.4rem;">
+  <code>manager.dict()</code> + cuatro <code>Process</code> + <code>Lock</code> + JSON de persistencia: el patrón que reutilizarás en el servidor con procesos de la <strong>UD 6</strong>.
+</div>
+
+<div class="step" style="margin-top:0.3rem;">
+  <div class="step-number">1</div>
+  <div class="step-content" style="font-size:0.84rem;"><strong>El trabajador</strong>: cada proceso hijo recibe el almacén, el candado y su lista de pedidos</div>
+</div>
+<div class="step">
+  <div class="step-number">2</div>
+  <div class="step-content" style="font-size:0.84rem;"><strong>Guardar y cargar</strong>: volcar el almacén a JSON y recuperarlo al arrancar</div>
+</div>
+<div class="step">
+  <div class="step-number">3</div>
+  <div class="step-content" style="font-size:0.84rem;"><strong>El main</strong>: crea <code>Manager</code> y <code>Lock</code>, lanza los 4 procesos, espera con <code>join()</code> y guarda</div>
+</div>
+
+---
+class: compact-slide
+---
+
+## Paso 1: el trabajador
+### La sección crítica, dentro de un solo candado
+
+<div class="two-cols">
+  <div class="left">
+    <div class="code-card">
+      <div class="code-card-header">
+        <div class="code-card-dots"><span></span><span></span><span></span></div>
+        <div class="code-card-title">almacen.py (trabajador)</div>
+        <div class="code-card-badge">Python</div>
+      </div>
+      <pre style="font-size:0.6rem;line-height:1.3;"><code>import multiprocessing, random, time
+def trabajador(almacen, candado, pedidos):
+    for fruta, unidades in pedidos:
+        time.sleep(random.uniform(0.01, 0.05))
+        with candado:              # sección crítica
+            total = almacen.get(fruta, 0)
+            almacen[fruta] = total + unidades
+        print(f"  [{multiprocessing.current_process().name}] "
+              f"+{unidades} {fruta}")</code></pre>
+    </div>
+  </div>
+  <div class="right">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content" style="font-size:0.86rem;"><code>with candado:</code> protege la <strong>lectura y la escritura juntas</strong>. Si leyeras fuera, dos procesos leerían el mismo valor previo y el último machacaría al primero</div>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content" style="font-size:0.86rem;"><code>current_process().name</code> te dice qué proceso habla ("trabajador-1", "trabajador-2"…)</div>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content" style="font-size:0.86rem;">El trabajador no sabe que hay otros: solo usa <code>get</code> y asignación sobre el proxy</div>
+    </div>
+    <div class="warning" style="margin-top:0.5rem;">
+      Si quitas el <code>with candado:</code>, el total cambia en cada ejecución.
+    </div>
+  </div>
+</div>
+
+---
+class: compact-slide
+---
+
+## Paso 2: persistencia
+### El almacén vive en memoria: si apagas, desaparece
+
+<div class="code-card">
+  <div class="code-card-header">
+    <div class="code-card-dots"><span></span><span></span><span></span></div>
+    <div class="code-card-title">almacen.py (persistencia)</div>
+    <div class="code-card-badge">Python</div>
+  </div>
+  <pre><code>def guardar_almacen(almacen, fichero="almacen.json"):
+    with open(fichero, "w", encoding="utf-8") as f:
+        json.dump(dict(almacen), f, ensure_ascii=False, indent=2)
+    print(f"Almacén guardado en {fichero}")
+def cargar_almacen(fichero="almacen.json"):
+    try:
+        with open(fichero, encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}</code></pre>
+</div>
+
+<div class="warning">
+  <code>json.dump(almacen)</code> falla: un <strong>proxy</strong> de <code>Manager</code> no es un dict. <code>dict(almacen)</code> hace la "foto" del estado actual y devuelve un dict normal y corriente.
+</div>
+
+---
+class: compact-slide
+---
+
+## Paso 3: el main que lo pone todo en marcha
+
+<div class="code-card">
+  <div class="code-card-header">
+    <div class="code-card-dots"><span></span><span></span><span></span></div>
+    <div class="code-card-title">almacen.py (main)</div>
+    <div class="code-card-badge">Python</div>
+  </div>
+  <pre style="font-size:0.56rem;line-height:1.25;"><code>if __name__ == '__main__':
+    cargado = cargar_almacen()
+    with multiprocessing.Manager() as manager:
+        almacen = manager.dict(cargado)   # arranca del turno anterior
+        candado = multiprocessing.Lock()
+        reparto = [
+            [("manzanas", 3), ("uvas", 2)],
+            [("peras", 5)],
+            [("manzanas", 1), ("naranjas", 4)],
+            [("uvas", 1), ("peras", 2), ("naranjas", 2)],
+        ]
+        procesos = []
+        for i, pedidos in enumerate(reparto, start=1):
+            p = multiprocessing.Process(
+                target=trabajador,
+                args=(almacen, candado, pedidos),
+                name=f"trabajador-{i}")
+            procesos.append(p)
+            p.start()
+        for p in procesos:                # imprescindible antes de leer
+            p.join()
+        print(f"Total del turno: {dict(almacen)}")
+        guardar_almacen(almacen)</code></pre>
+</div>
+
+---
+---
+
+## La traza y la salida
+### El orden varía; el total, no
+
+<div class="two-cols">
+  <div class="left">
+    <div class="terminal" style="padding:0.7rem 1rem;">
+      <span class="prompt">$</span> python almacen.py<br>
+      <span class="output">Estado previo: {}<br>
+  [trabajador-1] +3 manzanas<br>
+  [trabajador-3] +1 manzanas<br>
+  [trabajador-2] +5 peras<br>
+  [trabajador-4] +1 uvas<br>
+Total del turno: {'manzanas': 4, 'uvas': 3,<br>
+'peras': 7, 'naranjas': 6}<br>
+Almacén guardado en almacen.json</span>
+    </div>
+  </div>
+  <div class="right">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content" style="font-size:0.86rem;"><code>start()</code> × 4: el SO crea 4 burbujas, pero el proxy las conecta con <strong>un único</strong> almacén</div>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content" style="font-size:0.86rem;">Cada <code>get</code> y cada escritura viajan por mensaje al <strong>proceso del Manager</strong></div>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content" style="font-size:0.86rem;"><code>join()</code> × 4 antes de leer: sin él, el padre leería con escrituras en vuelo</div>
+    </div>
+    <div class="success" style="margin-top:0.5rem;">
+      El orden de las líneas cambia en cada ejecución; el <strong>total final es siempre el mismo</strong>: esa es la garantía del candado.
+    </div>
+  </div>
+</div>
+
+---
+---
+
+## Quita el candado y mira la catástrofe
+
+<div class="two-cols">
+  <div class="left">
+    <div class="warning" style="font-size:0.84rem;">
+      Sin el <code>with candado:</code>, dos procesos leen el mismo valor previo y el segundo machaca el primero: <strong>manzanas: 2</strong> en vez de 4.
+    </div>
+    <div class="info" style="margin-top:0.4rem;font-size:0.82rem;">
+      Ejecuta el programa tres o cuatro veces: <strong>nunca</strong> sabrás qué escritura se pierde. Es la condición de carrera de la UD 4, ahora entre <strong>burbujas de memoria</strong>.
+    </div>
+  </div>
+  <div class="right">
+    <div class="question-card">
+      <span class="question-icon">🧠</span>
+      Mini-chequeo del ejemplo:
+    </div>
+    <div class="answer-card" style="font-size:0.74rem;margin-top:0.2rem;">
+      <ul style="margin-top:0.15rem;">
+        <li><strong>¿Almacén por argumento?</strong> Las globales se clonan; el proxy cruza la burbuja</li>
+        <li><strong>¿join() antes de leer?</strong> Para no dejar escrituras en vuelo</li>
+        <li><strong>¿El segundo día arranca con datos?</strong> Porque <code>cargar_almacen()</code> alimenta el <code>manager.dict()</code></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+---
+
 ## Compatibilidad Windows / Linux
 ### La idea en una frase
 
@@ -856,7 +1057,7 @@ class: compact-slide
   </div>
   <div style="background:#FEE2E2;border:2px solid #EF4444;border-radius:12px;padding:8px 12px;">
     <div style="font-weight:700;color:#EF4444;margin-bottom:2px;">🧬 multiprocessing (IPC)</div>
-    <p style="font-size:0.82rem;">Muro del aislamiento · Manager().dict() · Lock y condiciones de carrera</p>
+    <p style="font-size:0.82rem;">Manager().dict() · Lock · ejemplo resuelto del almacén con persistencia JSON</p>
   </div>
   <div style="background:#FFF7ED;border:2px solid #F59E0B;border-radius:12px;padding:8px 12px;">
     <div style="font-weight:700;color:#F59E0B;margin-bottom:2px;">💼 Cierre</div>
