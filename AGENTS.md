@@ -83,6 +83,7 @@ npm run build -- ud01-psp-python-basico-flujo-funciones.md --out dist/python-flu
 npm run export -- ud01-psp-python-basico-tipos-colecciones.md --format pdf --output output/python.pdf
 npm run export -- ud01-psp-python-basico-tipos-colecciones.md --format pptx --output output/python.pptx
 npm run export -- ud01-psp-python-basico-tipos-colecciones.md --format png --output output/python
+node build-standalone.mjs <entrada>.md    # .html autoalojado (doble click, file://) en dist-standalone/<entrada>/
 ```
 
 ### Herramientas de verificación (scripts en la raíz del proyecto)
@@ -91,11 +92,31 @@ npm run export -- ud01-psp-python-basico-tipos-colecciones.md --format png --out
 - `check-contrast.mjs` — calcula el contraste WCAG de cada token de los bloques de código sobre su fondo real. Uso: `node check-contrast.mjs http://localhost:3030` con el servidor abierto. Avisa si algún token baja de 4.5:1 (nivel AA).
 - `check-empty.mjs` — recorre todas las diapositivas del deck y marca las que quedan sin contenido visible (excluye portada y cierre corporativos). Uso: `node check-empty.mjs http://localhost:3030 <nº diapositivas>`. **Pasar siempre tras insertar o borrar diapositivas**: un separador duplicado crea páginas en blanco.
 - `debug-overflow.mjs` y `screenshot.mjs` — auxiliares de diagnóstico puntual (detalle de qué desborda una diapositiva concreta; captura PNG de una diapositiva).
+- `build-standalone.mjs` — genera un `.html` autoalojado (un solo fichero con CSS/JS/imágenes inline, se abre con doble click en `file://` sin servidor). Requiere `vite-plugin-singlefile` y la config `vite.config.mts` (activada con `STANDALONE=1`; sin esa variable, build/export van como siempre).
 - Todos necesitan Chromium vía `playwright-chromium` (ya está en las dependencias de desarrollo). Conviene pasarlos tras cambios de tema, de estilos globales, de diapositivas muy cargadas o al insertar/borrar diapositivas.
 
 `npm run build` genera una web estática; `npm run export` admite los formatos `pdf`, `png`, `pptx` y `md`. Si Chromium no puede iniciarse dentro del sandbox, PDF, PNG y PPTX necesitan ejecutarse fuera de este.
 
-Formato de entrega habitual: **solo PDF** en `output/`, con el mismo nombre base que la entrada (p. ej. `sesion01-pim-bloc-03-04.md` → `output/sesion01-pim-bloc-03-04.pdf`). El PPTX de Slidev son imágenes fijas por diapositiva, sin texto editable, y no aporta valor: no generar PPTX salvo petición explícita.
+Formato de entrega habitual: **PDF** en `output/`, con el mismo nombre base que la entrada (p. ej. `sesion01-pim-bloc-03-04.md` → `output/sesion01-pim-bloc-03-04.pdf`), y por defecto **también el PPTX editable** (ver técnica abajo): `output/<entrada>_editable.pptx`.
+
+### PPTX editable (técnica pro, usar siempre que se genere un PPTX)
+
+El export nativo de Slidev (`--format pptx`) produce imágenes fijas por diapositiva, sin texto editable: reservarlo para peticiones explícitas de PPTX «de presentación». El PPTX editable y fiel al diseño se genera convirtiendo el PDF final con el importador PDF de LibreOffice Impress, que reconstruye cada página como cajas de texto, formas, tablas e imágenes reales (verificado: 28 diapositivas → 5-28 cajas de texto editables por diapositiva, diseño casi idéntico):
+
+```bash
+# 1. Exportar el PDF como siempre
+npm run export -- <entrada>.md --format pdf --output output/<entrada>.pdf
+# 2. Convertir ese PDF a PPTX editable (mismo diseño, texto real)
+mkdir -p /tmp/lo_out && soffice --headless --infilter="impress_pdf_import" --convert-to pptx --outdir /tmp/lo_out output/<entrada>.pdf
+mv /tmp/lo_out/<entrada>.pptx output/<entrada>_editable.pptx
+```
+
+Notas:
+
+- Requiere LibreOffice (`soffice`, v26.8 verificada) con el importador PDF de Impress integrado.
+- **No usar `pkill -f soffice`** en el mismo comando en el que se invoca soffice: el patrón `-f` coincide con la propia línea del comando y mata el shell; si hay que limpiar procesos, `pkill soffice.bin` desde otro comando.
+- Verificar la editabilidad tras generar: con python-pptx (en un venv si el pip del sistema está bloqueado por PEP 668) contar cajas de texto por diapositiva, y comparar visualmente una página del PDF original con la del PPTX reconvertido a PDF (`soffice --convert-to pdf` + `pdftoppm`).
+- Fuentes: PowerPoint sin las Google Fonts sustituye por las más cercanas; diferencia mínima, aceptable.
 
 ### Diagramas con Excalidraw
 

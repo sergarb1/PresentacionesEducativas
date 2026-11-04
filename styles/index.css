@@ -932,3 +932,46 @@
   height: 85px;
   width: auto;
 }
+
+/* ── SGC + KM: imágenes de fuentes, capturas de software y créditos ── */
+.media-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+.media-banner img {
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  max-height: 300px;
+  max-width: 88%;
+  object-fit: cover;
+}
+.media-banner.small img {
+  max-height: 170px;
+}
+.credit {
+  font-size: 0.78rem;
+  color: #475569;
+  text-align: center;
+  margin-top: 0.3rem;
+}
+.shot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+  margin-top: 0.25rem;
+}
+.shot-grid img {
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+}
+.shot-grid figcaption {
+  font-size: 0.85rem;
+  color: #475569;
+  text-align: center;
+  margin-top: 0.25rem;
+}
