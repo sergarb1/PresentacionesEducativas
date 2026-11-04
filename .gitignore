@@ -3,6 +3,10 @@ node_modules/
 
 # Build output
 dist/
+dist-standalone/
+
+# Entregas a compis/carpetas de transferencia (el PDF ya vive en output/)
+/entregas/
 
 # Export output (PDFs sí se versionan dentro de output/)
 *.pdf
