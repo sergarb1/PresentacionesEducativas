@@ -10,6 +10,40 @@ layout: cover
 class: sparse-slide
 ---
 
+## Dónde estamos
+### Un solo dominio de broadcast para toda la empresa
+
+<div class="key-idea">
+  <div class="key-idea-text">
+    En el bloque 2 dejamos la red estable y sin bucles, pero seguía siendo <strong>una sola red</strong>: el broadcast de un equipo llega a todos los demás y no hay forma de separar, por ejemplo, Administración de Alumnos. Comprar un switch por departamento no es la respuesta: la respuesta es <strong>partir el switch</strong> en varias redes lógicas.
+  </div>
+</div>
+
+---
+class: compact-slide
+---
+
+## El recorrido del bloque 03
+
+Una herramienta, tres decisiones: qué separar, dónde asignarlo y cómo numerarlo.
+
+<table>
+  <thead><tr><th></th><th>La pregunta</th><th>Con qué se responde</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1</strong></td><td>¿Qué es una VLAN y qué problema resuelve?</td><td>Red lógica con dominio de broadcast y tabla MAC propios</td></tr>
+    <tr><td><strong>2</strong></td><td>¿Cómo se asigna un puerto a su VLAN?</td><td>Puertos access, VLAN 1 y los tipos de VLAN</td></tr>
+    <tr><td><strong>3</strong></td><td>¿Cómo se planifica la numeración?</td><td>Criterio de rangos, VLAN de gestión y reservas</td></tr>
+  </tbody>
+</table>
+
+<div class="info" style="margin-top:0.5rem;">
+  Este bloque deja cada departamento en su VLAN, pero aún dentro de un solo switch. Llevarlas por toda la empresa será el trabajo de la unidad 06.
+</div>
+
+---
+class: sparse-slide
+---
+
 ## ¿Qué es una VLAN?
 ### La idea en una frase
 
@@ -189,6 +223,25 @@ El esquema habitual en oficinas (y el que piden en los exámenes):
 
 <div class="answer-card" style="margin-top:0.8rem;">
   <strong>1.</strong> Red lógica dentro del switch: cada VLAN es un dominio de broadcast y una tabla MAC propios. · <strong>2.</strong> Es la de fábrica: concentra el tráfico mal etiquetado y a los intrusos. · <strong>3.</strong> No: aisladas en capa 2; hace falta router o switch capa 3. · <strong>4.</strong> La nativa es la única que viaja <em>sin etiquetar</em> por el trunk. · <strong>5.</strong> Casi nunca: solo con VMPS y movilidad extrema.
+</div>
+
+---
+class: compact-slide
+---
+
+## Resumen de la unidad 05
+
+<table>
+  <thead><tr><th>Bloque</th><th>Lo que queda claro</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1</strong></td><td>El switch aprende MACs y reenvía por el puerto correcto; su límite es el dominio de broadcast.</td></tr>
+    <tr><td><strong>2</strong></td><td>La redundancia crea bucles; STP los rompe con un root y puertos bloqueados, y RSTP/PortFast aceleran la convergencia.</td></tr>
+    <tr><td><strong>3</strong></td><td>Las VLAN parten un switch en redes lógicas: cada una con su dominio de broadcast, su tabla MAC y su numeración.</td></tr>
+  </tbody>
+</table>
+
+<div class="success" style="margin-top:0.4rem;">
+  <strong>La idea que une la unidad:</strong> conmutar es <strong>decidir por dónde sale cada trama y quién puede oírla</strong>. La MAC decide el puerto, STP decide el camino y la VLAN decide la frontera.
 </div>
 
 ---

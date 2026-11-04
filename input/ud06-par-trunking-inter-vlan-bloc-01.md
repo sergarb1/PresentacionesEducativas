@@ -10,6 +10,40 @@ layout: cover
 class: sparse-slide
 ---
 
+## Dónde nos quedamos
+### Las VLANs existen; ahora hay que conectarlas
+
+<div class="key-idea">
+  <div class="key-idea-text">
+    En la unidad anterior partimos el switch en <strong>VLANs</strong>: cada departamento con su dominio de broadcast y su tabla MAC. Pero una VLAN encerrada en un switch no sirve de mucho: los departamentos están repartidos por el edificio y los switches tienen que <strong>transportar varias VLANs por el mismo cable</strong>. Eso es un <strong>trunk</strong>, y aquí empieza la unidad 06.
+  </div>
+</div>
+
+---
+class: compact-slide
+---
+
+## El recorrido de la unidad 06
+
+De llevar las VLANs por un cable a hacerlas hablar y protegerlas.
+
+<table>
+  <thead><tr><th></th><th>La pregunta</th><th>Con qué se responde</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Bloque 1</strong></td><td>¿Cómo viajan varias VLANs por un solo cable?</td><td>Trunk, etiqueta 802.1Q, native VLAN y el escenario departamental</td></tr>
+    <tr><td><strong>Bloque 2</strong></td><td>¿Cómo se hablan dos VLANs?</td><td>Router-on-a-stick, switch de capa 3 y SVI; VTP y DTP</td></tr>
+    <tr><td><strong>Bloque 3</strong></td><td>¿Cómo se protege la red y se reparten las IPs?</td><td>VACL, PVLAN, hardening y DHCP por VLAN</td></tr>
+  </tbody>
+</table>
+
+<div class="info" style="margin-top:0.5rem;">
+  Hoy, el bloque 1: montar el trunk y comprobar con un escenario completo que cada VLAN llega a su sitio.
+</div>
+
+---
+class: sparse-slide
+---
+
 ## Trunks y 802.1Q
 ### La idea en una frase
 
@@ -332,6 +366,25 @@ class: compact-slide
 
 <div class="answer-card" style="margin-top:0.7rem;">
   <strong>1.</strong> Crear la VLAN, asignar puertos access y montar el trunk si toca. · <strong>2.</strong> `show interfaces trunk`. · <strong>3.</strong> Subes a capa 3: `show ip interface brief` del router y el gateway de los PCs (192.168.10.1 / 192.168.20.1).
+</div>
+
+---
+class: compact-slide
+---
+
+## Resumen del bloque 01
+
+| Ya sabemos… | Con qué pieza |
+|---|---|
+| Distinguir un puerto access de un trunk | Access: una VLAN; trunk: muchas, etiquetadas |
+| Leer la etiqueta 802.1Q | 4 bytes: TPID 0x8100, prioridad y VLAN ID |
+| Configurar un trunk | <code>switchport mode trunk</code> + <code>encapsulation dot1Q</code> |
+| Evitar el fallo clásico | Native VLAN igual en los dos extremos |
+| Montar el escenario departamental | VLANs, puertos access, trunk y puerto hacia el router |
+| Verificar | <code>show vlan brief</code> y <code>show interfaces trunk</code> |
+
+<div class="warning" style="margin-top:0.4rem;">
+  <strong>Lo que aún no sabemos:</strong> el trunk ya lleva todas las VLANs y los PCs tienen su IP, pero Ventas y RRHH siguen sin verse. Es correcto: aislar es trabajo de la capa 2. Para cruzar de una VLAN a otra hace falta <strong>capa 3</strong>, y eso es el bloque 2.
 </div>
 
 ---

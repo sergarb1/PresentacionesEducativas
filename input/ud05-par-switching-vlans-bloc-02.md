@@ -10,6 +10,40 @@ layout: cover
 class: sparse-slide
 ---
 
+## Dónde estamos
+### El switch funciona… hasta que sobra un cable
+
+<div class="key-idea">
+  <div class="key-idea-text">
+    En el bloque 1 el switch aprendía MACs y entregaba cada trama por el puerto correcto. Pero esa garantía vale para una topología <strong>sin caminos alternativos</strong>: si dos switches se conectan por dos cables —algo que se hace para que la red no muera si uno falla—, las tramas broadcast <strong>entran en un bucle</strong> y la red se satura en segundos.
+  </div>
+</div>
+
+---
+class: compact-slide
+---
+
+## El recorrido del bloque 02
+
+Primero el bucle; después, cómo domarlo sin renunciar a la redundancia.
+
+<table>
+  <thead><tr><th></th><th>La pregunta</th><th>Con qué se responde</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1</strong></td><td>¿Qué ocurre cuando un broadcast encuentra un bucle?</td><td>La tormenta de broadcast y sus síntomas</td></tr>
+    <tr><td><strong>2</strong></td><td>¿Cómo se evita sin desconectar el cable de más?</td><td>STP: BPDUs, Root Bridge, roles y estados</td></tr>
+    <tr><td><strong>3</strong></td><td>¿Y si esperar 30-50 s no es aceptable?</td><td>RSTP, PortFast y BPDUGuard</td></tr>
+  </tbody>
+</table>
+
+<div class="info" style="margin-top:0.5rem;">
+  La redundancia no se quita: se controla. STP deja un camino activo y mantiene los demás en reserva, listos para entrar sin intervención.
+</div>
+
+---
+class: sparse-slide
+---
+
 ## La tormenta de broadcast
 ### Cuando los broadcasts rebotan sin fin
 
@@ -288,6 +322,24 @@ Switch(config-if)# spanning-tree bpduguard enable</code></pre>
 
 <div class="answer-card" style="margin-top:0.8rem;">
   <strong>1.</strong> Un bucle sin protección + tráfico broadcast. · <strong>2.</strong> Cada 2 s; Bridge ID = prioridad + MAC (gana el más bajo). · <strong>3.</strong> Learning; 30-50 s (STP) o 1-3 s (RSTP). · <strong>4.</strong> PortFast salta a Forwarding en acceso; BPDUGuard deshabilita el puerto que recibe BPDUs.
+</div>
+
+---
+class: compact-slide
+---
+
+## Resumen del bloque 02
+
+| Ya sabemos… | Con qué pieza |
+|---|---|
+| Reconocer un bucle y su tormenta | Broadcasts que se multiplican y disparan el tráfico |
+| Elegir el switch que manda | Root Bridge: menor Bridge ID (prioridad + MAC) |
+| Explicar qué puerto bloquea STP | Coste al root, prioridad y MAC del vecino |
+| Seguir la convergencia | Blocking → Listening → Learning → Forwarding |
+| Acelerar los puertos de usuario | PortFast + BPDUGuard, nunca en un trunk |
+
+<div class="warning" style="margin-top:0.4rem;">
+  <strong>Lo que sigue sin resolverse:</strong> STP evita bucles, pero todos los equipos siguen en el <strong>mismo dominio de broadcast</strong>: un broadcast recorre toda la empresa y no hay separación entre departamentos. El bloque 3 parte esa red en redes lógicas: <strong>VLANs</strong>.
 </div>
 
 ---

@@ -10,6 +10,40 @@ layout: cover
 class: sparse-slide
 ---
 
+## Dónde nos quedamos
+### De la dirección IP al cable
+
+<div class="key-idea">
+  <div class="key-idea-text">
+    En la unidad anterior aprendimos a <strong>dirigir paquetes</strong>: leer una IP, calcular su red y decidir si el destino es vecino o está detrás del router. Pero ese paquete no viaja solo: baja al cable dentro de una <strong>trama Ethernet</strong>, y alguien tiene que entregarla por el puerto correcto. Ese alguien es el <strong>switch</strong>, y su mundo es la <strong>capa 2</strong>.
+  </div>
+</div>
+
+---
+class: compact-slide
+---
+
+## El recorrido de la unidad 05
+
+Tres bloques: de la trama suelta a la red segmentada.
+
+<table>
+  <thead><tr><th></th><th>La pregunta</th><th>Con qué se responde</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Bloque 1</strong></td><td>¿Cómo decide el switch por qué puerto sale cada trama?</td><td>MAC, tabla CAM, flooding, dominios de colisión y broadcast</td></tr>
+    <tr><td><strong>Bloque 2</strong></td><td>¿Qué pasa si hay dos caminos y un bucle?</td><td>Tormenta de broadcast, STP/RSTP, PortFast y BPDUGuard</td></tr>
+    <tr><td><strong>Bloque 3</strong></td><td>¿Cómo separo departamentos sin comprar un switch para cada uno?</td><td>VLANs, puertos access, VLAN 1 y numeración</td></tr>
+  </tbody>
+</table>
+
+<div class="info" style="margin-top:0.5rem;">
+  Hoy, el bloque 1: sin entender cómo aprende y reenvía un switch, STP y las VLANs se estudian de memoria y se olvidan.
+</div>
+
+---
+class: sparse-slide
+---
+
 ## El switch: el cerebro de la red local
 ### La idea en una frase
 
@@ -249,6 +283,24 @@ Un broadcast va dirigido a <code>FFFF.FFFF.FFFF</code> y <strong>todos</strong> 
 
 <div class="answer-card" style="margin-top:0.8rem;">
   <strong>1.</strong> Capa 2 (Enlace), con la MAC destino. · <strong>2.</strong> La inunda por todos los puertos (menos origen): así aprende. · <strong>3.</strong> Hub: 1 → switch: 8. · <strong>4.</strong> El router; el switch propaga los broadcasts a todos sus puertos.
+</div>
+
+---
+class: compact-slide
+---
+
+## Resumen del bloque 01
+
+| Ya sabemos… | Con qué pieza |
+|---|---|
+| Distinguir un switch de un hub | Capa 2 y reenvío solo por el puerto necesario |
+| Explicar cómo aprende | MAC origen → puerto, anotada en la tabla MAC/CAM |
+| Decidir qué hace con cada trama | Flooding si no conoce el destino; filtering si origen y destino comparten puerto |
+| Contar dominios | Colisión: uno por puerto; broadcast: uno por VLAN o router |
+| Entender sus límites | La CAM es finita y envejece sus entradas |
+
+<div class="warning" style="margin-top:0.4rem;">
+  <strong>Lo que aún no sabemos:</strong> con un solo switch todo va bien; con dos y un cable de más, los broadcasts empiezan a rebotar y la red cae en segundos. El bloque 2 pone remedio: <strong>STP</strong>.
 </div>
 
 ---

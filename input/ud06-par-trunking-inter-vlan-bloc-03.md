@@ -10,6 +10,40 @@ layout: cover
 class: sparse-slide
 ---
 
+## Dónde estamos
+### Ya hay conectividad; falta que sea segura
+
+<div class="key-idea">
+  <div class="key-idea-text">
+    En los bloques 1 y 2 dejamos la red departamental funcionando: VLANs, trunk, router-on-a-stick o SVIs y PCs con su gateway. Funciona… y está expuesta: un switch mal configurado deja que un atacante <strong>salte de VLAN</strong>, y cada VLAN necesita además su propio <strong>reparto de direcciones</strong>. Este bloque cierra las dos asignaturas pendientes.
+  </div>
+</div>
+
+---
+class: compact-slide
+---
+
+## El recorrido del bloque 03
+
+Primero proteger; después, servir direcciones; al final, cerrar la unidad.
+
+<table>
+  <thead><tr><th></th><th>La pregunta</th><th>Con qué se responde</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1</strong></td><td>¿Puede un atacante saltar de VLAN?</td><td>VACL, PVLAN, VLAN hopping y checklist de hardening</td></tr>
+    <tr><td><strong>2</strong></td><td>¿Quién reparte IPs en cada VLAN?</td><td>DHCP por VLAN: pools, DORA, relay y verificación</td></tr>
+    <tr><td><strong>3</strong></td><td>¿Cómo se junta todo?</td><td>Sé el paquete y las adivinanzas de repaso</td></tr>
+  </tbody>
+</table>
+
+<div class="info" style="margin-top:0.5rem;">
+  El escenario que se monta aquí —VLANs, trunk, enrutamiento y DHCP— es el que se repite en cualquier instalación real de una PYME.
+</div>
+
+---
+class: sparse-slide
+---
+
 ## Seguridad en VLANs
 ### La idea en una frase
 
@@ -268,6 +302,25 @@ class: compact-slide
 
 <div class="answer-card" style="margin-top:0.7rem;">
   1. El trunk (802.1Q) · 2. La native VLAN · 3. La SVI (`interface vlan X`) · 4. Router-on-a-stick (`.10`, `.20`… con dot1Q)
+</div>
+
+---
+class: compact-slide
+---
+
+## Resumen de la unidad 06
+
+<table>
+  <thead><tr><th>Bloque</th><th>Lo que queda claro</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1</strong></td><td>El trunk transporta muchas VLANs con etiquetas 802.1Q; la native VLAN debe coincidir en ambos extremos.</td></tr>
+    <tr><td><strong>2</strong></td><td>Inter-VLAN routing con subinterfaces o SVIs: el gateway vive en capa 3 y el switch L3 también puede hacerlo.</td></tr>
+    <tr><td><strong>3</strong></td><td>VACL, PVLAN y el hardening cierran el switch, y DHCP entrega la configuración de cada VLAN sin tocar los PCs.</td></tr>
+  </tbody>
+</table>
+
+<div class="success" style="margin-top:0.4rem;">
+  <strong>La idea que une la unidad:</strong> las VLANs <strong>separan</strong>, el trunk <strong>transporta</strong>, la capa 3 <strong>conecta</strong> y las ACL y el hardening <strong>protegen</strong>. Sin las cuatro piezas, la red departamental no está terminada.
 </div>
 
 ---

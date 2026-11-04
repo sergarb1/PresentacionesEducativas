@@ -10,6 +10,40 @@ layout: cover
 class: sparse-slide
 ---
 
+## Dónde estamos
+### Con IP hay conectividad; faltan nombres y hora
+
+<div class="key-idea">
+  <div class="key-idea-text">
+    El bloque 1 resolvió la identidad: cada equipo tiene IP, máscara, gateway y servidor DNS. Pero nadie escribe <code>10.0.0.20</code> en el navegador, y un certificado o un inicio de sesión fallan si el reloj va desfasado. Los dos servicios que hacen usable la red son <strong>DNS</strong> y <strong>NTP</strong>, y los dos se caen sin hacer ruido.
+  </div>
+</div>
+
+---
+class: compact-slide
+---
+
+## El recorrido del bloque 02
+
+Un nombre, una hora y una escalera para diagnosticar los dos.
+
+<table>
+  <thead><tr><th></th><th>La pregunta</th><th>Con qué se responde</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1</strong></td><td>¿Cómo se convierte un nombre en una IP?</td><td>Jerarquía, resolución recursiva e iterativa, registros y caché</td></tr>
+    <tr><td><strong>2</strong></td><td>¿Cómo se mantiene la hora exacta?</td><td>Estratos NTP, configuración en IOS y Windows, autenticación</td></tr>
+    <tr><td><strong>3</strong></td><td>¿Por dónde empiezo cuando algo falla?</td><td>La escalera del servicio y los tres casos típicos</td></tr>
+  </tbody>
+</table>
+
+<div class="info" style="margin-top:0.5rem;">
+  DNS y NTP comparten patrón: servicio invisible mientras funciona y causa raíz de incidencias que parecen de otra capa.
+</div>
+
+---
+class: sparse-slide
+---
+
 ## DNS: la idea en una frase
 
 <div class="key-idea">
@@ -373,6 +407,24 @@ Eres un portátil recién desembalado, enchufado al switch de la oficina. No tie
 
 <div class="info" style="margin-top:0.5rem;padding:0.7rem 0.95rem;font-size:0.9rem;line-height:1.4;">
   <strong>La moraleja:</strong> un equipo se integra por capas de servicio — identidad IP (DHCP) → memoria de nombres (DNS) → consenso horario (NTP): cuando algo falle, pregunta en qué capa te quedaste atascado. <strong>Para practicar:</strong> boletines U07 en Packet Tracer — <strong>direcciones que se reparten solas, nombres que se resuelven y hora que se sostiene</strong>: la mecánica de cualquier empresa.
+</div>
+
+---
+class: compact-slide
+---
+
+## Resumen de la unidad 07
+
+<table>
+  <thead><tr><th>Bloque</th><th>Lo que queda claro</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1</strong></td><td>DHCP entrega IP, máscara, gateway y DNS con un contrato temporal; DORA, el lease y el relay explican casi todas sus averías.</td></tr>
+    <tr><td><strong>2</strong></td><td>DNS traduce nombres por delegación jerárquica y con caché; NTP mantiene la hora por estratos y puede autenticarse.</td></tr>
+  </tbody>
+</table>
+
+<div class="success" style="margin-top:0.4rem;">
+  <strong>La idea que une la unidad:</strong> un equipo se integra por capas de servicio — <strong>identidad</strong> (DHCP), <strong>nombres</strong> (DNS) y <strong>hora</strong> (NTP). Cuando algo falla, la pregunta correcta es en qué capa se quedó atascado.
 </div>
 
 ---

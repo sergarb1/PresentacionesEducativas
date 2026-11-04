@@ -10,6 +10,39 @@ layout: cover
 class: sparse-slide
 ---
 
+## Dónde nos quedamos
+### Ya sabemos configurar IPs; ahora, que se configuren solas
+
+<div class="key-idea">
+  <div class="key-idea-text">
+    En la UD04 aprendimos a repartir el espacio con subnetting y VLSM, y en la UD06 configuramos pools DHCP por VLAN. Pero DHCP se quedó en la receta: un pool, un relay y poco más. Esta unidad lo mira por dentro: el <strong>intercambio completo</strong>, el <strong>contrato de alquiler</strong>, qué pasa cuando el servidor no está y cómo se diagnostica.
+  </div>
+</div>
+
+---
+class: compact-slide
+---
+
+## El recorrido de la unidad 07
+
+Dos bloques para los tres servicios que sostienen cualquier red de empresa.
+
+<table>
+  <thead><tr><th></th><th>La pregunta</th><th>Con qué se responde</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Bloque 1</strong></td><td>¿Cómo consigue un equipo su configuración?</td><td>DHCP: DORA, lease, pool, relay y APIPA</td></tr>
+    <tr><td><strong>Bloque 2</strong></td><td>¿Cómo se resuelven nombres y se sincroniza la hora?</td><td>DNS: jerarquía, registros y reenviadores · NTP: estratos y autenticación</td></tr>
+  </tbody>
+</table>
+
+<div class="info" style="margin-top:0.5rem;">
+  Hoy, el bloque 1: entender DHCP de verdad es la mitad del diagnóstico de cualquier incidencia de «no tengo Internet».
+</div>
+
+---
+class: sparse-slide
+---
+
 ## DHCP: la idea en una frase
 
 <div class="key-idea">
@@ -258,6 +291,24 @@ class: compact-slide
 
 <div class="answer-card" style="margin-top:0.7rem;">
   <strong>1.</strong> Discover y Request van broadcast; Offer y Ack responden a cliente «conociendo su MAC» (o relay). · <strong>2.</strong> UDP 67 escucha el servidor, UDP 68 el cliente. · <strong>3.</strong> APIPA: no hubo oferta. Primero comprueba el pool y el estado del servidor, y en el aula el más común es el <em>puerto trunk/access en la VLAN equivocada</em>.
+</div>
+
+---
+class: compact-slide
+---
+
+## Resumen del bloque 01
+
+| Ya sabemos… | Con qué pieza |
+|---|---|
+| Explicar el intercambio completo | Discover y Request broadcast; Offer y Ack |
+| Leer un lease | Concesión, renovación en T1/T2 y liberación |
+| Configurar un pool | <code>network</code>, <code>default-router</code>, <code>dns-server</code> y exclusiones |
+| Atender otra subred | <code>ip helper-address</code> en la interfaz del router |
+| Diagnosticar en orden | 169.254.x.x → pool, VLAN, relay y, si hace falta, Wireshark |
+
+<div class="warning" style="margin-top:0.4rem;">
+  <strong>Lo que sigue sin resolverse:</strong> con IP ya hay conectividad, pero nadie escribe una IP en el navegador y un login falla si el reloj va desfasado. El bloque 2 pone nombre y hora a la red: <strong>DNS y NTP</strong>.
 </div>
 
 ---

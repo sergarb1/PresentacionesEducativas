@@ -10,6 +10,37 @@ layout: cover
 class: sparse-slide
 ---
 
+## Dónde estamos
+### El trunk funciona; los departamentos siguen aislados
+
+<div class="key-idea">
+  <div class="key-idea-text">
+    En el bloque 1 montamos el trunk y dejamos cada VLAN en su switch. Los equipos de la misma VLAN se ven; los de VLANs distintas, no. Y eso es correcto: <strong>aislar es el trabajo de la capa 2</strong>. Pero una empresa necesita que RRHH imprima en la impresora de Administración sin renunciar a la separación. Esa decisión se toma en <strong>capa 3</strong>.
+  </div>
+</div>
+
+---
+class: compact-slide
+---
+
+## El recorrido del bloque 02
+
+Dos formas de cruzar la frontera y dos automatismos que conviene apagar.
+
+<table>
+  <thead><tr><th></th><th>La pregunta</th><th>Con qué se responde</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1</strong></td><td>¿Por qué un switch normal no cruza VLANs?</td><td>Reencapsulado: la MAC cambia, la IP destino no</td></tr>
+    <tr><td><strong>2</strong></td><td>¿Cómo se hace con un router?</td><td>Router-on-a-stick: subinterfaces con <code>dot1Q</code></td></tr>
+    <tr><td><strong>3</strong></td><td>¿Y sin router dedicado?</td><td>Switch de capa 3: <code>ip routing</code> y una SVI por VLAN</td></tr>
+    <tr><td><strong>4</strong></td><td>¿Qué automatismos sobran?</td><td>VTP y DTP: modo transparent y <code>nonegotiate</code></td></tr>
+  </tbody>
+</table>
+
+---
+class: sparse-slide
+---
+
 ## Inter-VLAN routing
 ### La idea en una frase
 
@@ -357,6 +388,24 @@ Switch(config-if)# switchport nonegotiate
 
 <div class="answer-card" style="margin-top:0.7rem;">
   <strong>1.</strong> Trabaja en capa 2 mirando MACs; cruzar VLANs exige capa 3 que reencapsule. · <strong>2.</strong> `ip routing` + un `interface vlan X` con su IP por VLAN. · <strong>3.</strong> VTP impone la base del switch con mayor revisión: la suya (vacía) borra las VLANs de todos.
+</div>
+
+---
+class: compact-slide
+---
+
+## Resumen del bloque 02
+
+| Ya sabemos… | Con qué pieza |
+|---|---|
+| Explicar por qué hace falta capa 3 | El switch no reencapsula entre VLANs |
+| Montar router-on-a-stick | Subinterfaces + <code>encapsulation dot1Q</code> + IP = gateway |
+| Montar un switch capa 3 | <code>ip routing</code> + una SVI por VLAN |
+| Elegir entre ambos | Precio, número de VLANs y rendimiento del switch |
+| Neutralizar VTP y DTP | <code>transparent</code>, <code>nonegotiate</code> y access fijo |
+
+<div class="warning" style="margin-top:0.4rem;">
+  <strong>Lo que sigue sin resolverse:</strong> la red ya enruta entre VLANs, pero sigue expuesta: un trunk mal asegurado permite saltar de VLAN, y cada VLAN necesita su propio reparto de direcciones. El bloque 3 cierra las dos cosas.
 </div>
 
 ---
