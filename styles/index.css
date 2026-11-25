@@ -596,6 +596,7 @@
   font-size: 0.84rem;
   line-height: 1.6;
   color: #E2E8F0;
+  white-space: pre-wrap;
   overflow-x: auto;
   box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   box-sizing: border-box;
@@ -775,7 +776,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
-  align-items: center;
+  /* Columnas alineadas por arriba: con `center` las columnas de distinto alto
+     arrancaban a alturas distintas y la diapositiva se veía descuadrada. */
+  align-items: start;
 }
 
 /* .left/.right son columnas de .two-cols: el contenido (steps, info,
@@ -844,6 +847,12 @@
   width: 100%;
   min-height: 0;
   overflow: hidden;
+  /* El SVG conserva su proporción y suele ser más estrecho que el marco:
+     sin flex quedaba pegado al borde izquierdo y el dibujo parecía
+     desplazado fuera del recuadro. */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .diagram-frame .diagram-svg svg {

@@ -12,7 +12,12 @@
       "height": 64,
       "angle": 0,
       "backgroundColor": "#a5d8ff",
-      "boundElements": [{"id": "in-label", "type": "text"}],
+      "boundElements": [
+        {
+          "id": "in-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "fontSize": 16,
       "frameId": null,
@@ -23,7 +28,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": {"type": 3},
+      "roundness": {
+        "type": 3
+      },
       "seed": 325664478,
       "strokeColor": "#2563eb",
       "strokeStyle": "solid",
@@ -35,10 +42,10 @@
     {
       "id": "in-label",
       "type": "text",
-      "x": 50,
-      "y": 85,
-      "width": 180,
-      "height": 27,
+      "x": 51.0,
+      "y": 82.0,
+      "width": 178,
+      "height": 40.0,
       "angle": 0,
       "autoResize": true,
       "backgroundColor": "transparent",
@@ -55,14 +62,14 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "originalText": "1 · trama al gateway",
+      "originalText": "1 · trama al\ngateway",
       "roughness": 1,
       "roundness": null,
       "seed": 1384035977,
       "strokeColor": "#2563eb",
       "strokeStyle": "solid",
       "strokeWidth": 1,
-      "text": "1 · trama al gateway",
+      "text": "1 · trama al\ngateway",
       "textAlign": "center",
       "updated": 1791922150547,
       "version": 1,
@@ -78,7 +85,12 @@
       "height": 64,
       "angle": 0,
       "backgroundColor": "#b2f2bb",
-      "boundElements": [{"id": "read-label", "type": "text"}],
+      "boundElements": [
+        {
+          "id": "read-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "fontSize": 16,
       "frameId": null,
@@ -89,7 +101,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": {"type": 3},
+      "roundness": {
+        "type": 3
+      },
       "seed": 1407271417,
       "strokeColor": "#2f9e44",
       "strokeStyle": "solid",
@@ -144,7 +158,12 @@
       "height": 64,
       "angle": 0,
       "backgroundColor": "#ffe8cc",
-      "boundElements": [{"id": "lookup-label", "type": "text"}],
+      "boundElements": [
+        {
+          "id": "lookup-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "fontSize": 16,
       "frameId": null,
@@ -155,7 +174,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": {"type": 3},
+      "roundness": {
+        "type": 3
+      },
       "seed": 77002004,
       "strokeColor": "#e8590c",
       "strokeStyle": "solid",
@@ -210,7 +231,12 @@
       "height": 64,
       "angle": 0,
       "backgroundColor": "#a5d8ff",
-      "boundElements": [{"id": "out-label", "type": "text"}],
+      "boundElements": [
+        {
+          "id": "out-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "fontSize": 16,
       "frameId": null,
@@ -221,7 +247,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": {"type": 3},
+      "roundness": {
+        "type": 3
+      },
       "seed": 1835074279,
       "strokeColor": "#2563eb",
       "strokeStyle": "solid",
@@ -233,10 +261,10 @@
     {
       "id": "out-label",
       "type": "text",
-      "x": 790,
-      "y": 85,
-      "width": 150,
-      "height": 27,
+      "x": 791.0,
+      "y": 82.0,
+      "width": 148,
+      "height": 40.0,
       "angle": 0,
       "autoResize": true,
       "backgroundColor": "transparent",
@@ -253,14 +281,14 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "originalText": "4 · reencapsula y sale",
+      "originalText": "4 · reencapsula\ny sale",
       "roughness": 1,
       "roundness": null,
       "seed": 1806864626,
       "strokeColor": "#2563eb",
       "strokeStyle": "solid",
       "strokeWidth": 1,
-      "text": "4 · reencapsula y sale",
+      "text": "4 · reencapsula\ny sale",
       "textAlign": "center",
       "updated": 1791922150547,
       "version": 1,
@@ -287,7 +315,16 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "points": [[0, 0], [36, 0]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          36,
+          0
+        ]
+      ],
       "roughness": 1,
       "roundness": null,
       "seed": 1249229469,
@@ -320,7 +357,16 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "points": [[0, 0], [36, 0]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          36,
+          0
+        ]
+      ],
       "roughness": 1,
       "roundness": null,
       "seed": 42862966,
@@ -353,7 +399,16 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "points": [[0, 0], [36, 0]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          36,
+          0
+        ]
+      ],
       "roughness": 1,
       "roundness": null,
       "seed": 1521125469,
@@ -375,7 +430,12 @@
       "height": 90,
       "angle": 0,
       "backgroundColor": "#ffec99",
-      "boundElements": [{"id": "l2-label", "type": "text"}],
+      "boundElements": [
+        {
+          "id": "l2-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "fontSize": 17,
       "frameId": null,
@@ -386,7 +446,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": {"type": 3},
+      "roundness": {
+        "type": 3
+      },
       "seed": 831297595,
       "strokeColor": "#e8590c",
       "strokeStyle": "solid",
@@ -398,10 +460,10 @@
     {
       "id": "l2-label",
       "type": "text",
-      "x": 60,
-      "y": 266,
-      "width": 400,
-      "height": 27,
+      "x": 51.0,
+      "y": 273.8,
+      "width": 418,
+      "height": 42.5,
       "angle": 0,
       "autoResize": true,
       "backgroundColor": "transparent",
@@ -418,14 +480,14 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "originalText": "Capa 2 · la TRAMA se reconstruye en cada salto: otra MAC",
+      "originalText": "Capa 2 · la TRAMA se reconstruye en cada\nsalto: otra MAC",
       "roughness": 1,
       "roundness": null,
       "seed": 2097552063,
       "strokeColor": "#e8590c",
       "strokeStyle": "solid",
       "strokeWidth": 1,
-      "text": "Capa 2 · la TRAMA se reconstruye en cada salto: otra MAC",
+      "text": "Capa 2 · la TRAMA se reconstruye en cada\nsalto: otra MAC",
       "textAlign": "center",
       "updated": 1791922150547,
       "version": 1,
@@ -441,7 +503,12 @@
       "height": 90,
       "angle": 0,
       "backgroundColor": "#d3f9d8",
-      "boundElements": [{"id": "l3-label", "type": "text"}],
+      "boundElements": [
+        {
+          "id": "l3-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "fontSize": 17,
       "frameId": null,
@@ -452,7 +519,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": {"type": 3},
+      "roundness": {
+        "type": 3
+      },
       "seed": 961124848,
       "strokeColor": "#2f9e44",
       "strokeStyle": "solid",
@@ -464,10 +533,10 @@
     {
       "id": "l3-label",
       "type": "text",
-      "x": 540,
-      "y": 244,
-      "width": 390,
-      "height": 55,
+      "x": 531.0,
+      "y": 273.8,
+      "width": 408,
+      "height": 42.5,
       "angle": 0,
       "autoResize": true,
       "backgroundColor": "transparent",
@@ -484,14 +553,14 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "originalText": "Capa 3 · el PAQUETE viaja intacto de punta a punta",
+      "originalText": "Capa 3 · el PAQUETE viaja intacto de\npunta a punta",
       "roughness": 1,
       "roundness": null,
       "seed": 710948551,
       "strokeColor": "#2f9e44",
       "strokeStyle": "solid",
       "strokeWidth": 1,
-      "text": "Capa 3 · el PAQUETE viaja intacto de punta a punta",
+      "text": "Capa 3 · el PAQUETE viaja intacto de\npunta a punta",
       "textAlign": "center",
       "updated": 1791922150547,
       "version": 1,

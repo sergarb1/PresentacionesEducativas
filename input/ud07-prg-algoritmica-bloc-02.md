@@ -140,11 +140,16 @@ layout: cover
     </div>
   </div>
   <div class="right">
-    | Mida | Operacions ~ |
-    | ----- | ----- |
-    | 10 elements | 100 (bé) |
-    | 1.000 elements | 1.000.000 (comença a doldre) |
-    | 1.000.000 elements | 10¹² (el PC demana la jubilació) |
+    <table>
+      <thead>
+        <tr><th>Mida</th><th>Operacions ~</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>10 elements</td><td>100 (bé)</td></tr>
+        <tr><td>1.000 elements</td><td>1.000.000 (comença a doldre)</td></tr>
+        <tr><td>1.000.000 elements</td><td>10¹² (el PC demana la jubilació)</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 

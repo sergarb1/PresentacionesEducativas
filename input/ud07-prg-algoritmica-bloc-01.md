@@ -307,7 +307,7 @@ layout: cover
 <p>Buscar una paraula al diccionari: no comences a la pàgina 1. Obres per la meitat, veus si la paraula va abans o després, i <strong>descartes mitja llibre en un gest</strong>. I repetix.</p>
 
 <div class="warning">
-  ⚠️ <strong>El requisit imprescindible: l'array ha d'estar ordenat.</strong> Si no, el mètode no funciona — i el pitjor de tot: <strong>no t'avisa</strong>. No hi ha error ni excepció: simplement obtens la resposta equivocada.
+  <strong>El requisit imprescindible: l'array ha d'estar ordenat.</strong> Si no, el mètode no funciona — i el pitjor de tot: <strong>no t'avisa</strong>. No hi ha error ni excepció: simplement obtens la resposta equivocada.
 </div>
 
 <div class="info">
@@ -328,6 +328,7 @@ layout: cover
 </div>
 
 ---
+class: compact-slide
 ---
 
 ## L'algoritme de la cerca binària
@@ -338,7 +339,7 @@ layout: cover
     <span class="code-card-title">CercaBinaria.java</span>
     <span class="code-card-badge">⭐</span>
   </div>
-  <pre><code><span class="keyword">public static int</span> buscar(<span class="type">int</span>[] array, <span class="type">int</span> objectiu) {
+  <pre style="font-size: 0.72rem !important; line-height: 1.45 !important; padding: 8px 14px !important;"><code style="font-size: 0.72rem !important; line-height: 1.45 !important;"><span class="keyword">public static int</span> buscar(<span class="type">int</span>[] array, <span class="type">int</span> objectiu) {
   <span class="type">int</span> esquerra = 0;
   <span class="type">int</span> dreta = array.length - 1;
   <span class="comment">// dos punters</span>
@@ -403,7 +404,7 @@ layout: cover
       Si l'array té a prop de <code>Integer.MAX_VALUE</code> elements, <code>esquerra + dreta</code> <strong>desborda</strong>: el resultat ja no cap en un int.
     </div>
     <div class="info">
-      ⚠️ Este bug és tan famós que va aparéixer en la biblioteca original de Java. Du anys col·leccionant trofeus: Bug de l'any, Bug de la dècada, Bug favorit del públic…
+      Este bug és tan famós que va aparéixer en la biblioteca original de Java. Du anys col·leccionant trofeus: Bug de l'any, Bug de la dècada, Bug favorit del públic…
     </div>
   </div>
 </div>

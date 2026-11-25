@@ -9,10 +9,19 @@
       "x": 30,
       "y": 60,
       "width": 170,
-      "height": 64,
+      "height": 68,
       "angle": 0,
       "backgroundColor": "#a5d8ff",
-      "boundElements": [{"id": "vlan10-label", "type": "text"}, {"id": "ar-v10", "type": "arrow"}],
+      "boundElements": [
+        {
+          "id": "vlan10-label",
+          "type": "text"
+        },
+        {
+          "id": "ar-v10",
+          "type": "arrow"
+        }
+      ],
       "fillStyle": "solid",
       "fontSize": 15,
       "frameId": null,
@@ -22,7 +31,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": {"type": 3},
+      "roundness": {
+        "type": 3
+      },
       "seed": 1011349594,
       "strokeColor": "#2563eb",
       "strokeStyle": "solid",
@@ -34,7 +45,7 @@
       "id": "vlan10-label",
       "type": "text",
       "x": 40,
-      "y": 65,
+      "y": 65.9,
       "width": 150,
       "height": 50,
       "angle": 0,
@@ -71,10 +82,15 @@
       "x": 30,
       "y": 240,
       "width": 170,
-      "height": 64,
+      "height": 89,
       "angle": 0,
       "backgroundColor": "#ffe3e3",
-      "boundElements": [{"id": "vlan20-label", "type": "text"}],
+      "boundElements": [
+        {
+          "id": "vlan20-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "fontSize": 15,
       "frameId": null,
@@ -84,7 +100,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": {"type": 3},
+      "roundness": {
+        "type": 3
+      },
       "seed": 1415525797,
       "strokeColor": "#c92a2a",
       "strokeStyle": "solid",
@@ -95,10 +113,10 @@
     {
       "id": "vlan20-label",
       "type": "text",
-      "x": 40,
-      "y": 245,
-      "width": 150,
-      "height": 50,
+      "x": 41.0,
+      "y": 247.0,
+      "width": 148,
+      "height": 75.0,
       "angle": 0,
       "autoResize": true,
       "backgroundColor": "transparent",
@@ -114,14 +132,14 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "originalText": "VLAN 20\n192.168.20.0/24\n(usuarios limitados)",
+      "originalText": "VLAN 20\n192.168.20.0/24\n(usuarios\nlimitados)",
       "roughness": 1,
       "roundness": null,
       "seed": 1612270229,
       "strokeColor": "#c92a2a",
       "strokeStyle": "solid",
       "strokeWidth": 1,
-      "text": "VLAN 20\n192.168.20.0/24\n(usuarios limitados)",
+      "text": "VLAN 20\n192.168.20.0/24\n(usuarios\nlimitados)",
       "textAlign": "center",
       "version": 1,
       "versionNonce": 876471698,
@@ -136,7 +154,12 @@
       "height": 64,
       "angle": 0,
       "backgroundColor": "#ffe8cc",
-      "boundElements": [{"id": "r1-label", "type": "text"}],
+      "boundElements": [
+        {
+          "id": "r1-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "fontSize": 16,
       "frameId": null,
@@ -146,7 +169,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": {"type": 3},
+      "roundness": {
+        "type": 3
+      },
       "seed": 610522520,
       "strokeColor": "#e8590c",
       "strokeStyle": "solid",
@@ -198,7 +223,12 @@
       "height": 64,
       "angle": 0,
       "backgroundColor": "#ffe8cc",
-      "boundElements": [{"id": "r2-label", "type": "text"}],
+      "boundElements": [
+        {
+          "id": "r2-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "fontSize": 16,
       "frameId": null,
@@ -208,7 +238,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": {"type": 3},
+      "roundness": {
+        "type": 3
+      },
       "seed": 2028163547,
       "strokeColor": "#e8590c",
       "strokeStyle": "solid",
@@ -257,10 +289,15 @@
       "x": 800,
       "y": 60,
       "width": 170,
-      "height": 64,
+      "height": 68,
       "angle": 0,
       "backgroundColor": "#b2f2bb",
-      "boundElements": [{"id": "lan30srv-label", "type": "text"}],
+      "boundElements": [
+        {
+          "id": "lan30srv-label",
+          "type": "text"
+        }
+      ],
       "fillStyle": "solid",
       "fontSize": 15,
       "frameId": null,
@@ -270,7 +307,9 @@
       "locked": false,
       "opacity": 100,
       "roughness": 1,
-      "roundness": {"type": 3},
+      "roundness": {
+        "type": 3
+      },
       "seed": 1001441550,
       "strokeColor": "#2f9e44",
       "strokeStyle": "solid",
@@ -282,7 +321,7 @@
       "id": "lan30srv-label",
       "type": "text",
       "x": 810,
-      "y": 70,
+      "y": 65.9,
       "width": 150,
       "height": 44,
       "angle": 0,
@@ -332,7 +371,16 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "points": [[0, 0.96], [176, -32]],
+      "points": [
+        [
+          0,
+          0.96
+        ],
+        [
+          176,
+          -32
+        ]
+      ],
       "roughness": 1,
       "roundness": null,
       "seed": 745889560,
@@ -364,7 +412,16 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "points": [[0, 0], [176, -62]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          176,
+          -62
+        ]
+      ],
       "roughness": 1,
       "roundness": null,
       "seed": 1870371548,
@@ -396,7 +453,16 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "points": [[0, 0], [86, 0]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          86,
+          0
+        ]
+      ],
       "roughness": 1,
       "roundness": null,
       "seed": 799547875,
@@ -428,7 +494,16 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-      "points": [[0, 0], [80, -50]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          80,
+          -50
+        ]
+      ],
       "roughness": 1,
       "roundness": null,
       "seed": 380098101,
@@ -568,10 +643,10 @@
       "link": null,
       "locked": false,
       "opacity": 100,
-"originalText": "El tráfico de la VLAN 20 (limitada) se controla en la interfaz donde ENTRA al router: in, en R1 g0/1 — extendida, cerca del origen.\n· Hosts de la VLAN 10 hacen SSH al router: access-class en las líneas VTY.",
-"roughness": 1,
-"roundness": null,
-"seed": 214038919,
+      "originalText": "El tráfico de la VLAN 20 (limitada) se controla en la interfaz donde ENTRA al router: in, en R1 g0/1 — extendida, cerca del origen.\n· Hosts de la VLAN 10 hacen SSH al router: access-class en las líneas VTY.",
+      "roughness": 1,
+      "roundness": null,
+      "seed": 214038919,
       "strokeColor": "#495057",
       "strokeStyle": "solid",
       "strokeWidth": 2,
