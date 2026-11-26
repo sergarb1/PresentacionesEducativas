@@ -67,7 +67,7 @@ class: compact-slide
   <pre><code>R1(config-router)# passive-interface GigabitEthernet0/0
 R1(config-router)# passive-interface default
 R1(config-router)# no passive-interface GigabitEthernet0/1
-
+&#160;
 R1(config-if)# ip ospf cost 50
 R1(config-if)# ip ospf priority 200</code></pre>
 </div>

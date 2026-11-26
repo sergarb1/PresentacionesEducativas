@@ -21,6 +21,7 @@ class: sparse-slide
 Es el servicio que usas todos los días sin verlo: las direcciones privadas de UD04 (<strong>192.168.0.0/16, 172.16.0.0/12, 10.0.0.0/8</strong>) no se rutean por Internet — <strong>alguien tiene que traducirlas</strong>, y ese alguien es tu router de salida. En este bloque: configurarlo, verificarlo y cerrar la unidad con el laboratorio.
 
 ---
+class: compact-slide
 ---
 
 ## Los tres tipos de NAT
@@ -30,7 +31,6 @@ Es el servicio que usas todos los días sin verlo: las direcciones privadas de U
     <strong>Estático — 1 a 1 fijo</strong>
     <p><code>200.1.1.10 ↔ 192.168.30.10</code><br>para <strong>servidores expuestos</strong>: el mundo entra a tu web por la IP pública, el router la traduce a la privada: <strong>traducción permanente</strong>.</p>
   </div>
-  <div class="comparison-item"></div>
   <div class="comparison-item">
     <strong>Dinámico — pool de públicas</strong>
     <p>Una <strong>cola de IPs públicas</strong> se asigna según va llegando quien necesita salir. Libre al inicio, escaso cuando acabas el pool.</p>
@@ -106,6 +106,8 @@ class: compact-slide
   Diagnóstico de patrón: <strong>el ping de un PC interno a 8.8.8.8 falla</strong> pero el <code>show ip nat statistics</code> muestra activos → revisa la <strong>ACL del NAT</strong>; si la tabla está vacía y los paquetes sin traducir, revisa las etiquetas <strong>inside/outside</strong>.
 </div>
 
+---
+class: compact-slide
 ---
 
 ## ⚡ Laboratorio: cierre — la red a examen completo

@@ -53,10 +53,10 @@ En el bloque 1 vimos que las C y L nacen solas, pero solo cubren lo conectado. E
   </div>
   <pre><code>R1(config)# ip route 192.168.30.0 255.255.255.0 10.0.0.2
                                     ↑ destino  ↑ máscara  ↑ next-hop
-
+&#160;
 R1(config)# ip route 192.168.30.0 255.255.255.0 GigabitEthernet0/1
                                                  ↑ interfaz de salida
-
+&#160;
 R1(config)# ip route 192.168.30.0 255.255.255.0 GigabitEthernet0/1 10.0.0.2
                                                  ↑ ambas: la forma más robusta</code></pre>
 </div>
